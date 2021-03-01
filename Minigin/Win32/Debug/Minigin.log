@@ -1,0 +1,48 @@
+﻿  MiniginPCH.cpp
+  imgui_impl_opengl2.cpp
+  imgui_impl_sdl.cpp
+  imgui.cpp
+  imgui_demo.cpp
+  imgui_draw.cpp
+  imgui_tables.cpp
+  imgui_widgets.cpp
+  Generating Code...
+  Font.cpp
+  FPSComponent.cpp
+  GameObject.cpp
+  PlayerComponent.cpp
+  InputManager.cpp
+  KillCommand.cpp
+  Main.cpp
+  Minigin.cpp
+  PhysicsComponent.cpp
+  PlayerLivesDisplay.cpp
+  PlayerScoreDisplay.cpp
+  RenderComponent.cpp
+  Renderer.cpp
+  ResourceManager.cpp
+  Scene.cpp
+  SceneManager.cpp
+  ScoreCommand.cpp
+  Subject.cpp
+  TextComponent.cpp
+  Texture2D.cpp
+  Generating Code...
+  Compiling...
+  TimeManager.cpp
+  Transform.cpp
+  Generating Code...
+     Creating library C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\Win32\Debug\Minigin.lib and object C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\Win32\Debug\Minigin.exp
+  Minigin.vcxproj -> C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\Win32\Debug\Minigin.exe
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2\lib\x86\SDL2.dll
+  1 File(s) copied
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_image\lib\x86\libjpeg-9.dll
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_image\lib\x86\libpng16-16.dll
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_image\lib\x86\libtiff-5.dll
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_image\lib\x86\libwebp-7.dll
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_image\lib\x86\SDL2_image.dll
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_image\lib\x86\zlib1.dll
+  6 File(s) copied
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_ttf\lib\x86\libfreetype-6.dll
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_ttf\lib\x86\SDL2_ttf.dll
+  2 File(s) copied
