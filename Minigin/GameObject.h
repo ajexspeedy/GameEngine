@@ -2,7 +2,7 @@
 #include "SceneObject.h"
 #include "RenderComponent.h"
 #include "TextComponent.h"
-
+#include <memory>
 #include <vector>
 
 namespace dae
@@ -17,7 +17,7 @@ namespace dae
 	class GameObject final
 	{
 	public:
-		GameObject(Component* component,const std::string& objectName);
+		GameObject(std::shared_ptr<Component> component,const std::string& objectName);
 		
 		
 		void Update();
@@ -27,24 +27,23 @@ namespace dae
 		void SetPosition(float x, float y);
 		void SetObjectName(const std::string& name);
 
-		bool AddComponent(Component* component);
+		bool AddComponent(std::shared_ptr<Component> component);
 		void UpdateComponents();
 		std::string GetObjectName() const;
 
-		void DieCommand();
 		
-		std::vector<Component*> GetComponents() const;
+		std::vector<std::shared_ptr<Component>> GetComponents() const;
 		
 
 		GameObject() = default;
-		virtual ~GameObject();
+		~GameObject() = default;
 		GameObject(const GameObject& other) = delete;
 		GameObject(GameObject&& other) = delete;
 		GameObject& operator=(const GameObject& other) = delete;
 		GameObject& operator=(GameObject&& other) = delete;
 
 	private:
-		std::vector<Component*> m_pComponents = {};
+		std::vector<std::shared_ptr<Component>> m_pComponents = {};
 		std::string m_ObjectName{"Default"};
 		RenderComponent* GetRenderComponent() const;
 		TextComponent* GetTextComponent() const;

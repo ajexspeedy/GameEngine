@@ -14,8 +14,8 @@ namespace dae
 		Subject() = default;
 		~Subject() = default;
 		
-		void AddObserver(Observer* observer);
-		void RemoveObserver(Observer* observer);
+		void AddObserver(std::shared_ptr<Observer> observer);
+		void RemoveObserver(std::shared_ptr<Observer> observer);
 
 
 
@@ -25,7 +25,7 @@ namespace dae
 
 	private:
 
-		std::vector<Observer*> m_pObservers;
+		std::vector<std::shared_ptr<Observer>> m_pObservers;
 
 
 	};

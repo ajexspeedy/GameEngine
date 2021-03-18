@@ -24,7 +24,7 @@ namespace dae
 	private:
 		int m_RemainingLives;
 		bool m_UpdateLives{ false };
-		TextComponent* m_pTextComponent;
+		std::unique_ptr<TextComponent> m_pTextComponent;
 
 	};
 

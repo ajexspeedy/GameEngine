@@ -7,7 +7,7 @@
 
 
 
-dae::GameObject::GameObject(Component* component, const std::string& objectName)
+dae::GameObject::GameObject(std::shared_ptr<Component>component, const std::string& objectName)
 {
 	AddComponent(component);
 	SetObjectName(objectName);
@@ -22,13 +22,8 @@ void dae::GameObject::Update()
 
 void dae::GameObject::Render() const
 {
-	//if(GetRenderComponent())
-	//	GetRenderComponent()->Render();
-	//if (GetTextComponent())
-	//	GetTextComponent()->Render();
-	//if (GetPlayerComponent())
-	//	GetPlayerComponent()->Render();
-	for(auto component : m_pComponents)
+
+	for(std::shared_ptr<Component> component : m_pComponents)
 	{
 		component->Render();
 	}
@@ -55,7 +50,7 @@ void dae::GameObject::SetObjectName(const std::string& name)
 	m_ObjectName = name;
 }
 
-bool dae::GameObject::AddComponent(Component* component)
+bool dae::GameObject::AddComponent(std::shared_ptr<Component> component)
 {
 
 	m_pComponents.push_back(component);
@@ -79,31 +74,21 @@ std::string dae::GameObject::GetObjectName() const
 
 
 
-std::vector<dae::Component*> dae::GameObject::GetComponents() const
+std::vector < std::shared_ptr<dae::Component> > dae::GameObject::GetComponents() const
 {
 	return m_pComponents;
 }
 
 
-dae::GameObject::~GameObject()
-{
-	for (auto& component : m_pComponents)
-	{
-		if (component)
-		{
-			delete component;
-			component = nullptr;
-		}
-	}
-}
+
 
 
 dae::RenderComponent* dae::GameObject::GetRenderComponent() const
 {
 	for (auto& component : m_pComponents)
 	{
-		if (dynamic_cast<RenderComponent*>(component))
-			return dynamic_cast<RenderComponent*>(component);
+		if (dynamic_cast<RenderComponent*>(component.get()))
+			return dynamic_cast<RenderComponent*>(component.get());
 	}
 	return nullptr;
 }
@@ -112,8 +97,8 @@ dae::TextComponent* dae::GameObject::GetTextComponent() const
 {
 	for (auto& component : m_pComponents)
 	{
-		if (dynamic_cast<TextComponent*>(component))
-			return dynamic_cast<TextComponent*>(component);
+		if (dynamic_cast<TextComponent*>(component.get()))
+			return dynamic_cast<TextComponent*>(component.get());
 	}
 	return nullptr;
 }
@@ -122,8 +107,8 @@ dae::PlayerComponent* dae::GameObject::GetPlayerComponent() const
 {
 	for (auto& component : m_pComponents)
 	{
-		if (dynamic_cast<PlayerComponent*>(component))
-			return dynamic_cast<PlayerComponent*>(component);
+		if (dynamic_cast<PlayerComponent*>(component.get()))
+			return dynamic_cast<PlayerComponent*>(component.get());
 	}
 	return nullptr;
 }

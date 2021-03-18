@@ -3,7 +3,9 @@
 
 #include "PlayerComponent.h"
 
-dae::ScoreCommand::ScoreCommand(PlayerComponent* component):
+
+
+dae::ScoreCommand::ScoreCommand(std::shared_ptr<PlayerComponent> component):
 m_pPlayerComponent(component)
 {
 }

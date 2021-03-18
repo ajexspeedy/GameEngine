@@ -5,7 +5,7 @@
 
 dae::PlayerScoreDisplay::PlayerScoreDisplay(const std::shared_ptr<Font>& font, float x, float y)
 {
-	m_pTextComponent = new TextComponent("Score: 0", font);
+	m_pTextComponent = std::make_unique<TextComponent>("Score: 0", font);
 	m_pTextComponent->SetPosition(x, y);
 }
 

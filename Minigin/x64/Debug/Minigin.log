@@ -1,1 +1,30 @@
-﻿
+﻿  FPSComponent.cpp
+  GameObject.cpp
+  InputManager.cpp
+  KillCommand.cpp
+  Minigin.cpp
+  PlayerComponent.cpp
+  PlayerLivesDisplay.cpp
+  PlayerScoreDisplay.cpp
+  RenderComponent.cpp
+  Scene.cpp
+  SceneManager.cpp
+  ScoreCommand.cpp
+  Subject.cpp
+  TextComponent.cpp
+  Transform.cpp
+  Generating Code...
+     Creating library C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\x64\Debug\Minigin.lib and object C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\x64\Debug\Minigin.exp
+  Minigin.vcxproj -> C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\x64\Debug\Minigin.exe
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2\lib\x64\SDL2.dll
+  1 File(s) copied
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_image\lib\x64\libjpeg-9.dll
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_image\lib\x64\libpng16-16.dll
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_image\lib\x64\libtiff-5.dll
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_image\lib\x64\libwebp-7.dll
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_image\lib\x64\SDL2_image.dll
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_image\lib\x64\zlib1.dll
+  6 File(s) copied
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_ttf\lib\x64\libfreetype-6.dll
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_ttf\lib\x64\SDL2_ttf.dll
+  2 File(s) copied

@@ -6,11 +6,12 @@ namespace dae
 		public Command
 	{
 	public:
-		ScoreCommand(PlayerComponent* component);
+		~ScoreCommand() = default;
+		ScoreCommand(std::shared_ptr<PlayerComponent> component);
 
 		void Execute() override;
 	private:
-		PlayerComponent* m_pPlayerComponent;
+		std::shared_ptr<PlayerComponent> m_pPlayerComponent;
 	};
 
 }

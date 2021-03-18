@@ -9,7 +9,8 @@
 
 dae::PlayerComponent::PlayerComponent(int health, int lives):
 m_Health(health),
-m_Lives(lives)
+m_Lives(lives),
+m_Score(0)
 {
 	
 

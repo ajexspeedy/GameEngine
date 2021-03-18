@@ -3,6 +3,15 @@
 #include <SDL.h>
 
 
+dae::InputManager::~InputManager()
+{
+	for(auto commandPair:m_Commands)
+	{
+		delete commandPair.second;
+		commandPair.second = nullptr;
+	}
+}
+
 bool dae::InputManager::ProcessInput()
 {
 	

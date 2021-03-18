@@ -1,7 +1,8 @@
 #include "MiniginPCH.h"
 #include "KillCommand.h"
 
-dae::KillCommand::KillCommand(PlayerComponent* component) :
+
+dae::KillCommand::KillCommand(std::shared_ptr<PlayerComponent> component) :
 	m_pPlayerComponent(component)
 {
 

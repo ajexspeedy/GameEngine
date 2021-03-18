@@ -37,6 +37,7 @@ namespace dae
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
+		~InputManager();
 		bool ProcessInput();
 		void HandleInput() const;
 

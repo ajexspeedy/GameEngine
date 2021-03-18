@@ -28,7 +28,7 @@ namespace dae
     private:
         int m_Score{0};
         bool m_UpdateScore{ false };
-        TextComponent* m_pTextComponent;
+        std::unique_ptr<TextComponent> m_pTextComponent;
     };
 
 }

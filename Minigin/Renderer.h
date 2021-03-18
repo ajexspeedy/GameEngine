@@ -26,7 +26,7 @@ namespace dae
 		int GetOpenGLDriverIndex() const;
 	private:
 		SDL_Renderer* m_Renderer{};
-		SDL_Window* m_Window;
+		SDL_Window* m_Window{};
 		bool m_ShowDemo{false},m_ShowControls{true};
 
 		void ShowControls();
