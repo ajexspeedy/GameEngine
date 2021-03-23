@@ -1,42 +1,13 @@
-﻿  MiniginPCH.cpp
-  imgui_impl_opengl2.cpp
-  imgui_impl_sdl.cpp
-  imgui.cpp
-  imgui_demo.cpp
-  imgui_draw.cpp
-  imgui_tables.cpp
-  imgui_widgets.cpp
-  Font.cpp
-  FPSComponent.cpp
-  GameObject.cpp
-  PlayerComponent.cpp
-  InputManager.cpp
-  KillCommand.cpp
-  Main.cpp
-  Minigin.cpp
-  PhysicsComponent.cpp
-  PlayerLivesDisplay.cpp
-  PlayerScoreDisplay.cpp
-  RenderComponent.cpp
-  Renderer.cpp
-  ResourceManager.cpp
-  Scene.cpp
-  SceneManager.cpp
-  ScoreCommand.cpp
-  Subject.cpp
-  TextComponent.cpp
-  Texture2D.cpp
-  Compiling...
-  TimeManager.cpp
-  Transform.cpp
+﻿  AudioQueue.cpp
      Creating library C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\x64\Release\Minigin.lib and object C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\x64\Release\Minigin.exp
   Generating code
-  Compiler switch has changed, fall back to full compilation.
-  All 2522 functions were compiled because no usable IPDB/IOBJ from previous compilation was found.
+  9 of 3541 functions ( 0.3%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    71 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
   Minigin.vcxproj -> C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\x64\Release\Minigin.exe
-  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2\lib\x64\SDL2.dll
-  1 File(s) copied
+  File not found - *.dll
+  0 File(s) copied
   C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_image\lib\x64\libjpeg-9.dll
   C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_image\lib\x64\libpng16-16.dll
   C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_image\lib\x64\libtiff-5.dll
@@ -47,3 +18,13 @@
   C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_ttf\lib\x64\libfreetype-6.dll
   C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_ttf\lib\x64\SDL2_ttf.dll
   2 File(s) copied
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_mixer-2.0.4\lib\x64\libFLAC-8.dll
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_mixer-2.0.4\lib\x64\libmodplug-1.dll
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_mixer-2.0.4\lib\x64\libmpg123-0.dll
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_mixer-2.0.4\lib\x64\libogg-0.dll
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_mixer-2.0.4\lib\x64\libopus-0.dll
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_mixer-2.0.4\lib\x64\libopusfile-0.dll
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_mixer-2.0.4\lib\x64\libvorbis-0.dll
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_mixer-2.0.4\lib\x64\libvorbisfile-3.dll
+  C:\Users\timve\Documents\Programming\Programming 4\Engine\MommymilkersEngine\3rdParty\SDL2_mixer-2.0.4\lib\x64\SDL2_mixer.dll
+  9 File(s) copied

@@ -18,13 +18,22 @@
 #include "KillCommand.h"
 #include "PlayerScoreDisplay.h"
 #include "ScoreCommand.h"
+#include "SDL_mixer.h"
+#include "AudioManager.h"
+#include "Audio_SDL.h"
+#include "Locator.h"
+#include "AudioQueue.h"
+#include <thread>
+#include <future>
+#include "AudioLogger.h"
+bool g_IsLooping = true;
 
 using namespace std;
 using namespace std::chrono;
 
 void dae::Minigin::Initialize()
 {
-	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK) != 0)
+	if (SDL_Init(SDL_INIT_VIDEO | SDL_INIT_JOYSTICK | SDL_INIT_AUDIO) != 0)
 	{
 		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
 	}
@@ -40,13 +49,23 @@ void dae::Minigin::Initialize()
 	{
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
 	}
+	if (Mix_OpenAudio(MIX_DEFAULT_FREQUENCY, MIX_DEFAULT_FORMAT, 4, 2048) > 0)
+	{
+		throw std::runtime_error(std::string("SDL_mixer could not initialize! SDL Error") + SDL_GetError());
+
+	}
+	const int mixerFlags{ MIX_INIT_FLAC | MIX_INIT_MOD | MIX_INIT_MP3 | MIX_INIT_OGG };
+	if ((Mix_Init(mixerFlags) & mixerFlags) != mixerFlags)
+	{
+		throw std::runtime_error(std::string("SDL_mixer could not initialize! SDL Error") + SDL_GetError());
+	}
+	
+	Locator::Provide(new Audio_SDL{});
 
 	Renderer::GetInstance().Init(m_Window);
 }
 
-/**
- * Code constructing the scene world starts here
- */
+
 void dae::Minigin::LoadGame() const
 {
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
@@ -109,13 +128,23 @@ void dae::Minigin::LoadGame() const
 		scene.Add(qbert2);
 
 	}
+	// Sound 
+	{
+	
+		AudioManager::GetInstance().AddSound("../Data/menu3.wav",1);
+
+	}
 }
 
 void dae::Minigin::Cleanup()
 {
 	Renderer::GetInstance().Destroy();
+	AudioManager::GetInstance().CleanUp();
+	Locator::CleanUp();
 	SDL_DestroyWindow(m_Window);
 	m_Window = nullptr;
+	Mix_CloseAudio();
+	Mix_Quit();
 	SDL_Quit();
 }
 
@@ -128,22 +157,27 @@ void dae::Minigin::Run()
 
 	LoadGame();
 
-	{
+	{ 
 		auto& renderer = Renderer::GetInstance();
 		auto& sceneManager = SceneManager::GetInstance();
 		auto& input = InputManager::GetInstance();
 		auto& timer = TimeManager::GetInstance();
+		auto& audio = AudioQueue::GetInstance();
+		
+		g_IsLooping = true;
+		auto soundThread = std::async(std::launch::async,[&audio]()
+			{
+				while(g_IsLooping)
+					audio.Update();
+			});
 
-
-
-		bool doContinue = true;
 		float lag = 0.0f;
-		while (doContinue)
+		while (g_IsLooping)
 		{
 
 			timer.CalculateDeltaTime();
 			lag += timer.GetDeltaTime();
-			doContinue = input.ProcessInput();
+			g_IsLooping = input.ProcessInput();
 			input.HandleInput();
 			while (lag >= m_MsPerFrame)
 			{

@@ -25,6 +25,9 @@
     <Filter Include="Game Files\Commands">
       <UniqueIdentifier>{66c37fa3-e371-41cc-b494-7a3faa6edcdf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Files\AudioSystem">
+      <UniqueIdentifier>{7fa72bc4-079e-4642-a0c9-bdfe5b362722}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="MiniginPCH.h">
@@ -135,6 +138,27 @@
     <ClInclude Include="ScoreCommand.h">
       <Filter>Game Files\Commands</Filter>
     </ClInclude>
+    <ClInclude Include="Audio.h">
+      <Filter>Game Files\AudioSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio_SDL.h">
+      <Filter>Game Files\AudioSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Audio_Null.h">
+      <Filter>Game Files\AudioSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="Locator.h">
+      <Filter>Game Files\AudioSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioManager.h">
+      <Filter>Game Files\Managers</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioQueue.h">
+      <Filter>Game Files\AudioSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioLogger.h">
+      <Filter>Game Files\AudioSystem</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -226,6 +250,21 @@
     </ClCompile>
     <ClCompile Include="ScoreCommand.cpp">
       <Filter>Game Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Audio_SDL.cpp">
+      <Filter>Game Files\AudioSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="Locator.cpp">
+      <Filter>Game Files\AudioSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioManager.cpp">
+      <Filter>Game Files\Managers</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioQueue.cpp">
+      <Filter>Game Files\AudioSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioLogger.cpp">
+      <Filter>Game Files\AudioSystem</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

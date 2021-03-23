@@ -4,15 +4,6 @@
 #include "GameObject.h"
 
 
-//
-//dae::Subject::~Subject()
-//{
-//	for (auto& observer : m_pObservers)
-//	{
-//		delete observer;
-//		observer = nullptr;
-//	}
-//}
 
 void dae::Subject::AddObserver(std::shared_ptr<Observer> observer)
 {
