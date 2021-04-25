@@ -266,5 +266,8 @@
     <ClCompile Include="AudioLogger.cpp">
       <Filter>Game Files\AudioSystem</Filter>
     </ClCompile>
+    <ClCompile Include="Channel.cpp">
+      <Filter>Game Files</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

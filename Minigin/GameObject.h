@@ -7,10 +7,7 @@
 
 namespace dae
 {
-	enum class ComponentType
-	{
-		renderComponent, textComponent
-	};
+	
 
 	class PlayerComponent;
 	class Texture2D;

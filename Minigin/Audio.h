@@ -1,19 +1,27 @@
 #pragma once
 
+
 namespace dae
 {
   
     class Audio abstract
     {
     public:
+        struct Channel
+        {
+            bool isInUse{ false };
+            uint16_t channelIndex;
+
+        };
         struct AudioStruct
         {
             int id;
-            bool isStopped;
+            float volume;
+            Channel channel;
         };
         virtual ~Audio() {}
-        virtual void PlaySound(int soundID) = 0;
-        virtual void StopSound(int soundID) = 0;
+        virtual void PlaySound(const AudioStruct& audio) = 0;
+        virtual void StopSound(const AudioStruct& audio) = 0;
         virtual void StopAllSounds() = 0;
     };
 

@@ -5,7 +5,12 @@
 
 dae::InputManager::~InputManager()
 {
-	for(auto commandPair:m_Commands)
+	for(auto commandPair:m_ControllerCommands)
+	{
+		delete commandPair.second;
+		commandPair.second = nullptr;
+	}
+	for (auto commandPair : m_KeyboardCommands)
 	{
 		delete commandPair.second;
 		commandPair.second = nullptr;
@@ -19,6 +24,7 @@ bool dae::InputManager::ProcessInput()
 	ZeroMemory(&m_CurrentState, sizeof(XINPUT_STATE));
 	XInputGetState(0, &m_CurrentState);
 
+	
 	SDL_Event e;
 	while (SDL_PollEvent(&e)) {
 		if (e.type == SDL_QUIT) {
@@ -26,8 +32,11 @@ bool dae::InputManager::ProcessInput()
 		}
 		if (e.type == SDL_KEYDOWN) 
 		{
+
+			/*std::cout << "Key down" << std::endl;
+			std::cout << e.key.keysym.sym << std::endl;*/
 			
-		}
+	 	}
 		if (e.type == SDL_MOUSEBUTTONDOWN) {
 			
 		}
@@ -36,10 +45,10 @@ bool dae::InputManager::ProcessInput()
 	return true;
 }
 
-void dae::InputManager::HandleInput() const
+void dae::InputManager::HandleInput()
 {
 
-	for (auto& command : m_Commands)
+	for (auto& command : m_ControllerCommands)
 	{
 		if(GetKeyState(command.first) == KeyState::Pressed)
 		{
@@ -49,11 +58,28 @@ void dae::InputManager::HandleInput() const
 	}
 	
 	
+	for (auto& command : m_KeyboardCommands)
+	{
+		
+		KeyState state = GetKeyState(command.first);
+		if (state == KeyState::Pressed)
+		{
+			command.second->Execute();
+		}
+		m_PrevKeystate = state;
+	}
+	
+	
 }
 
 void dae::InputManager::AddButtonCommand(ControllerButton button, Command* command)
 {
-	m_Commands[button] = command;
+	m_ControllerCommands[button] = command;
+}
+
+void dae::InputManager::AddKeyCommand(int code, Command* command)
+{
+	m_KeyboardCommands[code] = command;
 }
 
 bool dae::InputManager::IsPressed(ControllerButton button) const
@@ -69,26 +95,13 @@ bool dae::InputManager::WasPressed(ControllerButton button) const
 
 bool dae::InputManager::Pressed(ControllerButton button, const XINPUT_STATE& keystate) const
 {
+	if (keystate.Gamepad.wButtons == button)
+		return true;
+
 
 	
 	switch (button)
 	{
-	case ControllerButton::ButtonA:
-	case ControllerButton::ButtonB:
-	case ControllerButton::ButtonX:
-	case ControllerButton::ButtonY:
-	case ControllerButton::RightShoulder:
-	case ControllerButton::LeftShoulder:
-	case ControllerButton::RightThumb:
-	case ControllerButton::LeftThumb:
-	case ControllerButton::Back:
-	case ControllerButton::Start:
-	case ControllerButton::RightDPad:
-	case ControllerButton::LeftDPad:
-	case ControllerButton::DownDPad:
-	case ControllerButton::UpDPad:
-		if (keystate.Gamepad.wButtons == button)
-			return true;
 	
 		break;
 	case ControllerButton::LeftTrigger:
@@ -137,6 +150,17 @@ bool dae::InputManager::Pressed(ControllerButton button, const XINPUT_STATE& key
 
 }
 
+bool dae::InputManager::IsPressed(int key) const
+{
+	return SDL_GetKeyboardState(nullptr)[static_cast<SDL_Scancode>(key)];
+}
+
+bool dae::InputManager::WasPressed() const
+{
+	return (m_PrevKeystate == KeyState::Pressed) || (m_PrevKeystate == KeyState::Held);
+}
+
+
 dae::KeyState dae::InputManager::GetKeyState(ControllerButton button) const
 {
 	if (WasPressed(button))
@@ -150,6 +174,27 @@ dae::KeyState dae::InputManager::GetKeyState(ControllerButton button) const
 	else
 	{
 		if (IsPressed(button))
+		{
+			return KeyState::Pressed;
+		}
+		return KeyState::Idle;
+	}
+}
+
+dae::KeyState dae::InputManager::GetKeyState(int key) const
+{
+
+	if (WasPressed())
+	{
+		if (IsPressed(key))
+		{
+			return KeyState::Held;
+		}
+		return KeyState::Released;
+	}
+	else
+	{
+		if (IsPressed(key))
 		{
 			return KeyState::Pressed;
 		}

@@ -6,10 +6,11 @@ namespace dae
         public Audio
     {
     public:
+       
         AudioLogger(Audio& wrapped);
 
-        virtual void PlaySound(int soundID) override;
-        virtual void StopSound(int soundID) override;
+        virtual void PlaySound(const AudioStruct& audio) override;
+        virtual void StopSound(const AudioStruct& audio) override;
         virtual void StopAllSounds() override;
 
     private:

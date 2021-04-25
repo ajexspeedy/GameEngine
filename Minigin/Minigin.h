@@ -1,4 +1,5 @@
 #pragma once
+
 struct SDL_Window;
 namespace dae
 {
@@ -7,7 +8,6 @@ namespace dae
 	public:
 		void Initialize();
 		void LoadGame() const;
-		void SetControls();
 		void Cleanup();
 		void Run();
 	private:

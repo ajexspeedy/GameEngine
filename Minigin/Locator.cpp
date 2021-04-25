@@ -1,36 +1,35 @@
 #include "MiniginPCH.h"
 #include "Locator.h"
+#include "AudioLogger.h"
 
 using namespace dae;
 
 Audio* Locator::m_Service;
+
 Audio_Null Locator::m_NullService;
 
 
-void Locator::Initialize()
-{
-	m_Service = (Audio*)&m_NullService;
-}
 
 Audio& Locator::GetAudio()
 {
+
+	if (m_Service == nullptr)
+		return m_NullService;
 	return *m_Service;
 }
 
 void Locator::Provide(Audio* service)
 {
-    if (service == nullptr)
-    {
-        // Revert to null service.
-        m_Service = (Audio*)&m_NullService; // Reference tells user this will always be a valid object
-    }
-    else
-    {
-        m_Service = service;
-    }
+
+	m_Service = service;
+
+
 }
 
 void dae::Locator::CleanUp()
 {
-    delete m_Service;
+
+	delete m_Service;
+
 }
+

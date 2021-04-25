@@ -6,8 +6,8 @@ namespace dae
         public Audio
     {
     public:
-        virtual void PlaySound(int) { /* Do nothing. */ }
-        virtual void StopSound(int) { /* Do nothing. */ }
+        virtual void PlaySound(const AudioStruct&) { /* Do nothing. */ }
+        virtual void StopSound(const AudioStruct&) { /* Do nothing. */ }
         virtual void StopAllSounds() { /* Do nothing. */ }
     };
 

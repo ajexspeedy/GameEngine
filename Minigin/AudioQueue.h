@@ -10,9 +10,9 @@ namespace dae
 	public:
 
 		
-
-		static void PlaySound(int soundID);
-		static void StopSound(int soundID);
+		// TODO: Fix channels 
+		static void PlaySound(const Audio::AudioStruct& audio);
+		
 
 		static void Update();
 		

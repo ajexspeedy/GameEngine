@@ -26,7 +26,9 @@
 #include <thread>
 #include <future>
 #include "AudioLogger.h"
-bool g_IsLooping = true;
+#include "EnableAudioLogging.h"
+
+std::atomic<bool> g_IsLooping = true;
 
 using namespace std;
 using namespace std::chrono;
@@ -130,11 +132,14 @@ void dae::Minigin::LoadGame() const
 	}
 	// Sound 
 	{
-	
+		Locator::Provide(new AudioLogger(Locator::GetAudio()));
 		AudioManager::GetInstance().AddSound("../Data/menu3.wav",1);
-
+		
+		
 	}
 }
+
+
 
 void dae::Minigin::Cleanup()
 {
@@ -167,17 +172,17 @@ void dae::Minigin::Run()
 		g_IsLooping = true;
 		auto soundThread = std::async(std::launch::async,[&audio]()
 			{
-				while(g_IsLooping)
+				while(g_IsLooping.load())
 					audio.Update();
 			});
 
 		float lag = 0.0f;
-		while (g_IsLooping)
+		while (g_IsLooping.load())
 		{
 
 			timer.CalculateDeltaTime();
 			lag += timer.GetDeltaTime();
-			g_IsLooping = input.ProcessInput();
+			g_IsLooping.store(input.ProcessInput());
 			input.HandleInput();
 			while (lag >= m_MsPerFrame)
 			{

@@ -7,19 +7,23 @@
 
 using namespace dae;
 
-void Audio_SDL::PlaySound(int soundID )
+void Audio_SDL::PlaySound(const AudioStruct& audio)
 {
 	
 	
-	AudioQueue::GetInstance().PlaySound(soundID);
+	AudioQueue::GetInstance().PlaySound(audio);
 }
 
-void Audio_SDL::StopSound(int soundID)
+void dae::Audio_SDL::StopSound(const AudioStruct&)
 {
-	std::cout << "Stopping soundID " << soundID << std::endl;
+	
 }
 
-void Audio_SDL::StopAllSounds()
+
+void dae::Audio_SDL::StopAllSounds()
 {
-	std::cout << "Stopping all sounds\n ";
+	
 }
+
+
+

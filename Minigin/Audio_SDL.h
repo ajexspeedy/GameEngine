@@ -9,8 +9,8 @@ namespace dae
     {
     public:
       
-        virtual void PlaySound(int soundID);
-        virtual void StopSound(int soundID);
+        virtual void PlaySound(const AudioStruct& audio);
+        virtual void StopSound(const AudioStruct& audio);
         virtual void StopAllSounds();
     };
 }

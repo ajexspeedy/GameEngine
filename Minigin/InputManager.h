@@ -39,14 +39,14 @@ namespace dae
 	public:
 		~InputManager();
 		bool ProcessInput();
-		void HandleInput() const;
+		void HandleInput();
 
 		void AddButtonCommand(ControllerButton button, Command* command);
+		void AddKeyCommand(int code, Command* command); // TODO: Add keyboard support
 
-		bool IsPressed(ControllerButton button) const;
-		bool WasPressed(ControllerButton button) const;
-		bool Pressed(ControllerButton button, const XINPUT_STATE& keystate) const;
-		KeyState GetKeyState(ControllerButton) const;
+	
+		KeyState GetKeyState(ControllerButton button) const;
+		KeyState GetKeyState(int key) const;
 
 
 	private:
@@ -54,11 +54,18 @@ namespace dae
 
 
 
+		bool IsPressed(ControllerButton button) const;
+		bool WasPressed(ControllerButton button) const;
+		bool Pressed(ControllerButton button, const XINPUT_STATE& keystate) const;
 
-
-		std::map<ControllerButton, Command*> m_Commands;
-
+		bool IsPressed(int key) const;
+		bool WasPressed() const;
 		
+
+		std::map<ControllerButton, Command*> m_ControllerCommands;
+		std::map<int, Command*> m_KeyboardCommands;
+		
+		KeyState m_PrevKeystate;
 	};
 
 }

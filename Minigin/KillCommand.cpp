@@ -15,5 +15,5 @@ void dae::KillCommand::Execute()
 	m_pPlayerComponent->ChangeHealth(-1);
 	
 	Audio* audio = &Locator::GetAudio();
-	audio->PlaySound(1);
+	audio->PlaySound(Audio::AudioStruct{ 1,0.2f,{} });
 }

@@ -108,5 +108,6 @@ void dae::Renderer::ShowControls()
 	ImGui::Text("Press -BUTTON B- to increase the score of player1");
 	ImGui::Text("Press -BUTTON X- to kill player2");
 	ImGui::Text("Press -BUTTON Y- to increase the score of player2");
+	ImGui::Text("Press -'L'- to toggle the logging of sound");
 	ImGui::End();
 }
