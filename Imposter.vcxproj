@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|Win32">
+      <Configuration>Debug</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{52944560-3fa4-4550-997c-7b4aa270c072}</ProjectGuid>
+    <RootNamespace>Imposter</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v142</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <LinkIncremental>true</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)\3rdParty\SDL2_image\include;$(SolutionDir)\3rdParty\SDL2_ttf\include;$(SolutionDir)\3rdParty\SDL2\include;$(SolutionDir)\3rdParty\SDL2_mixer-2.0.4\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)3rdParty\SDL2_image\lib\x86;$(SolutionDir)\3rdParty\SDL2_ttf\lib\x86;$(SolutionDir)3rdParty\SDL2\lib\x86;$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <LinkIncremental>false</LinkIncremental>
+    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>$(SolutionDir)\3rdParty\SDL2_image\include;$(SolutionDir)\3rdParty\SDL2_ttf\include;$(SolutionDir)\3rdParty\SDL2\include;$(SolutionDir)\3rdParty\SDL2_mixer-2.0.4\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)3rdParty\SDL2_image\lib\x86;$(SolutionDir)\3rdParty\SDL2_ttf\lib\x86;$(SolutionDir)3rdParty\SDL2\lib\x86;$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x86;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+    <IncludePath>$(SolutionDir)\3rdParty\SDL2_image\include;$(SolutionDir)\3rdParty\SDL2_ttf\include;$(SolutionDir)\3rdParty\SDL2\include;$(SolutionDir)\3rdParty\SDL2_mixer-2.0.4\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)3rdParty\SDL2\lib\x64;$(SolutionDir)3rdParty\SDL2_ttf\lib\x64;$(SolutionDir)3rdParty\SDL2_image\lib\x64;$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+    <IncludePath>$(SolutionDir)\3rdParty\SDL2_image\include;$(SolutionDir)\3rdParty\SDL2_ttf\include;$(SolutionDir)\3rdParty\SDL2\include;$(SolutionDir)\3rdParty\SDL2_mixer-2.0.4\include;$(IncludePath)</IncludePath>
+    <LibraryPath>$(SolutionDir)3rdParty\SDL2\lib\x64;$(SolutionDir)3rdParty\SDL2_ttf\lib\x64;$(SolutionDir)3rdParty\SDL2_image\lib\x64;$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x64;$(LibraryPath)</LibraryPath>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>ImposterPCH.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\imgui-master\backends;$(SolutionDir)3rdParty\imgui-master;$(SolutionDir)3rdParty\SDL2_ttf-2.0.15\include;$(SolutionDir)3rdParty\SDL2_image-2.0.5\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2-2.0.14\include;$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\SDL2_mixer-2.0.4\lib\x86;$(SolutionDir)3rdParty\SDL2_ttf\lib\x86;$(SolutionDir)3rdParty\SDL2_image\lib\x86;$(SolutionDir)3rdParty\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)3rdParty\SDL2\x86\*.dll" "$(OutputPath)" /R /Y
+
+xcopy "$(SolutionDir)3rdParty\SDL2_image\lib\x86\*.dll" "$(OutputPath)" /R /Y
+
+xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x86\*.dll" "$(OutputPath)" /R /Y
+
+xcopy "$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x86\*.dll" "$(OutputPath)" /R /Y
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>ImposterPCH.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\imgui-master\backends;$(SolutionDir)3rdParty\imgui-master;$(SolutionDir)3rdParty\SDL2_ttf-2.0.15\include;$(SolutionDir)3rdParty\SDL2_image-2.0.5\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2-2.0.14\include;$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)\3rdParty\SDL2_mixer-2.0.4\lib\x86;$(SolutionDir)3rdParty\SDL2_ttf\lib\x86;$(SolutionDir)3rdParty\SDL2_image\lib\x86;$(SolutionDir)3rdParty\SDL2\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)3rdParty\SDL2\x86\*.dll" "$(OutputPath)" /R /Y
+
+xcopy "$(SolutionDir)3rdParty\SDL2_image\lib\x86\*.dll" "$(OutputPath)" /R /Y
+
+xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x86\*.dll" "$(OutputPath)" /R /Y
+
+xcopy "$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x86\*.dll" "$(OutputPath)" /R /Y
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>ImposterPCH.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\imgui-master\backends;$(SolutionDir)3rdParty\imgui-master;$(SolutionDir)3rdParty\SDL2_ttf-2.0.15\include;$(SolutionDir)3rdParty\SDL2_image-2.0.5\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2-2.0.14\include;$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x64;$(SolutionDir)3rdParty\SDL2_ttf\lib\x64;$(SolutionDir)3rdParty\SDL2_image\lib\x64;$(SolutionDir)3rdParty\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)3rdParty\SDL2\x64\*.dll" "$(OutputPath)" /R /Y
+
+xcopy "$(SolutionDir)3rdParty\SDL2_image\lib\x64\*.dll" "$(OutputPath)" /R /Y
+
+xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y
+
+xcopy "$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x64\*.dll" "$(OutputPath)" /R /Y
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level4</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>ImposterPCH.h</PrecompiledHeaderFile>
+      <AdditionalIncludeDirectories>$(SolutionDir)3rdParty\imgui-master\backends;$(SolutionDir)3rdParty\imgui-master;$(SolutionDir)3rdParty\SDL2_ttf-2.0.15\include;$(SolutionDir)3rdParty\SDL2_image-2.0.5\include;$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\SDL2-2.0.14\include;$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <TreatWarningAsError>true</TreatWarningAsError>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x64;$(SolutionDir)3rdParty\SDL2_ttf\lib\x64;$(SolutionDir)3rdParty\SDL2_image\lib\x64;$(SolutionDir)3rdParty\SDL2\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
+    <PostBuildEvent>
+      <Command>xcopy "$(SolutionDir)3rdParty\SDL2\x64\*.dll" "$(OutputPath)" /R /Y
+
+xcopy "$(SolutionDir)3rdParty\SDL2_image\lib\x64\*.dll" "$(OutputPath)" /R /Y
+
+xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\x64\*.dll" "$(OutputPath)" /R /Y
+
+xcopy "$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x64\*.dll" "$(OutputPath)" /R /Y
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="3rdParty\imgui-master\backends\imgui_impl_opengl2.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="3rdParty\imgui-master\backends\imgui_impl_sdl.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="3rdParty\imgui-master\imgui.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="3rdParty\imgui-master\imgui_demo.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="3rdParty\imgui-master\imgui_draw.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="3rdParty\imgui-master\imgui_tables.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="3rdParty\imgui-master\imgui_widgets.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">NotUsing</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">NotUsing</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Minigin\AudioLogger.cpp" />
+    <ClCompile Include="Minigin\AudioManager.cpp" />
+    <ClCompile Include="Minigin\AudioQueue.cpp" />
+    <ClCompile Include="Minigin\Audio_SDL.cpp" />
+    <ClCompile Include="Minigin\Channel.cpp" />
+    <ClCompile Include="Minigin\EnableAudioLogging.cpp" />
+    <ClCompile Include="Minigin\Font.cpp" />
+    <ClCompile Include="Minigin\FPSComponent.cpp" />
+    <ClCompile Include="Minigin\GameObject.cpp" />
+    <ClCompile Include="Minigin\ImposterPCH.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Create</PrecompiledHeader>
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="Minigin\InputManager.cpp" />
+    <ClCompile Include="Minigin\KillCommand.cpp" />
+    <ClCompile Include="Minigin\Locator.cpp" />
+    <ClCompile Include="Minigin\Main.cpp" />
+    <ClCompile Include="Minigin\Minigin.cpp" />
+    <ClCompile Include="Minigin\PhysicsComponent.cpp" />
+    <ClCompile Include="Minigin\PlayerComponent.cpp" />
+    <ClCompile Include="Minigin\PlayerLivesDisplay.cpp" />
+    <ClCompile Include="Minigin\PlayerScoreDisplay.cpp" />
+    <ClCompile Include="Minigin\RenderComponent.cpp" />
+    <ClCompile Include="Minigin\Renderer.cpp" />
+    <ClCompile Include="Minigin\ResourceManager.cpp" />
+    <ClCompile Include="Minigin\Scene.cpp" />
+    <ClCompile Include="Minigin\SceneManager.cpp" />
+    <ClCompile Include="Minigin\ScoreCommand.cpp" />
+    <ClCompile Include="Minigin\Subject.cpp" />
+    <ClCompile Include="Minigin\TextComponent.cpp" />
+    <ClCompile Include="Minigin\Texture2D.cpp" />
+    <ClCompile Include="Minigin\TimeManager.cpp" />
+    <ClCompile Include="Minigin\Transform.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="3rdParty\imgui-master\backends\imgui_impl_opengl2.h" />
+    <ClInclude Include="3rdParty\imgui-master\backends\imgui_impl_sdl.h" />
+    <ClInclude Include="3rdParty\imgui-master\imconfig.h" />
+    <ClInclude Include="3rdParty\imgui-master\imgui.h" />
+    <ClInclude Include="3rdParty\imgui-master\imgui_internal.h" />
+    <ClInclude Include="3rdParty\imgui-master\imstb_rectpack.h" />
+    <ClInclude Include="3rdParty\imgui-master\imstb_textedit.h" />
+    <ClInclude Include="3rdParty\imgui-master\imstb_truetype.h" />
+    <ClInclude Include="Minigin\Audio.h" />
+    <ClInclude Include="Minigin\AudioLogger.h" />
+    <ClInclude Include="Minigin\AudioManager.h" />
+    <ClInclude Include="Minigin\AudioQueue.h" />
+    <ClInclude Include="Minigin\Audio_Null.h" />
+    <ClInclude Include="Minigin\Audio_SDL.h" />
+    <ClInclude Include="Minigin\Channel.h" />
+    <ClInclude Include="Minigin\Command.h" />
+    <ClInclude Include="Minigin\Component.h" />
+    <ClInclude Include="Minigin\EnableAudioLogging.h" />
+    <ClInclude Include="Minigin\EventStruct.h" />
+    <ClInclude Include="Minigin\Font.h" />
+    <ClInclude Include="Minigin\FPSComponent.h" />
+    <ClInclude Include="Minigin\GameObject.h" />
+    <ClInclude Include="Minigin\ImposterPCH.h" />
+    <ClInclude Include="Minigin\InputManager.h" />
+    <ClInclude Include="Minigin\KillCommand.h" />
+    <ClInclude Include="Minigin\Locator.h" />
+    <ClInclude Include="Minigin\Minigin.h" />
+    <ClInclude Include="Minigin\Observer.h" />
+    <ClInclude Include="Minigin\PhysicsComponent.h" />
+    <ClInclude Include="Minigin\PlayerComponent.h" />
+    <ClInclude Include="Minigin\PlayerLivesDisplay.h" />
+    <ClInclude Include="Minigin\PlayerScoreDisplay.h" />
+    <ClInclude Include="Minigin\RenderComponent.h" />
+    <ClInclude Include="Minigin\Renderer.h" />
+    <ClInclude Include="Minigin\ResourceManager.h" />
+    <ClInclude Include="Minigin\Scene.h" />
+    <ClInclude Include="Minigin\SceneManager.h" />
+    <ClInclude Include="Minigin\SceneObject.h" />
+    <ClInclude Include="Minigin\ScoreCommand.h" />
+    <ClInclude Include="Minigin\Singleton.h" />
+    <ClInclude Include="Minigin\Subject.h" />
+    <ClInclude Include="Minigin\targetver.h" />
+    <ClInclude Include="Minigin\TextComponent.h" />
+    <ClInclude Include="Minigin\Texture2D.h" />
+    <ClInclude Include="Minigin\TimeManager.h" />
+    <ClInclude Include="Minigin\Transform.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Minigin\imgui.ini" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

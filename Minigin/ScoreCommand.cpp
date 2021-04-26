@@ -1,4 +1,4 @@
-#include "MiniginPCH.h"
+#include "ImposterPCH.h"
 #include "ScoreCommand.h"
 
 #include "PlayerComponent.h"
