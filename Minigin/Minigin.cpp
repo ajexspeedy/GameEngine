@@ -132,7 +132,7 @@ void dae::Minigin::LoadGame() const
 	// Sound 
 	{
 		Locator::Provide(new AudioLogger(Locator::GetAudio()));
-		AudioManager::GetInstance().AddSound("./Data/menu3.wav",1);
+		AudioManager::GetInstance().AddSound("../Data/menu3.wav",1);
 		
 		
 	}
@@ -157,7 +157,7 @@ void dae::Minigin::Run()
 	Initialize();
 
 	// tell the resource manager where he can find the game data
-	ResourceManager::GetInstance().Init("./Data/");
+	ResourceManager::GetInstance().Init("../Data/");
 
 	LoadGame();
 
