@@ -74,24 +74,24 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\imgui-master;$(SolutionDir)\3rdParty\SDL2_image\include;$(SolutionDir)\3rdParty\SDL2_ttf\include;$(SolutionDir)\3rdParty\SDL2\include;$(SolutionDir)\3rdParty\SDL2_mixer-2.0.4\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\3rdParty\SDL2_image\include;$(SolutionDir)\3rdParty\SDL2_ttf\include;$(SolutionDir)\3rdParty\SDL2\include;$(SolutionDir)\3rdParty\SDL2_mixer-2.0.4\include;$(SolutionDir)\3rdParty\imgui-master;$(SolutionDir)\3rdParty\imgui-master\backends;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)3rdParty\SDL2_image\lib\x86;$(SolutionDir)\3rdParty\SDL2_ttf\lib\x86;$(SolutionDir)3rdParty\SDL2\lib\x86;$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(Platform)\$(Configuration)\</IntDir>
-    <IncludePath>$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\imgui-master;$(SolutionDir)\3rdParty\SDL2_image\include;$(SolutionDir)\3rdParty\SDL2_ttf\include;$(SolutionDir)\3rdParty\SDL2\include;$(SolutionDir)\3rdParty\SDL2_mixer-2.0.4\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\3rdParty\SDL2_image\include;$(SolutionDir)\3rdParty\SDL2_ttf\include;$(SolutionDir)\3rdParty\SDL2\include;$(SolutionDir)\3rdParty\SDL2_mixer-2.0.4\include;$(SolutionDir)\3rdParty\imgui-master;$(SolutionDir)\3rdParty\imgui-master\backends;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)3rdParty\SDL2_image\lib\x86;$(SolutionDir)\3rdParty\SDL2_ttf\lib\x86;$(SolutionDir)3rdParty\SDL2\lib\x86;$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x86;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\imgui-master;$(SolutionDir)\3rdParty\SDL2_image\include;$(SolutionDir)\3rdParty\SDL2_ttf\include;$(SolutionDir)\3rdParty\SDL2\include;$(SolutionDir)\3rdParty\SDL2_mixer-2.0.4\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\3rdParty\SDL2_image\include;$(SolutionDir)\3rdParty\SDL2_ttf\include;$(SolutionDir)\3rdParty\SDL2\include;$(SolutionDir)\3rdParty\SDL2_mixer-2.0.4\include;$(SolutionDir)\3rdParty\imgui-master;$(SolutionDir)\3rdParty\imgui-master\backends;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)3rdParty\SDL2\lib\x64;$(SolutionDir)3rdParty\SDL2_ttf\lib\x64;$(SolutionDir)3rdParty\SDL2_image\lib\x64;$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>$(SolutionDir)3rdParty\glm;$(SolutionDir)3rdParty\imgui-master;$(SolutionDir)\3rdParty\SDL2_image\include;$(SolutionDir)\3rdParty\SDL2_ttf\include;$(SolutionDir)\3rdParty\SDL2\include;$(SolutionDir)\3rdParty\SDL2_mixer-2.0.4\include;$(IncludePath)</IncludePath>
+    <IncludePath>$(SolutionDir)\3rdParty\SDL2_image\include;$(SolutionDir)\3rdParty\SDL2_ttf\include;$(SolutionDir)\3rdParty\SDL2\include;$(SolutionDir)\3rdParty\SDL2_mixer-2.0.4\include;$(SolutionDir)\3rdParty\imgui-master;$(SolutionDir)\3rdParty\imgui-master\backends;$(IncludePath)</IncludePath>
     <LibraryPath>$(SolutionDir)3rdParty\SDL2\lib\x64;$(SolutionDir)3rdParty\SDL2_ttf\lib\x64;$(SolutionDir)3rdParty\SDL2_image\lib\x64;$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x64;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -122,9 +122,12 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x86\*.dll" "$(OutputPath)" /R
 </Command>
     </PostBuildEvent>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2\lib\x86;$(SolutionDir)3rdParty\SDL2_image\lib\x86;$(SolutionDir)3rdParty\SDL2_ttf\lib\x86;$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x86;$(SolutionDir)3rdParty\SDL2\lib\x86;$(SolutionDir)3rdParty\SDL2_ttf\lib\x86;$(SolutionDir)3rdParty\SDL2_image\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;opengl32.lib;xinput.lib</AdditionalDependencies>
     </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -158,9 +161,12 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x86\*.dll" "$(OutputPath)" /R
 </Command>
     </PostBuildEvent>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2\lib\x86;$(SolutionDir)3rdParty\SDL2_image\lib\x86;$(SolutionDir)3rdParty\SDL2_ttf\lib\x86;$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x86;$(SolutionDir)3rdParty\SDL2\lib\x86;$(SolutionDir)3rdParty\SDL2_ttf\lib\x86;$(SolutionDir)3rdParty\SDL2_image\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;opengl32.lib;xinput.lib</AdditionalDependencies>
     </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -190,8 +196,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x64\*.dll" "$(OutputPath)" /R
 </Command>
     </PostBuildEvent>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2\lib\x64;$(SolutionDir)3rdParty\SDL2_image\lib\x64;$(SolutionDir)3rdParty\SDL2_ttf\lib\x64;$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x64;$(SolutionDir)3rdParty\SDL2\lib\x64;$(SolutionDir)3rdParty\SDL2_ttf\lib\x64;$(SolutionDir)3rdParty\SDL2_image\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;opengl32.lib;xinput.lib</AdditionalDependencies>
     </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>
@@ -229,8 +235,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x64\*.dll" "$(OutputPath)" /R
 </Command>
     </PostBuildEvent>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2\lib\x64;$(SolutionDir)3rdParty\SDL2_image\lib\x64;$(SolutionDir)3rdParty\SDL2_ttf\lib\x64;$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>opengl32.lib;SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;xinput.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x64;$(SolutionDir)3rdParty\SDL2\lib\x64;$(SolutionDir)3rdParty\SDL2_ttf\lib\x64;$(SolutionDir)3rdParty\SDL2_image\lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>SDL2.lib;SDL2main.lib;SDL2_image.lib;SDL2_ttf.lib;SDL2_mixer.lib;opengl32.lib;xinput.lib</AdditionalDependencies>
     </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

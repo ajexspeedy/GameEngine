@@ -1,17 +1,12 @@
-// QBert.cpp : This file contains the 'main' function. Program execution begins and ends there.
+// Qbert.cpp : This file contains the 'main' function. Program execution begins and ends there.
 //
-
-#if _DEBUG
-// ReSharper disable once CppUnusedIncludeDirective
-#include <vld.h>
-#endif
 
 #include <Minigin.h>
 
-int main()
+int main(int, char* [])
 {
-	dae::Minigin engine;
-	engine.Run();
-	return 0;
+    dae::Minigin engine;
+    engine.Run();
+    return 0;
 }
 
