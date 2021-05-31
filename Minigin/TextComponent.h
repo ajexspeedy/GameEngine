@@ -24,7 +24,7 @@ namespace dae
 		TextComponent& operator=(TextComponent&& other) = delete;
 		
 	protected:
-		Transform m_Transform;
+		Transform m_pTransform;
 		std::shared_ptr<Texture2D> m_Texture{};
 		bool m_NeedsUpdate;
 		std::string m_Text;

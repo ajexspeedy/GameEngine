@@ -293,6 +293,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x64\*.dll" "$(OutputPath)" /R
     <ClCompile Include="Minigin\EnableAudioLogging.cpp" />
     <ClCompile Include="Minigin\Font.cpp" />
     <ClCompile Include="Minigin\FPSComponent.cpp" />
+    <ClCompile Include="Minigin\Game.cpp" />
     <ClCompile Include="Minigin\GameObject.cpp" />
     <ClCompile Include="Minigin\ImposterPCH.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -305,6 +306,8 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x64\*.dll" "$(OutputPath)" /R
     <ClCompile Include="Minigin\Locator.cpp" />
     <ClCompile Include="Minigin\Main.cpp" />
     <ClCompile Include="Minigin\Minigin.cpp" />
+    <ClCompile Include="Minigin\MoveCommand.cpp" />
+    <ClCompile Include="Minigin\MovementComponent.cpp" />
     <ClCompile Include="Minigin\PhysicsComponent.cpp" />
     <ClCompile Include="Minigin\PlayerComponent.cpp" />
     <ClCompile Include="Minigin\PlayerLivesDisplay.cpp" />
@@ -318,6 +321,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x64\*.dll" "$(OutputPath)" /R
     <ClCompile Include="Minigin\Subject.cpp" />
     <ClCompile Include="Minigin\TextComponent.cpp" />
     <ClCompile Include="Minigin\Texture2D.cpp" />
+    <ClCompile Include="Minigin\TileComponent.cpp" />
     <ClCompile Include="Minigin\TimeManager.cpp" />
     <ClCompile Include="Minigin\Transform.cpp" />
   </ItemGroup>
@@ -343,12 +347,15 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x64\*.dll" "$(OutputPath)" /R
     <ClInclude Include="Minigin\EventStruct.h" />
     <ClInclude Include="Minigin\Font.h" />
     <ClInclude Include="Minigin\FPSComponent.h" />
+    <ClInclude Include="Minigin\Game.h" />
     <ClInclude Include="Minigin\GameObject.h" />
     <ClInclude Include="Minigin\ImposterPCH.h" />
     <ClInclude Include="Minigin\InputManager.h" />
     <ClInclude Include="Minigin\KillCommand.h" />
     <ClInclude Include="Minigin\Locator.h" />
     <ClInclude Include="Minigin\Minigin.h" />
+    <ClInclude Include="Minigin\MoveCommand.h" />
+    <ClInclude Include="Minigin\MovementComponent.h" />
     <ClInclude Include="Minigin\Observer.h" />
     <ClInclude Include="Minigin\PhysicsComponent.h" />
     <ClInclude Include="Minigin\PlayerComponent.h" />
@@ -366,6 +373,7 @@ xcopy "$(SolutionDir)3rdParty\SDL2_mixer-2.0.4\lib\x64\*.dll" "$(OutputPath)" /R
     <ClInclude Include="Minigin\targetver.h" />
     <ClInclude Include="Minigin\TextComponent.h" />
     <ClInclude Include="Minigin\Texture2D.h" />
+    <ClInclude Include="Minigin\TileComponent.h" />
     <ClInclude Include="Minigin\TimeManager.h" />
     <ClInclude Include="Minigin\Transform.h" />
   </ItemGroup>

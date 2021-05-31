@@ -1,5 +1,5 @@
 #pragma once
-#include <map>
+#include <unordered_map>
 #include <XInput.h>
 #include "Singleton.h"
 #include "Command.h"
@@ -34,19 +34,26 @@ namespace dae
 		Idle, Pressed, Held, Released
 	};
 
+	struct KeyCommands
+	{
+		Command* pCommand;
+		KeyState state = KeyState::Idle;
+	};
+
 	class InputManager final : public Singleton<InputManager>
 	{
 	public:
+
 		~InputManager();
 		bool ProcessInput();
 		void HandleInput();
 
 		void AddButtonCommand(ControllerButton button, Command* command);
-		void AddKeyCommand(int code, Command* command); // TODO: Add keyboard support
+		void AddKeyCommand(SDL_Scancode code, Command* command); // TODO: Add keyboard support
 
 	
 		KeyState GetKeyState(ControllerButton button) const;
-		KeyState GetKeyState(int key) const;
+		KeyState GetKeyState(std::pair<SDL_Scancode,KeyCommands> pair) const;
 
 
 	private:
@@ -58,12 +65,14 @@ namespace dae
 		bool WasPressed(ControllerButton button) const;
 		bool Pressed(ControllerButton button, const XINPUT_STATE& keystate) const;
 
-		bool IsPressed(int key) const;
-		bool WasPressed() const;
+		bool IsPressed(SDL_Scancode code) const;
+		bool WasPressed(SDL_Scancode code) const;
 		
 
-		std::map<ControllerButton, Command*> m_ControllerCommands;
-		std::map<int, Command*> m_KeyboardCommands;
+		std::unordered_map<ControllerButton, KeyCommands> m_ControllerCommands;
+		std::unordered_map<SDL_Scancode, KeyCommands> m_KeyboardCommands;
+
+		
 		
 		KeyState m_PrevKeystate;
 	};

@@ -5,59 +5,73 @@
 #include "PlayerComponent.h"
 
 
+using namespace dae;
 
-
-dae::GameObject::GameObject(std::shared_ptr<Component>component, const std::string& objectName)
+GameObject::GameObject(Component* component, const std::string& objectName)
 {
 	AddComponent(component);
 	SetObjectName(objectName);
 }
 
 
-void dae::GameObject::Update()
+
+GameObject::~GameObject()
+{
+	for (Component* pComponent : m_pComponents)
+	{
+		if (pComponent)
+		{
+			delete pComponent;
+			pComponent = nullptr;
+		}
+	}
+}
+
+
+void GameObject::Update()
 {
 
 	UpdateComponents();
 }
 
-void dae::GameObject::Render() const
+void GameObject::Render() const
 {
 
-	for(std::shared_ptr<Component> component : m_pComponents)
+	for(auto* component : m_pComponents)
 	{
 		component->Render();
 	}
 }
 
-void dae::GameObject::SetTexture(const std::string& filename)
+void GameObject::SetTexture(const std::string& filename)
 {
-	if (GetRenderComponent() != nullptr)
-		GetRenderComponent()->SetTexture(filename);
+	if (GetComponent<RenderComponent>() != nullptr)
+		GetComponent<RenderComponent>()->SetTexture(filename);
 
 }
 
-void dae::GameObject::SetPosition(float x, float y)
+void GameObject::SetPosition(float x, float y)
 {
-	if (GetRenderComponent() != nullptr)
-		GetRenderComponent()->SetPosition(x, y);
-	if (GetTextComponent() != nullptr)
-		GetTextComponent()->SetPosition(x, y);
+	if (GetComponent<RenderComponent>() != nullptr)
+		GetComponent<RenderComponent>()->SetPosition(x, y);
+	if (GetComponent<TextComponent>() != nullptr)
+		GetComponent<TextComponent>()->SetPosition(x, y);
 
 }
 
-void dae::GameObject::SetObjectName(const std::string& name)
+void GameObject::SetObjectName(const std::string& name)
 {
 	m_ObjectName = name;
 }
 
-bool dae::GameObject::AddComponent(std::shared_ptr<Component> component)
+bool GameObject::AddComponent(Component* component)
 {
 
 	m_pComponents.push_back(component);
 	return true;
 }
 
-void dae::GameObject::UpdateComponents()
+void GameObject::UpdateComponents()
 {
 	for (auto& component : m_pComponents)
 	{
@@ -67,14 +81,14 @@ void dae::GameObject::UpdateComponents()
 	}
 }
 
-std::string dae::GameObject::GetObjectName() const
+std::string GameObject::GetObjectName() const
 {
 	return m_ObjectName;
 }
 
 
 
-std::vector < std::shared_ptr<dae::Component> > dae::GameObject::GetComponents() const
+std::vector <Component*> GameObject::GetComponents() const
 {
 	return m_pComponents;
 }
@@ -82,33 +96,33 @@ std::vector < std::shared_ptr<dae::Component> > dae::GameObject::GetComponents()
 
 
 
-
-dae::RenderComponent* dae::GameObject::GetRenderComponent() const
-{
-	for (auto& component : m_pComponents)
-	{
-		if (dynamic_cast<RenderComponent*>(component.get()))
-			return dynamic_cast<RenderComponent*>(component.get());
-	}
-	return nullptr;
-}
-
-dae::TextComponent* dae::GameObject::GetTextComponent() const
-{
-	for (auto& component : m_pComponents)
-	{
-		if (dynamic_cast<TextComponent*>(component.get()))
-			return dynamic_cast<TextComponent*>(component.get());
-	}
-	return nullptr;
-}
-
-dae::PlayerComponent* dae::GameObject::GetPlayerComponent() const
-{
-	for (auto& component : m_pComponents)
-	{
-		if (dynamic_cast<PlayerComponent*>(component.get()))
-			return dynamic_cast<PlayerComponent*>(component.get());
-	}
-	return nullptr;
-}
+//
+//dae::RenderComponent* dae::GameObject::GetRenderComponent() const
+//{
+//	for (auto& component : m_pComponents)
+//	{
+//		if (dynamic_cast<RenderComponent*>(component.get()))
+//			return dynamic_cast<RenderComponent*>(component.get());
+//	}
+//	return nullptr;
+//}
+//
+//dae::TextComponent* dae::GameObject::GetTextComponent() const
+//{
+//	for (auto& component : m_pComponents)
+//	{
+//		if (dynamic_cast<TextComponent*>(component.get()))
+//			return dynamic_cast<TextComponent*>(component.get());
+//	}
+//	return nullptr;
+//}
+//
+//dae::PlayerComponent* dae::GameObject::GetPlayerComponent() const
+//{
+//	for (auto& component : m_pComponents)
+//	{
+//		if (dynamic_cast<PlayerComponent*>(component.get()))
+//			return dynamic_cast<PlayerComponent*>(component.get());
+//	}
+//	return nullptr;
+//}
