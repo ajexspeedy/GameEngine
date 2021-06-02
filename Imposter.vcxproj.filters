@@ -21,9 +21,6 @@
     <Filter Include="Engine Files\Managers">
       <UniqueIdentifier>{61a6b5bd-d15f-4c75-ba21-986fe56ea85c}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Engine Files\Commands">
-      <UniqueIdentifier>{7dbf35ac-7fba-45a4-b810-79925a29367d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine Files\Helpers">
       <UniqueIdentifier>{58a3cf53-c317-44f1-a124-e432fb89d0fe}</UniqueIdentifier>
     </Filter>
@@ -104,12 +101,6 @@
     <ClCompile Include="Minigin\FPSComponent.cpp">
       <Filter>Engine Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Minigin\PhysicsComponent.cpp">
-      <Filter>Engine Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Minigin\PlayerComponent.cpp">
-      <Filter>Engine Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Minigin\RenderComponent.cpp">
       <Filter>Engine Files\Components</Filter>
     </ClCompile>
@@ -137,19 +128,10 @@
     <ClCompile Include="Minigin\Game.cpp">
       <Filter>Engine Files\Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="Minigin\TileComponent.cpp">
+    <ClCompile Include="Minigin\TransformComponent.cpp">
       <Filter>Engine Files\Components</Filter>
     </ClCompile>
-    <ClCompile Include="Minigin\KillCommand.cpp">
-      <Filter>Engine Files\Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="Minigin\ScoreCommand.cpp">
-      <Filter>Engine Files\Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="Minigin\MoveCommand.cpp">
-      <Filter>Engine Files\Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="Minigin\MovementComponent.cpp">
+    <ClCompile Include="Minigin\Component.cpp">
       <Filter>Engine Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
@@ -250,12 +232,6 @@
     <ClInclude Include="Minigin\FPSComponent.h">
       <Filter>Engine Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Minigin\PhysicsComponent.h">
-      <Filter>Engine Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Minigin\PlayerComponent.h">
-      <Filter>Engine Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Minigin\RenderComponent.h">
       <Filter>Engine Files\Components</Filter>
     </ClInclude>
@@ -277,9 +253,6 @@
     <ClInclude Include="Minigin\TimeManager.h">
       <Filter>Engine Files\Managers</Filter>
     </ClInclude>
-    <ClInclude Include="Minigin\Command.h">
-      <Filter>Engine Files\Commands</Filter>
-    </ClInclude>
     <ClInclude Include="Minigin\Font.h">
       <Filter>Engine Files\Helpers</Filter>
     </ClInclude>
@@ -289,19 +262,10 @@
     <ClInclude Include="Minigin\Game.h">
       <Filter>Engine Files\Helpers</Filter>
     </ClInclude>
-    <ClInclude Include="Minigin\TileComponent.h">
-      <Filter>Engine Files\Components</Filter>
+    <ClInclude Include="Minigin\Command.h">
+      <Filter>Engine Files</Filter>
     </ClInclude>
-    <ClInclude Include="Minigin\KillCommand.h">
-      <Filter>Engine Files\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="Minigin\ScoreCommand.h">
-      <Filter>Engine Files\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="Minigin\MoveCommand.h">
-      <Filter>Engine Files\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="Minigin\MovementComponent.h">
+    <ClInclude Include="Minigin\TransformComponent.h">
       <Filter>Engine Files\Components</Filter>
     </ClInclude>
   </ItemGroup>

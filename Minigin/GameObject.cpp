@@ -2,14 +2,13 @@
 #include "GameObject.h"
 #include "Renderer.h"
 #include "InputManager.h"
-#include "PlayerComponent.h"
+
 
 
 using namespace dae;
 
-GameObject::GameObject(Component* component, const std::string& objectName)
+GameObject::GameObject(const std::string& objectName)
 {
-	AddComponent(component);
 	SetObjectName(objectName);
 }
 
@@ -96,33 +95,3 @@ std::vector <Component*> GameObject::GetComponents() const
 
 
 
-//
-//dae::RenderComponent* dae::GameObject::GetRenderComponent() const
-//{
-//	for (auto& component : m_pComponents)
-//	{
-//		if (dynamic_cast<RenderComponent*>(component.get()))
-//			return dynamic_cast<RenderComponent*>(component.get());
-//	}
-//	return nullptr;
-//}
-//
-//dae::TextComponent* dae::GameObject::GetTextComponent() const
-//{
-//	for (auto& component : m_pComponents)
-//	{
-//		if (dynamic_cast<TextComponent*>(component.get()))
-//			return dynamic_cast<TextComponent*>(component.get());
-//	}
-//	return nullptr;
-//}
-//
-//dae::PlayerComponent* dae::GameObject::GetPlayerComponent() const
-//{
-//	for (auto& component : m_pComponents)
-//	{
-//		if (dynamic_cast<PlayerComponent*>(component.get()))
-//			return dynamic_cast<PlayerComponent*>(component.get());
-//	}
-//	return nullptr;
-//}

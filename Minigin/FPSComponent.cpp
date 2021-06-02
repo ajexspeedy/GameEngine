@@ -2,8 +2,9 @@
 #include "FPSComponent.h"
 #include "TimeManager.h"
 
-dae::FPSComponent::FPSComponent(const std::string& text, const std::shared_ptr<Font>& font):
-	TextComponent(text,font)
+
+dae::FPSComponent::FPSComponent(GameObject* pParent, const std::string& text, const std::shared_ptr<Font>& font):
+	TextComponent(pParent,text,font)
 {
 	
 }

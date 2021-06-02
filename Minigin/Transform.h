@@ -10,6 +10,7 @@ namespace dae
 	class Transform final
 	{
 	public:
+		Transform(const float x, const float y, const float z);
 		const glm::vec3& GetPosition() const { return m_Position; }
 		void SetPosition(float x, float y, float z);
 	private:

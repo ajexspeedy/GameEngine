@@ -3,11 +3,12 @@
 
 namespace dae
 {
+	class GameObject;
 	class FPSComponent :
 		public TextComponent
 	{
 	public:
-		FPSComponent(const std::string& text, const std::shared_ptr<Font>& font);
+		FPSComponent(GameObject* pParent, const std::string& text, const std::shared_ptr<Font>& font);
 		void Update() override;
 
 

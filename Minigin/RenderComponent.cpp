@@ -4,28 +4,33 @@
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include <SDL.h>
+#include "TransformComponent.h"
+#include "GameObject.h"
+
+
 using namespace dae;
 
 
 
-RenderComponent::RenderComponent(const std::string& filename, const float x, const float y) :
+RenderComponent::RenderComponent(GameObject* pParent, const std::string& filename) :
+	Component{ pParent },
 	m_UseSrcRect{ false },
 	m_Width{ -1.f },
 	m_Height{ -1.f }
 {
-	m_pTransform = new Transform{};
+
 	SetTexture(filename);
-	SetPosition(x, y);
+
 }
 
-dae::RenderComponent::RenderComponent(const std::string& filename, const float width, const float height, const float x, const float y) :
+dae::RenderComponent::RenderComponent(GameObject* pParent, const std::string& filename, const float width, const float height) :
+	Component{ pParent },
 	m_UseSrcRect{ false },
 	m_Width{ width },
 	m_Height{ height }
 {
-	m_pTransform = new Transform{};
 	SetTexture(filename);
-	SetPosition(x, y);
+	
 
 }
 
@@ -34,8 +39,8 @@ void RenderComponent::Render() const
 {
 	if (m_Texture != nullptr)
 	{
-		
-		const auto pos = m_pTransform->GetPosition();
+
+		const auto pos = GetParent()->GetComponent<TransformComponent>()->GetPosition();
 		if (m_Width != -1.f && m_Height != -1.f)
 		{
 			SDL_Rect destRect;
@@ -85,16 +90,17 @@ void RenderComponent::SetTexture(const std::string& filename)
 
 void RenderComponent::SetPosition(float x, float y)
 {
-	m_pTransform->SetPosition(x, y, 0.0f);
+	GetParent()->GetComponent<TransformComponent>()->SetPosition(x, y);
+	//m_pTransform->SetPosition(x, y, 0.0f);
 
 }
 
 void dae::RenderComponent::Translate(float x, float y)
 {
-	auto newPos = m_pTransform->GetPosition();
+	auto newPos = GetParent()->GetComponent<TransformComponent>()->GetPosition();
 	newPos.x += x;
 	newPos.y += y;
-	m_pTransform->SetPosition(newPos.x, newPos.y, 0.f);
+	GetParent()->GetComponent<TransformComponent>()->SetPosition(newPos.x, newPos.y, 0.f);
 }
 
 void dae::RenderComponent::SetSrcRect(float x, float y, float width, float height)
@@ -126,9 +132,5 @@ void dae::RenderComponent::MoveSrcRectPosition(int x, int y)
 	SetSrcRectPosition(newX, newY);
 }
 
-Transform* dae::RenderComponent::GetTransform() const
-{
 
-	return m_pTransform;
-}
 

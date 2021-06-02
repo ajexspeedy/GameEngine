@@ -11,10 +11,11 @@ namespace dae
 
 	class PlayerComponent;
 	class Texture2D;
+	class Component;
 	class GameObject final
 	{
 	public:
-		GameObject(Component* component,const std::string& objectName);
+		GameObject(const std::string& objectName);
 		~GameObject();
 		
 		void Update();
@@ -54,6 +55,7 @@ namespace dae
 	private:
 		std::vector<Component*> m_pComponents = {};
 		std::string m_ObjectName{"Default"};
+		//TODO: Add transform here
 	/*	RenderComponent* GetRenderComponent() const;
 		TextComponent* GetTextComponent() const;
 		PlayerComponent* GetPlayerComponent() const;*/

@@ -8,10 +8,11 @@
 namespace dae
 {
 	class TextComponent;
+	class GameObject;
 	class PlayerComponent : public Component
 	{
 	public:
-		PlayerComponent(int health = 0,int lives = 3);
+		PlayerComponent(GameObject* pParent, int health = 0,int lives = 3);
 		~PlayerComponent() = default;
 		virtual void Update() override;
 	

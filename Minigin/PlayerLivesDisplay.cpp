@@ -5,13 +5,14 @@
 #include "TextComponent.h"
 #include "Font.h"
 
-dae::PlayerLivesDisplay::PlayerLivesDisplay(const std::shared_ptr<Font>& font, int lives, float x, float y) :
+dae::PlayerLivesDisplay::PlayerLivesDisplay(GameObject* pParent, const std::shared_ptr<Font>& font, int lives, float x, float y) :
+	Component{ pParent },
 	m_RemainingLives(lives),
 	m_UpdateLives(false)
 {
 	std::string text = "Remaining lives: ";
 	text += std::to_string(lives);
-	m_pTextComponent = std::make_unique<TextComponent>(text, font);
+	m_pTextComponent = std::make_unique<TextComponent>(pParent, text, font);
 	m_pTextComponent->SetPosition(x, y);
 }
 

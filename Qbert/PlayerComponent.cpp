@@ -3,18 +3,19 @@
 #include "InputManager.h"
 #include "KillCommand.h"
 #include "ScoreCommand.h"
+#include "GameObject.h"
 
-	
 
 
-dae::PlayerComponent::PlayerComponent(int health, int lives):
-m_Health(health),
-m_Lives(lives),
-m_Score(0)
+dae::PlayerComponent::PlayerComponent(GameObject* pParent, int health, int lives) :
+	Component{ pParent },
+	m_Health(health),
+	m_Lives(lives),
+	m_Score(0)
 {
-	
 
-	
+
+
 }
 
 
@@ -30,7 +31,7 @@ void dae::PlayerComponent::ChangeHealth(int value)
 	m_Health += value;
 	if (m_Health <= 0)
 	{
-		if(m_Lives == 0)
+		if (m_Lives == 0)
 		{
 			m_Health = 0;
 		}

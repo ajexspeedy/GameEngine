@@ -6,7 +6,7 @@ namespace dae
 {
 	class Font;
 	class TextComponent;
-
+    class GameObject;
 	enum class ColorScore
 	{
 		change = 25,
@@ -18,7 +18,7 @@ namespace dae
         public Observer, public Component
     {
     public:
-        PlayerScoreDisplay(const std::shared_ptr<Font>& font,float x = 0,float y = 0);
+        PlayerScoreDisplay(GameObject* pParent, const std::shared_ptr<Font>& font,float x = 0,float y = 0);
         ~PlayerScoreDisplay() = default;
 
         virtual void onNotify(const Event& event) override;

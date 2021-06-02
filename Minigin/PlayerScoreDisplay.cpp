@@ -3,9 +3,10 @@
 #include "TextComponent.h"
 #include "Font.h"
 
-dae::PlayerScoreDisplay::PlayerScoreDisplay(const std::shared_ptr<Font>& font, float x, float y)
+dae::PlayerScoreDisplay::PlayerScoreDisplay(GameObject* pParent, const std::shared_ptr<Font>& font, float x, float y):
+	Component{pParent}
 {
-	m_pTextComponent = std::make_unique<TextComponent>("Score: 0", font);
+	m_pTextComponent = std::make_unique<TextComponent>(pParent,"Score: 0", font);
 	m_pTextComponent->SetPosition(x, y);
 }
 

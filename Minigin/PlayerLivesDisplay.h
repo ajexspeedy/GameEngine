@@ -6,11 +6,12 @@ namespace dae
 {
 	class Font;
 	class TextComponent;
+	class GameObject;
 	class PlayerLivesDisplay :
 		public Observer, public Component
 	{
 	public:
-		PlayerLivesDisplay(const std::shared_ptr<Font>& font, int lives, float x = 0.f, float y = 0.f);
+		PlayerLivesDisplay(GameObject* pParent,const std::shared_ptr<Font>& font, int lives, float x = 0.f, float y = 0.f);
 		~PlayerLivesDisplay() = default;
 
 		virtual void onNotify(const Event& event) override;

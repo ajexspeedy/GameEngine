@@ -6,16 +6,17 @@
 namespace dae
 {
 	class Texture2D;
+	class GameObject;
 	class RenderComponent : public Component
 	{
 
 	public:
 		RenderComponent() = default;
 		~RenderComponent() = default;
-		RenderComponent(const std::string& filename, const float x = 0.f, const float y = 0.f);
-		RenderComponent(const std::string& filename, const float width, const float height, const float x, const float y);
+		RenderComponent(GameObject* pParent, const std::string& filename);
+		RenderComponent(GameObject* pParent, const std::string& filename, const float width, const float height);
 
-		virtual void Render() const override;
+		void Render() const override;
 		void Update() override;
 		void SetTexture(const std::string& filename);
 		
@@ -27,10 +28,9 @@ namespace dae
 		void SetSrcRectPosition(int x, int y);
 		void MoveSrcRectPosition(int x, int y);
 
-		Transform* GetTransform() const;
+	
 	protected:
 
-		Transform* m_pTransform;
 		std::shared_ptr<Texture2D> m_Texture{};
 		SDL_Rect m_SrcRect;
 		bool m_UseSrcRect;
