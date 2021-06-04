@@ -14,8 +14,8 @@ namespace dae
 		RenderComponent() = default;
 		~RenderComponent() = default;
 		RenderComponent(GameObject* pParent, const std::string& filename);
-		RenderComponent(GameObject* pParent, const std::string& filename, const float widthDestRect, const float heightDestRect);
-		RenderComponent(GameObject* pParent, const std::string& filename, const SDL_Rect& srcRect, const float widthDestRect, const float heightDestRect);
+		RenderComponent(GameObject* pParent, const std::string& filename, const int widthDestRect, const int heightDestRect);
+		RenderComponent(GameObject* pParent, const std::string& filename, const SDL_Rect& srcRect, const int widthDestRect, const int heightDestRect);
 
 		void Render() const override;
 		void Update() override;
@@ -32,12 +32,13 @@ namespace dae
 		void MoveSrcRectPosition(int x, int y);
 
 		void SetSrcRectSize(const int width, const int height);
+		void SetDestRectSize(const int width, const int height);
 	
 	protected:
 
 		std::shared_ptr<Texture2D> m_Texture{};
 		SDL_Rect m_SrcRect;
 		bool m_UseSrcRect;
-		float m_Width, m_Height;
+		int m_Width, m_Height;
 	};
 }

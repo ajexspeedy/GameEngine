@@ -30,9 +30,9 @@ const std::vector<GameObject*>& dae::Level::GetTiles() const
 	return m_pTiles;
 }
 
-bool Level::CheckOnTiles(int& row, int& column, MovementComponent::MovementDirection direction, bool& isFalling)
+bool Level::CheckOnTiles(int& row, int& column, MovementComponent::MovementDirection direction, bool triggersTile)
 {
-	
+
 	//ResetLevel();
 	switch (direction)
 	{
@@ -57,8 +57,11 @@ bool Level::CheckOnTiles(int& row, int& column, MovementComponent::MovementDirec
 	if (IsOutsideLevel(row, column))
 	{
 
-		isFalling = true;
 		return false;
+	}
+	if (!triggersTile)
+	{
+		return true;
 	}
 	bool isVictory = true;
 	for (auto tile : m_pTiles)
@@ -224,7 +227,7 @@ void dae::Level::ResetLevel()
 	{
 		if (entity->HasComponent<MovementComponent>())
 		{
-			entity->GetComponent<MovementComponent>()->ResetPlayerPosition();
+			entity->GetComponent<MovementComponent>()->ResetPosition();
 		}
 	}
 	for (auto tile : m_pTiles)

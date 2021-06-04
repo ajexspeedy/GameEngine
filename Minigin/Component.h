@@ -23,7 +23,7 @@ namespace dae
 		Component(Component&& other) = delete;
 		Component& operator=(const Component& other) = delete;
 		Component& operator=(Component&& other) = delete;
-
+	private:
 		GameObject* m_pParent;
 	};
 }

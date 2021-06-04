@@ -68,9 +68,10 @@ namespace dae
 		bool IsPushToFront() const;
 		void SetPushToFront(bool pushToFront);
 
-
 		bool IsPushToBack() const;
 		void SetPushToBack(bool pushToBack);
+
+		std::string GetName() const;
 	private:
 		std::vector<Component*> m_pComponents = {};
 		std::string m_ObjectName{"Default"};

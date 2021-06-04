@@ -20,7 +20,7 @@ namespace dae
 		void AddTile(GameObject* pTile);
 		const std::vector<GameObject*>& GetTiles() const;
 
-		bool CheckOnTiles(int& row, int& column, MovementComponent::MovementDirection direction, bool& isFalling);
+		bool CheckOnTiles(int& row, int& column, MovementComponent::MovementDirection direction,bool triggersTile);
 
 		void AddEntity(GameObject* pEntity);
 

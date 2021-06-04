@@ -3,28 +3,27 @@
 
 #include "Renderer.h"
 #include "ResourceManager.h"
-#include <SDL.h>
 #include "TransformComponent.h"
 #include "../Qbert/MovementComponent.h"
 #include "GameObject.h"
 
 
-using namespace dae;
 
 
 
-RenderComponent::RenderComponent(GameObject* pParent, const std::string& filename) :
+
+dae::RenderComponent::RenderComponent(GameObject* pParent, const std::string& filename) :
 	Component{ pParent },
 	m_UseSrcRect{ false },
-	m_Width{ -1.f },
-	m_Height{ -1.f }
+	m_Width{ -1 },
+	m_Height{ -1 }
 {
 
 	SetTexture(filename);
 
 }
 
-dae::RenderComponent::RenderComponent(GameObject* pParent, const std::string& filename, const float widthDestRect, const float heightDestRect) :
+dae::RenderComponent::RenderComponent(GameObject* pParent, const std::string& filename, const int widthDestRect, const int heightDestRect) :
 	Component{ pParent },
 	m_UseSrcRect{ false },
 	m_Width{ widthDestRect },
@@ -35,7 +34,7 @@ dae::RenderComponent::RenderComponent(GameObject* pParent, const std::string& fi
 
 }
 
-dae::RenderComponent::RenderComponent(GameObject* pParent, const std::string& filename, const SDL_Rect& srcRect, const float widthDestRect, const float heightDestRect):
+dae::RenderComponent::RenderComponent(GameObject* pParent, const std::string& filename, const SDL_Rect& srcRect, const int widthDestRect, const int heightDestRect):
 	Component{pParent},
 	m_UseSrcRect{true},
 	m_SrcRect{srcRect},
@@ -46,19 +45,19 @@ dae::RenderComponent::RenderComponent(GameObject* pParent, const std::string& fi
 }
 
 
-void RenderComponent::Render() const
+void dae::RenderComponent::Render() const
 {
 	if (m_Texture != nullptr)
 	{
 
 		const auto pos = GetParent()->GetComponent<TransformComponent>()->GetPosition();
-		if (m_Width != -1.f && m_Height != -1.f)
+		if (m_Width != -1 && m_Height != -1)
 		{
 			SDL_Rect destRect;
 			destRect.x = static_cast<int>(pos.x);
 			destRect.y = static_cast<int>(pos.y);
-			destRect.w = static_cast<int>(m_Width);
-			destRect.h = static_cast<int>(m_Height);
+			destRect.w = m_Width;
+			destRect.h = m_Height;
 			if (m_UseSrcRect)
 			{
 
@@ -94,7 +93,7 @@ void dae::RenderComponent::Update()
 
 }
 
-void RenderComponent::SetTexture(const std::string& filename)
+void dae::RenderComponent::SetTexture(const std::string& filename)
 {
 	m_Texture = ResourceManager::GetInstance().LoadTexture(filename);
 }
@@ -104,7 +103,7 @@ void dae::RenderComponent::SetEnableSrcRect(bool enable)
 	m_UseSrcRect = enable;
 }
 
-void RenderComponent::SetPosition(float x, float y)
+void dae::RenderComponent::SetPosition(float x, float y)
 {
 	GetParent()->GetComponent<TransformComponent>()->SetPosition(x, y);
 
@@ -149,6 +148,12 @@ void dae::RenderComponent::SetSrcRectSize(const int width, const int height)
 {
 	m_SrcRect.w = width;
 	m_SrcRect.h = height;
+}
+
+void dae::RenderComponent::SetDestRectSize(const int width, const int height)
+{
+	m_Width = width;
+	m_Height = height;
 }
 
 

@@ -17,7 +17,7 @@ namespace dae
 			egg,
 			snake
 		};
-		CoilyComponent(GameObject* pParent, GameObject* pPlayer, const float spawnDuration);
+		CoilyComponent(GameObject* pParent, GameObject* pPlayer, const float spawnDuration, const float startPosX = 0.f, const float startPosY = 0.f);
 		~CoilyComponent() = default;
 
 
@@ -33,13 +33,22 @@ namespace dae
 		CoilyComponent& operator=(CoilyComponent&& other) = delete;
 
 	protected:
-		void SpawnEgg();
+		void CheckSpawnEgg();
+		void CheckEggFalling();
+		void CheckCoilyMovement();
 
-		float m_SpawnTimer, m_SpawnDuration;
-		float m_FallTimer, m_FallDuration, m_FallVelocity, m_StartPositionY;
+		void SpawnEgg();
+		void JumpEgg();
+		void JumpSnake();
+
+		float m_SpawnTimer, m_SpawnDuration, m_JumpTimer, m_JumpDuration;
+		float m_FallVelocity,m_StartPositionX, m_StartPositionY;
+		unsigned int m_SnakeWidth, m_SnakeHeight;
 
 		CoilyForm m_Form;
 		bool m_SpawnEnabled, m_IsSpawned, m_IsFalling, m_IsActive;
+
+		unsigned int m_EggJumpCounter, m_MaxEggJumps;
 
 		GameObject* m_pPlayer;
 	};

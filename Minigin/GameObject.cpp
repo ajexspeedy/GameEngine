@@ -112,6 +112,11 @@ void dae::GameObject::SetPushToBack(bool pushToBack)
 	m_PushToBack = pushToBack;
 }
 
+std::string dae::GameObject::GetName() const
+{
+	return m_ObjectName;
+}
+
 
 
 

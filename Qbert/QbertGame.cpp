@@ -1,14 +1,18 @@
 #include "ImposterPCH.h"
 #include "QbertGame.h"
+#include <vld.h>
+
+
 #include "SceneManager.h"
 #include "AudioManager.h"
 #include "InputManager.h"
 #include "ResourceManager.h"
-#include <vld.h>
+
 
 #include "Scene.h"
 #include "Level.h"
 #include "GameObject.h"
+
 
 #include "RenderComponent.h"
 #include "MovementComponent.h"
@@ -16,6 +20,10 @@
 #include "TransformComponent.h"
 #include "PlayerComponent.h"
 #include "CoilyComponent.h"
+#include "AnimationComponent.h"
+
+#include <SDL_Rect.h>
+
 #include "PlayerLivesDisplay.h"
 #include "MoveCommand.h"
 
@@ -24,8 +32,8 @@
 #include "Audio_SDL.h"
 #include "EnableAudioLogging.h"
 
+struct SDL_Rect;
 
-using namespace dae;
 void dae::QbertGame::CleanUp()
 {
 	if (m_pLevel)
@@ -34,8 +42,9 @@ void dae::QbertGame::CleanUp()
 		m_pLevel = nullptr;
 	}
 }
-void QbertGame::LoadGame()
+void dae::QbertGame::LoadGame()
 {
+
 
 	auto* menuScene = SceneManager::GetInstance().CreateScene("Menu");
 
@@ -62,12 +71,12 @@ void QbertGame::LoadGame()
 	scene->Add(coily);
 }
 
-Level* QbertGame::CreateLevel(const int levelRows, const int levelColumns, const float startLevelX, const float startLevelY, const std::string& filePath) const
+dae::Level* dae::QbertGame::CreateLevel(const int levelRows, const int levelColumns, const float startLevelX, const float startLevelY, const std::string& filePath) const
 {
 	Level* level = new Level{ levelRows - 1,levelColumns - 1 , filePath };
 	int pyramidWidth = levelRows;
 	int pyramidHeight = levelColumns;
-	//float startPosX{ startLevelX }, startPosY{ startLevelY };
+
 	float posX, posY;
 	float width{ 64.f }, height{ 64.f };
 	float heightOffset = height * 0.75f;
@@ -82,7 +91,7 @@ Level* QbertGame::CreateLevel(const int levelRows, const int levelColumns, const
 
 			GameObject* tile = new GameObject{ std::string("Tile ").append(std::to_string(tileCounter)) };
 			tile->AddComponent(new TransformComponent{ tile, posX,posY });
-			tile->AddComponent(new RenderComponent{ tile,"Textures/Tile1.png",width,height });
+			tile->AddComponent(new RenderComponent{ tile,"Textures/Tile1.png",static_cast<int>(width),static_cast<int>(height) });
 			//tile->GetComponent<RenderComponent>()->SetSrcRect(srcRect);
 			posX += width;
 			TileComponent* pTileComponent = new TileComponent{ tile ,j,i };
@@ -101,14 +110,17 @@ dae::GameObject* dae::QbertGame::CreatePlayer(Level* level, const int levelColum
 {
 	GameObject* player = new GameObject{ "Qbert" };
 	player->AddComponent(new TransformComponent{ player, startPlayerX,startPlayerY });
-	player->AddComponent(new RenderComponent{ player,"Textures/Qbert_Spritesheet.png",SDL_Rect{80, 0, 16, 16},32.f,32.f });
-	//	player->GetComponent<RenderComponent>()->SetSrcRect(80, 0, 16, 16);
-	player->AddComponent(new MovementComponent{ player,level ,0,levelColumns - 1 ,true });
+
+
+
+	//player->AddComponent(new RenderComponent{ player,"Textures/Qbert_Spritesheet.png",SDL_Rect{80, 0, 16, 16},32.f,32.f });
+	player->AddComponent(new AnimationComponent{ player,4,2,"Textures/Qbert.png",SDL_Rect{0,0,16,16},32,32 });
+	player->AddComponent(new MovementComponent{ player,level ,0,levelColumns - 1 });
 
 	return player;
 }
 
-GameObject* dae::QbertGame::CreateLifeDisplay(GameObject* player, const int lives) const
+dae::GameObject* dae::QbertGame::CreateLifeDisplay(GameObject* player, const int lives) const
 {
 
 	player->AddComponent(new PlayerComponent{ player,1,lives });
@@ -124,13 +136,17 @@ GameObject* dae::QbertGame::CreateLifeDisplay(GameObject* player, const int live
 	return playerLivesDisplay;
 }
 
-GameObject* dae::QbertGame::CreateCoily(GameObject* player, Level* level, const int levelColumns) const
+dae::GameObject* dae::QbertGame::CreateCoily(GameObject* player, Level* level, const int levelColumns) const
 {
+	float StartPosX{ 320.f }, StartPosY{85.f }, StartPosFallY{ -50.f }, spawnDuration{ 1.5f };
+	int numAnim{ 1 }, numFrames{ 2 };
+
 	GameObject* coily = new GameObject{ "Coily" };
-	coily->AddComponent(new TransformComponent{ coily,320.f,-50.f });
-	coily->AddComponent(new RenderComponent{ coily, "Textures/Coily.png",SDL_Rect{0, 0, 16, 16},32.f,32.f });
-	coily->AddComponent(new CoilyComponent{ coily,player ,3.f });
-	coily->AddComponent(new MovementComponent{ coily,level ,0,levelColumns - 1 });
+	coily->AddComponent(new TransformComponent{ coily,StartPosX,StartPosFallY });
+	//coily->AddComponent(new RenderComponent{ coily, "Textures/Coily.png",{0, 0, 16, 16},32.f,32.f });
+	coily->AddComponent(new AnimationComponent{ coily,numAnim,numFrames,"Textures/Coily_Egg.png",SDL_Rect{0,0,16,16},32,32 });
+	coily->AddComponent(new CoilyComponent{ coily,player ,spawnDuration,StartPosX,StartPosY });
+	coily->AddComponent(new MovementComponent{ coily,level ,0,levelColumns - 1 ,false });
 
 	return coily;
 }
