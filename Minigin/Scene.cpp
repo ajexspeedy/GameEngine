@@ -32,7 +32,16 @@ void Scene::Update()
 {
 	for (auto& object : m_pObjects)
 	{
-
+		if (object->IsPushToFront())
+		{
+			PushObjectFront(object);
+			continue;
+		}
+		if (object->IsPushToBack())
+		{
+			PushObjectBack(object);
+			continue;
+		}
 		object->Update();
 	}
 }
@@ -45,3 +54,28 @@ void Scene::Render() const
 	}
 }
 
+void Scene::PushObjectFront(GameObject* pObject)
+{
+	auto iterator = std::find(m_pObjects.begin(), m_pObjects.end(), pObject);
+	if (iterator != m_pObjects.end())
+	{
+		m_pObjects.erase(iterator);
+		m_pObjects.push_front(pObject);
+		pObject->SetPushToFront(false);
+
+	}
+
+}
+
+void dae::Scene::PushObjectBack(GameObject* pObject)
+{
+	auto iterator = std::find(m_pObjects.begin(), m_pObjects.end(), pObject);
+	if (iterator != m_pObjects.end())
+	{
+		m_pObjects.erase(iterator);
+		m_pObjects.push_back(pObject);
+		pObject->SetPushToBack(false);
+
+	}
+
+}

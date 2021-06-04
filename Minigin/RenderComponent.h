@@ -14,20 +14,24 @@ namespace dae
 		RenderComponent() = default;
 		~RenderComponent() = default;
 		RenderComponent(GameObject* pParent, const std::string& filename);
-		RenderComponent(GameObject* pParent, const std::string& filename, const float width, const float height);
+		RenderComponent(GameObject* pParent, const std::string& filename, const float widthDestRect, const float heightDestRect);
+		RenderComponent(GameObject* pParent, const std::string& filename, const SDL_Rect& srcRect, const float widthDestRect, const float heightDestRect);
 
 		void Render() const override;
 		void Update() override;
 		void SetTexture(const std::string& filename);
-		
+		void SetEnableSrcRect(bool enable);
+
 		void SetPosition(float x, float y);
 		void Translate(float x,float y);
 
-		void SetSrcRect(float x, float y, float width, float height);
+		void SetSrcRect(const int x, const int y, const int width, const int height);
 		void SetSrcRect(const SDL_Rect& srcRect);
+		
 		void SetSrcRectPosition(int x, int y);
 		void MoveSrcRectPosition(int x, int y);
 
+		void SetSrcRectSize(const int width, const int height);
 	
 	protected:
 

@@ -45,6 +45,19 @@ namespace dae
 			return nullptr;
 		}
 
+		template <typename ComponentType>
+		inline bool HasComponent() const
+		{
+			for (Component* component : m_pComponents)
+			{
+				if (typeid(*component) == typeid(ComponentType))
+				{
+					return true;
+				}
+			}
+			return false;
+		}
+
 		GameObject() = default;
 	
 		GameObject(const GameObject& other) = delete;
@@ -52,14 +65,17 @@ namespace dae
 		GameObject& operator=(const GameObject& other) = delete;
 		GameObject& operator=(GameObject&& other) = delete;
 
+		bool IsPushToFront() const;
+		void SetPushToFront(bool pushToFront);
+
+
+		bool IsPushToBack() const;
+		void SetPushToBack(bool pushToBack);
 	private:
 		std::vector<Component*> m_pComponents = {};
 		std::string m_ObjectName{"Default"};
-		//TODO: Add transform here
-	/*	RenderComponent* GetRenderComponent() const;
-		TextComponent* GetTextComponent() const;
-		PlayerComponent* GetPlayerComponent() const;*/
 		float m_FPSCooldown = 0.f;
+		bool m_PushToFront, m_PushToBack;
 	};
 	
 }

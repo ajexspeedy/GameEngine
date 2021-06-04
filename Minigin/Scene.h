@@ -1,7 +1,7 @@
 #pragma once
 #include "SceneManager.h"
 #include "GameObject.h"
-
+#include <deque>
 namespace dae
 {
 	class SceneObject;
@@ -21,11 +21,14 @@ namespace dae
 		Scene& operator=(const Scene& other) = delete;
 		Scene& operator=(Scene&& other) = delete;
 
+		void PushObjectFront(GameObject* pObject);
+		void PushObjectBack(GameObject* pObject);
+
 	private: 
 		explicit Scene(const std::string& name);
 
 		std::string m_Name;
-		std::vector<GameObject*> m_pObjects;
+		std::deque<GameObject*> m_pObjects;
 
 		static unsigned int m_IdCounter; 
 	};

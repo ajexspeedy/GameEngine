@@ -11,9 +11,9 @@ namespace dae
 	public:
 		enum class TileColor
 		{
-			color1,
-			color2,
-			defaultColor
+			defaultColor = 0,
+			color1 = 1,
+			color2 = 2
 		};
 		TileComponent(GameObject* pParent,const int row,const int column);
 

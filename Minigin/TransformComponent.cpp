@@ -16,11 +16,13 @@ void dae::TransformComponent::Update()
 
 void dae::TransformComponent::SetPosition(float x, float y)
 {
+	
 	SetPosition(x, y, 0.f);
 }
 
 void dae::TransformComponent::SetPosition(float x, float y, float z)
 {
+	
 	m_Transform.SetPosition(x, y, z);
 }
 

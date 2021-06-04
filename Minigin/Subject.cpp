@@ -5,15 +5,15 @@
 
 
 
-void dae::Subject::AddObserver(std::shared_ptr<Observer> observer)
+void dae::Subject::AddObserver(Observer* pObserver)
 {
 	
-	m_pObservers.push_back(observer);
+	m_pObservers.push_back(pObserver);
 }
 
-void dae::Subject::RemoveObserver(std::shared_ptr<Observer> observer)
+void dae::Subject::RemoveObserver(Observer* pObserver)
 {
-	m_pObservers.erase(std::remove(begin(m_pObservers), end(m_pObservers), observer));
+	m_pObservers.erase(std::remove(begin(m_pObservers), end(m_pObservers), pObserver));
 }
 
 void dae::Subject::notify(const Event& event)

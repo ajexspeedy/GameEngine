@@ -13,4 +13,6 @@ void dae::MovementCommand::Execute()
 {
 	m_pMovementComponent->Jump(m_Direction);
 
+	
+
 }

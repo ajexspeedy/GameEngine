@@ -34,16 +34,17 @@ dae::TileComponent::TileColor dae::TileComponent::GetTileColor() const
 void dae::TileComponent::SetTileColor(TileColor tileColor)
 {
 	m_TileColor = tileColor;
+	//std::cout << static_cast<int>(m_TileColor) << std::endl;
 	switch (m_TileColor)
 	{
+	case TileColor::defaultColor:
+		GetParent()->GetComponent<RenderComponent>()->SetTexture("Textures/Tile1.png");
+		break;
 	case TileColor::color1:
 		GetParent()->GetComponent<RenderComponent>()->SetTexture("Textures/Tile2.png");
 		break;
 	case TileColor::color2:
 		GetParent()->GetComponent<RenderComponent>()->SetTexture("Textures/Tile3.png");
-		break;
-	case TileColor::defaultColor:
-		GetParent()->GetComponent<RenderComponent>()->SetTexture("Textures/Tile1.png");
 		break;
 	}
 }

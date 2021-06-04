@@ -13,6 +13,12 @@
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
       <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
+    <Filter Include="Game Files\Components">
+      <UniqueIdentifier>{406556a1-211f-48ce-bb11-4ab287c16603}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Files\Commands">
+      <UniqueIdentifier>{05d5b996-7185-4481-bf6d-514a80e54b1d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Qbert.cpp">
@@ -24,23 +30,26 @@
     <ClCompile Include="Level.cpp">
       <Filter>Game Files</Filter>
     </ClCompile>
-    <ClCompile Include="MovementComponent.cpp">
-      <Filter>Game Files</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerComponent.cpp">
-      <Filter>Game Files</Filter>
-    </ClCompile>
-    <ClCompile Include="TileComponent.cpp">
-      <Filter>Game Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveCommand.cpp">
-      <Filter>Game Files</Filter>
+    <ClCompile Include="CoilyComponent.cpp">
+      <Filter>Game Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="KillCommand.cpp">
-      <Filter>Game Files</Filter>
+      <Filter>Game Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveCommand.cpp">
+      <Filter>Game Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="MovementComponent.cpp">
+      <Filter>Game Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerComponent.cpp">
+      <Filter>Game Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="ScoreCommand.cpp">
-      <Filter>Game Files</Filter>
+      <Filter>Game Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="TileComponent.cpp">
+      <Filter>Game Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -50,23 +59,26 @@
     <ClInclude Include="Level.h">
       <Filter>Game Files</Filter>
     </ClInclude>
-    <ClInclude Include="MovementComponent.h">
-      <Filter>Game Files</Filter>
-    </ClInclude>
-    <ClInclude Include="PlayerComponent.h">
-      <Filter>Game Files</Filter>
-    </ClInclude>
-    <ClInclude Include="TileComponent.h">
-      <Filter>Game Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveCommand.h">
-      <Filter>Game Files</Filter>
+    <ClInclude Include="CoilyComponent.h">
+      <Filter>Game Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="KillCommand.h">
-      <Filter>Game Files</Filter>
+      <Filter>Game Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveCommand.h">
+      <Filter>Game Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="MovementComponent.h">
+      <Filter>Game Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerComponent.h">
+      <Filter>Game Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="ScoreCommand.h">
-      <Filter>Game Files</Filter>
+      <Filter>Game Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="TileComponent.h">
+      <Filter>Game Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

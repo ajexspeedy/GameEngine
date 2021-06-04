@@ -92,6 +92,26 @@ std::vector <Component*> GameObject::GetComponents() const
 	return m_pComponents;
 }
 
+bool dae::GameObject::IsPushToFront() const
+{
+	return m_PushToFront;
+}
+
+void dae::GameObject::SetPushToFront(bool pushToFront)
+{
+	m_PushToFront = pushToFront;
+}
+
+bool dae::GameObject::IsPushToBack() const
+{
+	return m_PushToBack;
+}
+
+void dae::GameObject::SetPushToBack(bool pushToBack)
+{
+	m_PushToBack = pushToBack;
+}
+
 
 
 

@@ -5,6 +5,7 @@
 #include "ResourceManager.h"
 #include <SDL.h>
 #include "TransformComponent.h"
+#include "../Qbert/MovementComponent.h"
 #include "GameObject.h"
 
 
@@ -23,15 +24,25 @@ RenderComponent::RenderComponent(GameObject* pParent, const std::string& filenam
 
 }
 
-dae::RenderComponent::RenderComponent(GameObject* pParent, const std::string& filename, const float width, const float height) :
+dae::RenderComponent::RenderComponent(GameObject* pParent, const std::string& filename, const float widthDestRect, const float heightDestRect) :
 	Component{ pParent },
 	m_UseSrcRect{ false },
-	m_Width{ width },
-	m_Height{ height }
+	m_Width{ widthDestRect },
+	m_Height{ heightDestRect }
 {
 	SetTexture(filename);
-	
 
+
+}
+
+dae::RenderComponent::RenderComponent(GameObject* pParent, const std::string& filename, const SDL_Rect& srcRect, const float widthDestRect, const float heightDestRect):
+	Component{pParent},
+	m_UseSrcRect{true},
+	m_SrcRect{srcRect},
+	m_Width{ widthDestRect },
+	m_Height{ heightDestRect }
+{
+	SetTexture(filename);
 }
 
 
@@ -88,10 +99,15 @@ void RenderComponent::SetTexture(const std::string& filename)
 	m_Texture = ResourceManager::GetInstance().LoadTexture(filename);
 }
 
+void dae::RenderComponent::SetEnableSrcRect(bool enable)
+{
+	m_UseSrcRect = enable;
+}
+
 void RenderComponent::SetPosition(float x, float y)
 {
 	GetParent()->GetComponent<TransformComponent>()->SetPosition(x, y);
-	//m_pTransform->SetPosition(x, y, 0.0f);
+
 
 }
 
@@ -103,13 +119,9 @@ void dae::RenderComponent::Translate(float x, float y)
 	GetParent()->GetComponent<TransformComponent>()->SetPosition(newPos.x, newPos.y, 0.f);
 }
 
-void dae::RenderComponent::SetSrcRect(float x, float y, float width, float height)
+void dae::RenderComponent::SetSrcRect(const int x, const int y, const int width, const int height)
 {
-
-	m_SrcRect.x = static_cast<int>(x);
-	m_SrcRect.y = static_cast<int>(y);
-	m_SrcRect.w = static_cast<int>(width);
-	m_SrcRect.h = static_cast<int>(height);
+	m_SrcRect = { x,y,width,height };
 	m_UseSrcRect = true;
 }
 
@@ -123,6 +135,7 @@ void dae::RenderComponent::SetSrcRectPosition(int x, int y)
 {
 	m_SrcRect.x = x;
 	m_SrcRect.y = y;
+
 }
 
 void dae::RenderComponent::MoveSrcRectPosition(int x, int y)
@@ -130,6 +143,12 @@ void dae::RenderComponent::MoveSrcRectPosition(int x, int y)
 	int newX = x * m_SrcRect.w;
 	int newY = y * m_SrcRect.h;
 	SetSrcRectPosition(newX, newY);
+}
+
+void dae::RenderComponent::SetSrcRectSize(const int width, const int height)
+{
+	m_SrcRect.w = width;
+	m_SrcRect.h = height;
 }
 
 
