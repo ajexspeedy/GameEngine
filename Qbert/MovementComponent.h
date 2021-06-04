@@ -17,7 +17,7 @@ namespace dae
 			down_right,
 			down_left
 		};
-		MovementComponent(GameObject* pParent, RenderComponent* pRenderComponent, Level* level, const int row, const int column);
+		MovementComponent(GameObject* pParent, Level* level, const int row, const int column, bool isPlayer = false);
 
 		void Jump(MovementDirection direction);
 		void Update() override;
@@ -25,7 +25,7 @@ namespace dae
 		void ResetPlayerPosition();
 	private:
 
-		RenderComponent* m_pRenderComponent;
+		
 
 		Level* m_pLevel;
 
@@ -35,7 +35,7 @@ namespace dae
 		float m_JumpDuration, m_JumpTimer, m_FallDuration, m_FallTimer;
 
 		float m_Gravity;
-		bool m_IsJumping, m_IsFalling;
+		bool m_IsJumping, m_IsFalling,m_IsPlayer;
 
 		int m_CurrentRow, m_CurrentColumn, m_StartRow, m_StartColumn;
 		MovementDirection m_Direction;

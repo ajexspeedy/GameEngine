@@ -8,9 +8,8 @@
 #include "TransformComponent.h"
 #include "PlayerComponent.h"
 
-dae::MovementComponent::MovementComponent(GameObject* pParent, RenderComponent* pRenderComponent, Level* level, const int row, const int column) :
+dae::MovementComponent::MovementComponent(GameObject* pParent, Level* level, const int row, const int column, bool isPlayer) :
 	Component{ pParent },
-	m_pRenderComponent{ pRenderComponent },
 	m_pLevel{ level },
 	m_StartPosition{ 0.f,0.f },
 	m_InitPosition{ 0.f,0.f },
@@ -24,6 +23,7 @@ dae::MovementComponent::MovementComponent(GameObject* pParent, RenderComponent* 
 	m_Gravity{ 9.81f },
 	m_IsJumping{ false },
 	m_IsFalling{ false },
+	m_IsPlayer{ isPlayer },
 	m_SrcRectX{ 5 },
 	m_CurrentRow{ row },
 	m_StartRow{ row },
@@ -32,49 +32,56 @@ dae::MovementComponent::MovementComponent(GameObject* pParent, RenderComponent* 
 	m_Direction{}
 
 {
-	m_pRenderComponent->MoveSrcRectPosition(m_SrcRectX, 0);
+	if (m_IsPlayer)
+	{
+		GetParent()->GetComponent<RenderComponent>()->MoveSrcRectPosition(m_SrcRectX, 0);
+	}
 	m_InitPosition = GetParent()->GetComponent<TransformComponent>()->GetPosition();
 }
 
 void dae::MovementComponent::Jump(MovementDirection direction)
 {
-	if (m_IsJumping)
+	if (m_IsJumping || GetParent()->HasComponent<TransformComponent>() == false)
 		return;
 	auto position = GetParent()->GetComponent<TransformComponent>()->GetPosition();
 	auto newPos = position;
 	float xTranslate{ 32.f }, yTranslate{ 48.f };
 	m_StartPosition = { position.x,position.y };
 	m_Direction = direction;
+
 	switch (m_Direction)
 	{
 	case MovementComponent::MovementDirection::up_right:
-		m_pRenderComponent->MoveSrcRectPosition(0, 0);
+		//GetParent()->GetComponent<RenderComponent>()->MoveSrcRectPosition(0, 0);
 		m_SrcRectX = 1;
 		newPos.x += xTranslate;
 		newPos.y -= yTranslate;
 
 		break;
 	case MovementComponent::MovementDirection::up_left:
-		m_pRenderComponent->MoveSrcRectPosition(2, 0);
+		//GetParent()->GetComponent<RenderComponent>()->MoveSrcRectPosition(2, 0);
 		m_SrcRectX = 3;
 		newPos.x -= xTranslate;
 		newPos.y -= yTranslate;
 
 		break;
 	case MovementComponent::MovementDirection::down_right:
-		m_pRenderComponent->MoveSrcRectPosition(4, 0);
+		//GetParent()->GetComponent<RenderComponent>()->MoveSrcRectPosition(4, 0);
 		m_SrcRectX = 5;
 		newPos.x += xTranslate;
 		newPos.y += yTranslate;
 		break;
 	case MovementComponent::MovementDirection::down_left:
-		m_pRenderComponent->MoveSrcRectPosition(6, 0);
+		//GetParent()->GetComponent<RenderComponent>()->MoveSrcRectPosition(6, 0);
 		m_SrcRectX = 7;
 		newPos.x -= xTranslate;
 		newPos.y += yTranslate;
 		break;
 	}
-
+	if (m_IsPlayer)
+	{
+		GetParent()->GetComponent<RenderComponent>()->MoveSrcRectPosition(m_SrcRectX - 1, 0);
+	}
 	m_InitJumpVelocityX = (newPos.x - position.x) / m_JumpDuration;
 	m_InitJumpVelocityY = -(-(newPos.y - position.y) + 0.5f * m_Gravity * m_JumpDuration * m_JumpDuration) / m_JumpDuration;
 	m_JumpTimer = 0.f;
@@ -94,7 +101,7 @@ void dae::MovementComponent::Update()
 		if (m_JumpTimer > m_JumpDuration)
 		{
 			m_JumpTimer = m_JumpDuration;
-			m_pRenderComponent->MoveSrcRectPosition(m_SrcRectX, 0);
+			GetParent()->GetComponent<RenderComponent>()->MoveSrcRectPosition(m_SrcRectX, 0);
 			m_IsJumping = false;
 			glm::vec2 targetPos;
 			targetPos.x = m_StartPosition.x + m_JumpDuration * m_InitJumpVelocityX;
@@ -103,7 +110,7 @@ void dae::MovementComponent::Update()
 			if (!m_pLevel->CheckOnTiles(m_CurrentRow, m_CurrentColumn, m_Direction, m_IsFalling))
 			{
 				GetParent()->SetPushToFront(true);
-				GetParent()->GetComponent<PlayerComponent>()->ChangeHealth(-1); 
+				GetParent()->GetComponent<PlayerComponent>()->ChangeHealth(-1);
 			}
 			return;
 		}
@@ -146,7 +153,7 @@ void dae::MovementComponent::SetCurrentTile(const int row, const int column)
 void dae::MovementComponent::ResetPlayerPosition()
 {
 	GetParent()->GetComponent<TransformComponent>()->SetPosition(m_InitPosition.x, m_InitPosition.y);
-	std::cout << "Reset" << std::endl;
+
 	m_CurrentRow = m_StartRow;
 	m_CurrentColumn = m_StartColumn;
 }

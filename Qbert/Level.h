@@ -44,6 +44,7 @@ namespace dae
 		TileComponent::TileColor ChangeTile(TileComponent::TileColor tileColor);
 		std::vector<GameObject*> m_pTiles;
 
+
 		bool m_IsFalling;
 		LevelType m_LevelType;
 		TileComponent::TileColor m_StartTile, m_EndTile;

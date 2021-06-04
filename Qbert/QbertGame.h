@@ -10,19 +10,22 @@ namespace dae
 	class QbertGame final : public Game
 	{
 	public:
+		
 		virtual ~QbertGame() = default;
 
-		virtual void LoadGame() const override;
+		virtual void LoadGame() override;
+		virtual void CleanUp() override;
 	private:
 		Level* CreateLevel(const int levelRows, const int levelColumns,const float startLevelX, const float startLevelY, const std::string& filePath) const;
 		GameObject* CreatePlayer(Level* level, const int levelColumns,const float startPlayerX, const float startPlayerY)const;
 		GameObject* CreateLifeDisplay(GameObject* player,const int lives) const;
 		
-		GameObject* CreateCoily(GameObject* player) const;
+		GameObject* CreateCoily(GameObject* player,Level* level,const int levelColumns) const;
 
 		void SetupKeybindings(MovementComponent* pMovementComponent) const;
 		void SetupAudio() const;
 
+		Level* m_pLevel;
 
 	};
 }

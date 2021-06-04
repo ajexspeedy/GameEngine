@@ -8,7 +8,7 @@ namespace dae
     public:
        
         AudioLogger(Audio& wrapped);
-
+        ~AudioLogger();
         virtual void PlaySound(const AudioStruct& audio) override;
         virtual void StopSound(const AudioStruct& audio) override;
         virtual void StopAllSounds() override;

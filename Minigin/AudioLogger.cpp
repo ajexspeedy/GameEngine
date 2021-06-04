@@ -8,6 +8,14 @@ dae::AudioLogger::AudioLogger(Audio& wrapped):
 {
 }
 
+dae::AudioLogger::~AudioLogger()
+{
+	if (&m_Wrapped)
+	{
+		delete &m_Wrapped;
+	}
+}
+
 void dae::AudioLogger::PlaySound(const AudioStruct& audio)
 {
 	std::string message = "Played sound: " + std::to_string(audio.id) + "\n";

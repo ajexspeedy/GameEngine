@@ -60,13 +60,14 @@ void dae::Minigin::Initialize()
 		throw std::runtime_error(std::string("SDL_mixer could not initialize! SDL Error") + SDL_GetError());
 	}
 	
-	Locator::Provide(new Audio_SDL{});
+
+
 
 	Renderer::GetInstance().Init(m_Window);
 }
 
 
-void dae::Minigin::LoadGame() const
+void dae::Minigin::LoadGame()
 {
 	if (m_pGame != nullptr)
 	{
@@ -145,11 +146,14 @@ void dae::Minigin::LoadGame() const
 
 void dae::Minigin::Cleanup()
 {
+	m_pGame->CleanUp();
 	Renderer::GetInstance().Destroy();
 	AudioManager::GetInstance().CleanUp();
 	Locator::CleanUp();
 	SDL_DestroyWindow(m_Window);
 	m_Window = nullptr;
+	delete m_pGame;
+	m_pGame = nullptr;
 	Mix_CloseAudio();
 	Mix_Quit();
 	SDL_Quit();

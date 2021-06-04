@@ -7,7 +7,7 @@ namespace dae
 	class SceneObject;
 	class Scene
 	{
-		friend Scene& SceneManager::CreateScene(const std::string& name);
+		friend Scene* SceneManager::CreateScene(const std::string& name);
 	public:
 
 		void Add(GameObject* object);
@@ -24,11 +24,16 @@ namespace dae
 		void PushObjectFront(GameObject* pObject);
 		void PushObjectBack(GameObject* pObject);
 
+		std::string GetName() const;
+		unsigned int GetSceneNumber() const;
+
 	private: 
-		explicit Scene(const std::string& name);
+		explicit Scene(const std::string& name, const unsigned int sceneNumber);
 
 		std::string m_Name;
 		std::deque<GameObject*> m_pObjects;
+
+		unsigned int m_SceneNumber;
 
 		static unsigned int m_IdCounter; 
 	};

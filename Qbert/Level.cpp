@@ -16,14 +16,6 @@ dae::Level::Level(const int maxRows, const int maxColumns, const std::string& fi
 }
 Level::~Level()
 {
-	for (auto tile : m_pTiles)
-	{
-		if (tile)
-		{
-			delete tile;
-			tile = nullptr;
-		}
-	}
 	m_pTiles.clear();
 }
 

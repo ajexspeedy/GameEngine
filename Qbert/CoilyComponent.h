@@ -36,10 +36,10 @@ namespace dae
 		void SpawnEgg();
 
 		float m_SpawnTimer, m_SpawnDuration;
-		float m_FallTimer, m_FallDuration, m_FallVelocity;
+		float m_FallTimer, m_FallDuration, m_FallVelocity, m_StartPositionY;
 
 		CoilyForm m_Form;
-		bool m_SpawnEnabled, m_IsSpawned,m_IsFalling;
+		bool m_SpawnEnabled, m_IsSpawned, m_IsFalling, m_IsActive;
 
 		GameObject* m_pPlayer;
 	};

@@ -10,14 +10,16 @@ namespace dae
 	class TransformComponent : public Component
 	{
 	public:
-		TransformComponent(GameObject* pParent, float x = 0.f, float y = 0.f, float z = 0.f);
+		TransformComponent(GameObject* pParent,const float x = 0.f,const float y = 0.f,const float z = 0.f);
 		virtual ~TransformComponent() = default;
 	
 
 		virtual void Update() override;
 	
-		void SetPosition(float x, float y);
-		void SetPosition(float x, float y, float z);
+		void SetPosition(const float x, const float y);
+		void SetPosition(const float x, const float y, const float z);
+		void Translate(const float x, const float y, const float z);
+		void Translate(const float x, const float y);
 
 		glm::vec3 GetPosition() const;
 		
