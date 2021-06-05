@@ -20,7 +20,9 @@ namespace dae
 		GameObject* CreatePlayer(Level* level, const int levelColumns, const float startPlayerX, const float startPlayerY)const;
 		GameObject* CreateLifeDisplay(GameObject* player, const int lives) const;
 
-		GameObject* CreateCoily(GameObject* player, Level* level, const int levelColumns) const;
+		GameObject* CreateCoily(GameObject* player,Level* level, const int levelColumns) const;
+		GameObject* CreateWrongway(Level* level) const;
+		GameObject* CreateUgg(Level* level) const;
 
 		void SetupKeybindings(MovementComponent* pMovementComponent) const;
 		void SetupAudio() const;

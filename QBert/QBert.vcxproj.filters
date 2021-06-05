@@ -57,6 +57,12 @@
     <ClCompile Include="PlayerCollisionComponent.cpp">
       <Filter>Game Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="SlickSamComponent.cpp">
+      <Filter>Game Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="UggWrongwayComponent.cpp">
+      <Filter>Game Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QbertGame.h">
@@ -90,6 +96,12 @@
       <Filter>Game Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="PlayerCollisionComponent.h">
+      <Filter>Game Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SlickSamComponent.h">
+      <Filter>Game Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="UggWrongwayComponent.h">
       <Filter>Game Files\Components</Filter>
     </ClInclude>
   </ItemGroup>

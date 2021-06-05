@@ -30,10 +30,10 @@ const std::vector<GameObject*>& dae::Level::GetTiles() const
 	return m_pTiles;
 }
 
-bool Level::CheckOnTiles(int& row, int& column, MovementComponent::MovementDirection direction, bool triggersTile)
+bool Level::CheckOnTiles(int& row, int& column, MovementComponent::MovementDirection direction, bool triggersTile, const int rowOffset , const int columnOffset)
 {
 
-	//ResetLevel();
+	
 	switch (direction)
 	{
 	case dae::MovementComponent::MovementDirection::up_right:
@@ -50,11 +50,17 @@ bool Level::CheckOnTiles(int& row, int& column, MovementComponent::MovementDirec
 	case dae::MovementComponent::MovementDirection::down_left:
 		column--;
 		break;
+	case dae::MovementComponent::MovementDirection::right:
+		row++;
+		break;
+	case dae::MovementComponent::MovementDirection::left:
+		row--;
+		break;
 	default:
 		std::cout << "Error CheckOnTiles: Default value" << std::endl;
 		break;
 	}
-	if (IsOutsideLevel(row, column))
+	if (IsOutsideLevel(row + rowOffset, column + columnOffset))
 	{
 
 		return false;

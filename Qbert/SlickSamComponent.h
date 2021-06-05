@@ -17,13 +17,13 @@ namespace dae
 			slick,
 			sam
 		};
-		SlickSamComponent(GameObject* pParent, GameObject* pPlayer, const float startPosX = 0.f, const float startPosY = 0.f);
+		SlickSamComponent(GameObject* pParent,  const float startPosX = 0.f, const float startPosY = 0.f);
 		~SlickSamComponent() = default;
 
 
 		virtual void Update() override;
 
-	
+
 
 		SlickSamComponent(const SlickSamComponent& other) = delete;
 		SlickSamComponent(SlickSamComponent&& other) = delete;
@@ -31,10 +31,12 @@ namespace dae
 		SlickSamComponent& operator=(SlickSamComponent&& other) = delete;
 
 	protected:
-		
 
-		
-		GameObject* m_pPlayer;
+		float m_JumpTimer, m_JumpDuration;
+		float m_StartPosX, m_StartPosY;
+		bool m_SpawnEnabled;
+
+	
 	};
 
 }

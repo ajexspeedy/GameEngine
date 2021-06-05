@@ -9,7 +9,7 @@
 #include "TimeManager.h"
 
 
-dae::CoilyComponent::CoilyComponent(GameObject* pParent, GameObject* pPlayer, const float spawnDuration, const float startPosX, const float startPosY) :
+dae::CoilyComponent::CoilyComponent(GameObject* pParent,GameObject* pPlayer , const float spawnDuration, const float startPosX, const float startPosY) :
 	Component{ pParent },
 	m_SpawnTimer{ 0.f },
 	m_SpawnDuration{ spawnDuration },
@@ -27,7 +27,7 @@ dae::CoilyComponent::CoilyComponent(GameObject* pParent, GameObject* pPlayer, co
 	m_IsActive{ false },
 	m_EggJumpCounter{ 0 },
 	m_MaxEggJumps{ 7 },
-	m_pPlayer{ pPlayer }
+	m_pPlayer{pPlayer}
 {
 
 	SetSpawnEnabled(true);
@@ -135,7 +135,7 @@ void dae::CoilyComponent::SpawnEgg()
 
 void dae::CoilyComponent::JumpEgg()
 {
-	srand(unsigned int(time(NULL)));
+	
 	auto deltaTime = TimeManager::GetInstance().GetDeltaTime();
 	m_JumpTimer += deltaTime;
 	if (m_JumpTimer > m_JumpDuration)

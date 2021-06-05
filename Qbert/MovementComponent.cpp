@@ -25,15 +25,18 @@ dae::MovementComponent::MovementComponent(GameObject* pParent, Level* level, con
 	m_IsJumping{ false },
 	m_IsFalling{ false },
 	m_TriggersTiles{ triggersTiles },
-	m_SrcRectX{ 5 },
+	m_IsWrongway{ false },
+	m_IsUgg{false},
 	m_CurrentRow{ row },
 	m_StartRow{ row },
 	m_CurrentColumn{ column },
 	m_StartColumn{ column },
-	m_Direction{}
+	m_Direction{},
+	m_RowOffset{ 0 },
+	m_ColumnOffset{ 0 }
 
 {
-	std::cout << m_StartColumn << std::endl;
+
 	m_HasAnimations = GetParent()->HasComponent<AnimationComponent>();
 	if (m_HasAnimations)
 	{
@@ -88,6 +91,7 @@ void dae::MovementComponent::Jump(MovementDirection direction)
 	audio->PlaySound(Audio::AudioStruct{ 0,0.2f,{} });*/
 }
 
+
 void dae::MovementComponent::Update()
 {
 
@@ -109,7 +113,7 @@ void dae::MovementComponent::Update()
 				GetParent()->GetComponent<AnimationComponent>()->NextFrame();
 
 			}
-			if (!m_pLevel->CheckOnTiles(m_CurrentRow, m_CurrentColumn, m_Direction, m_TriggersTiles))
+			if (!m_pLevel->CheckOnTiles(m_CurrentRow, m_CurrentColumn, m_Direction, m_TriggersTiles, m_RowOffset, m_ColumnOffset))
 			{
 				m_IsFalling = true;
 				GetParent()->SetPushToFront(true);
@@ -144,16 +148,112 @@ void dae::MovementComponent::Update()
 		}
 
 		auto pos = GetParent()->GetComponent<TransformComponent>()->GetPosition();
-		pos.y += m_Gravity * m_FallVelocity * deltaTime;
+		if (m_IsWrongway)
+		{
+			pos.x += m_Gravity * m_FallVelocity * deltaTime;
+			pos.y -= m_Gravity * m_FallVelocity * deltaTime;
+		}
+		else if (m_IsUgg)
+		{
+			pos.x -= m_Gravity * m_FallVelocity * deltaTime;
+			pos.y -= m_Gravity * m_FallVelocity * deltaTime;
+		}
+		else
+		{
+			pos.y += m_Gravity * m_FallVelocity * deltaTime;
+
+		}
 
 		GetParent()->GetComponent<TransformComponent>()->SetPosition(pos.x, pos.y);
 	}
 }
 
+
+
 void dae::MovementComponent::SetCurrentTile(const int row, const int column)
 {
 	m_CurrentRow = row;
 	m_CurrentColumn = column;
+}
+void dae::MovementComponent::WrongwayJump(MovementDirection direction)
+{
+	
+	m_IsWrongway = true;
+	if (m_IsJumping || GetParent()->HasComponent<TransformComponent>() == false || m_IsFalling)
+		return;
+	auto position = GetParent()->GetComponent<TransformComponent>()->GetPosition();
+	auto newPos = position;
+	float xTranslate{ 32.f }, yTranslate{ 48.f };
+	m_StartPosition = { position.x,position.y };
+	m_Direction = direction;
+
+
+	switch (m_Direction)
+	{
+	case MovementComponent::MovementDirection::up_right:
+		newPos.x += xTranslate;
+		newPos.y -= yTranslate;
+		break;
+	case MovementComponent::MovementDirection::right:
+		newPos.x += xTranslate * 2.f;
+
+		break;
+	}
+	if (m_HasAnimations)
+	{
+		GetParent()->GetComponent<AnimationComponent>()->SetAnimation(static_cast<int>(m_Direction));
+		GetParent()->GetComponent<AnimationComponent>()->NextFrame();
+	}
+	m_InitJumpVelocityX = (newPos.x - position.x) / m_JumpDuration;
+	m_InitJumpVelocityY = -(-(newPos.y - position.y) + 0.5f * m_Gravity * m_JumpDuration * m_JumpDuration) / m_JumpDuration;
+	m_JumpTimer = 0.f;
+	m_IsJumping = true;
+	//std::cout << m_InitJumpVelocityX << " - " << m_InitJumpVelocityY << std::endl;
+
+}
+
+void dae::MovementComponent::UggJump(MovementDirection direction)
+{
+
+	m_IsUgg = true;
+	if (m_IsJumping || GetParent()->HasComponent<TransformComponent>() == false || m_IsFalling)
+		return;
+	auto position = GetParent()->GetComponent<TransformComponent>()->GetPosition();
+	auto newPos = position;
+	float xTranslate{ 32.f }, yTranslate{ 48.f };
+	m_StartPosition = { position.x,position.y };
+	m_Direction = direction;
+
+
+	switch (m_Direction)
+	{
+	case MovementComponent::MovementDirection::up_left:
+		newPos.x -= xTranslate;
+		newPos.y -= yTranslate;
+		break;
+	case MovementComponent::MovementDirection::left:
+		newPos.x -= xTranslate * 2.f;
+
+		break;
+	}
+	if (m_HasAnimations)
+	{
+		GetParent()->GetComponent<AnimationComponent>()->SetAnimation(static_cast<int>(m_Direction));
+		GetParent()->GetComponent<AnimationComponent>()->NextFrame();
+	}
+	m_InitJumpVelocityX = (newPos.x - position.x) / m_JumpDuration;
+	m_InitJumpVelocityY = -(-(newPos.y - position.y) + 0.5f * m_Gravity * m_JumpDuration * m_JumpDuration) / m_JumpDuration;
+	m_JumpTimer = 0.f;
+	m_IsJumping = true;
+	//std::cout << m_InitJumpVelocityX << " - " << m_InitJumpVelocityY << std::endl;
+
+}
+
+
+void dae::MovementComponent::SetStartTile(const int row, const int column)
+{
+	m_StartRow = row;
+	m_StartColumn = column;
 }
 
 void dae::MovementComponent::ResetPosition()
@@ -177,6 +277,12 @@ bool dae::MovementComponent::IsJumping() const
 	return m_IsJumping;
 }
 
+void dae::MovementComponent::SetTileOffset(const int row, const int colum)
+{
+	m_RowOffset = row;
+	m_ColumnOffset = colum;
+}
+
 bool dae::MovementComponent::IsOnTile(const int row, const int column)
 {
 	//std::cout << m_CurrentRow << " - " << m_CurrentColumn << std::endl;
@@ -185,7 +291,7 @@ bool dae::MovementComponent::IsOnTile(const int row, const int column)
 
 int dae::MovementComponent::GetRow() const
 {
-	
+
 	return m_CurrentRow;
 }
 

@@ -15,7 +15,9 @@ namespace dae
 			up_right = 0,
 			up_left = 1,
 			down_right = 2,
-			down_left = 3
+			down_left = 3,
+			right,
+			left
 		};
 		enum class EntityType
 		{
@@ -27,8 +29,16 @@ namespace dae
 
 		void Jump(MovementDirection direction);
 		void Update() override;
+
+		void WrongwayJump(MovementDirection direction);
+		void UggJump(MovementDirection direction);
+
+
 		void SetCurrentTile(const int row, const int column);
-		void ResetPosition(const float x,const float y );
+		void SetStartTile(const int row, const int column);
+		void SetTileOffset(const int row, const int colum);
+
+		void ResetPosition(const float x, const float y);
 		void ResetPosition();
 
 		bool IsJumping() const;
@@ -49,12 +59,13 @@ namespace dae
 		float m_JumpDuration, m_JumpTimer, m_FallDuration, m_FallTimer;
 
 		float m_Gravity;
-		bool m_IsJumping, m_IsFalling, m_HasAnimations, m_TriggersTiles;
+		bool m_IsJumping, m_IsFalling, m_HasAnimations, m_TriggersTiles, m_IsWrongway, m_IsUgg;
 
 		int m_CurrentRow, m_CurrentColumn, m_StartRow, m_StartColumn;
 		MovementDirection m_Direction;
 
-		int m_SrcRectX;
+		int m_RowOffset, m_ColumnOffset;
+
 	};
 
 }

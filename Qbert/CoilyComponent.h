@@ -17,7 +17,7 @@ namespace dae
 			egg,
 			snake
 		};
-		CoilyComponent(GameObject* pParent, GameObject* pPlayer, const float spawnDuration, const float startPosX = 0.f, const float startPosY = 0.f);
+		CoilyComponent(GameObject* pParent,GameObject* pPlayer, const float spawnDuration, const float startPosX = 0.f, const float startPosY = 0.f);
 		~CoilyComponent() = default;
 
 
@@ -50,7 +50,6 @@ namespace dae
 
 		unsigned int m_EggJumpCounter, m_MaxEggJumps;
 
-		
 		GameObject* m_pPlayer;
 	};
 

@@ -1,5 +1,6 @@
 #include "ImposterPCH.h"
 #include "AnimationComponent.h"
+#include "UggWrongwayComponent.h"
 #include "GameObject.h"
 
 dae::AnimationComponent::AnimationComponent(GameObject* pParent, const int nrAnimations, const int nrFrames, const std::string& fileName, const SDL_Rect& srcRect) :
@@ -39,8 +40,12 @@ void dae::AnimationComponent::SetFrame(int frame)
 
 void dae::AnimationComponent::SetAnimation(int animation)
 {
-	if (animation >= 0 && animation < m_NrAnimations)
+	if (animation >= 0)
 	{
+		while (animation >= m_NrAnimations)
+		{
+			animation -= m_NrAnimations;
+		}
 		m_CurrentAnimation = animation;
 		UpdateSrcRect();
 	}
