@@ -54,6 +54,9 @@
     <ClCompile Include="AnimationComponent.cpp">
       <Filter>Game Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="PlayerCollisionComponent.cpp">
+      <Filter>Game Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QbertGame.h">
@@ -84,6 +87,9 @@
       <Filter>Game Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="AnimationComponent.h">
+      <Filter>Game Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerCollisionComponent.h">
       <Filter>Game Files\Components</Filter>
     </ClInclude>
   </ItemGroup>

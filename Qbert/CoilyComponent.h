@@ -50,6 +50,7 @@ namespace dae
 
 		unsigned int m_EggJumpCounter, m_MaxEggJumps;
 
+		
 		GameObject* m_pPlayer;
 	};
 

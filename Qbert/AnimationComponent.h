@@ -9,7 +9,7 @@ namespace dae
 	class AnimationComponent : public RenderComponent
 	{
 	public:
-		AnimationComponent(GameObject* pParent, const int nrAnimations, const int nrFrames, const std::string& fileName, const SDL_Rect& srcRect, const int widthDestRect, const int heightDestRect);
+		AnimationComponent(GameObject* pParent, const int nrAnimations, const int nrFrames, const std::string& fileName, const SDL_Rect& srcRect);
 		~AnimationComponent() = default;
 
 

@@ -2,8 +2,8 @@
 #include "AnimationComponent.h"
 #include "GameObject.h"
 
-dae::AnimationComponent::AnimationComponent(GameObject* pParent, const int nrAnimations, const int nrFrames, const std::string& fileName, const SDL_Rect& srcRect, const int widthDestRect, const int heightDestRect) :
-	RenderComponent{ pParent,fileName,srcRect,widthDestRect,heightDestRect },
+dae::AnimationComponent::AnimationComponent(GameObject* pParent, const int nrAnimations, const int nrFrames, const std::string& fileName, const SDL_Rect& srcRect) :
+	RenderComponent{ pParent,fileName,srcRect },
 	m_NrAnimations{ nrAnimations },
 	m_CurrentAnimation{ 0 },
 	m_NrFrames{ nrFrames },
@@ -25,7 +25,7 @@ void dae::AnimationComponent::NextFrame()
 		m_CurrentFrame = 0;
 	}
 	UpdateSrcRect();
-	// std::cout << m_CurrentFrame << " - " << m_NrFrames << std::endl;
+	
 }
 
 void dae::AnimationComponent::SetFrame(int frame)
@@ -49,12 +49,6 @@ void dae::AnimationComponent::SetAnimation(int animation)
 void dae::AnimationComponent::UpdateSrcRect()
 {
 	int newSrcRectX = (m_CurrentAnimation * m_NrFrames + m_CurrentFrame);
-	//if (GetParent()->GetName() == "Qbert")
-	//{
-	//	std::cout << m_CurrentFrame << std::endl;
-	//	if (newSrcRectX > m_NrFrames * m_NrAnimations)
-	//		std::cout << newSrcRectX << std::endl;
-	//}
 
 	MoveSrcRectPosition(newSrcRectX, 0);
 }

@@ -7,9 +7,8 @@
 
 
 
-dae::PlayerComponent::PlayerComponent(GameObject* pParent, int health, int lives) :
+dae::PlayerComponent::PlayerComponent(GameObject* pParent, int lives) :
 	Component{ pParent },
-	m_Health(health),
 	m_Lives(lives),
 	m_Score(0)
 {
@@ -26,23 +25,18 @@ void dae::PlayerComponent::Update()
 
 
 
-void dae::PlayerComponent::ChangeHealth(int value)
+void dae::PlayerComponent::KillPlayer()
 {
-	m_Health += value;
-	if (m_Health <= 0)
+	m_Lives--;
+	if (m_Lives <= 0)
 	{
-		if (m_Lives == 0)
-		{
-			m_Health = 0;
-		}
-		else
-		{
-			m_Lives--;
-			notify(Event("PlayerDead", new EventData<int>(m_Lives)));
-			m_Health = 1;
-		}
+		// lose
 	}
+	notify(Event("PlayerDead", new EventData<int>(m_Lives)));
+
 }
+
+
 
 void dae::PlayerComponent::ChangeScore(int value)
 {

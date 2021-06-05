@@ -179,6 +179,7 @@
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="MoveCommand.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
+    <ClCompile Include="PlayerCollisionComponent.cpp" />
     <ClCompile Include="PlayerComponent.cpp" />
     <ClCompile Include="Qbert.cpp" />
     <ClCompile Include="QbertGame.cpp" />
@@ -192,6 +193,7 @@
     <ClInclude Include="Level.h" />
     <ClInclude Include="MoveCommand.h" />
     <ClInclude Include="MovementComponent.h" />
+    <ClInclude Include="PlayerCollisionComponent.h" />
     <ClInclude Include="PlayerComponent.h" />
     <ClInclude Include="QbertGame.h" />
     <ClInclude Include="ScoreCommand.h" />

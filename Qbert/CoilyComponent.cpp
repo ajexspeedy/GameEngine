@@ -48,7 +48,7 @@ void dae::CoilyComponent::Update()
 		GetParent()->GetComponent<MovementComponent>()->ResetPosition(m_StartPositionX, m_StartPositionY);
 		GetParent()->GetComponent<AnimationComponent>()->SetTexture("Textures/Coily_Snake.png");
 		GetParent()->GetComponent<AnimationComponent>()->SetSrcRectSize(m_SnakeWidth, m_SnakeHeight);
-		GetParent()->GetComponent<AnimationComponent>()->SetDestRectSize(m_SnakeWidth * 2, m_SnakeHeight * 2);
+		GetParent()->GetComponent<TransformComponent>()->SetSize(m_SnakeWidth * 2.f, m_SnakeHeight * 2.f);
 		GetParent()->GetComponent<AnimationComponent>()->SetFrame(0);
 
 	}
@@ -191,7 +191,7 @@ void dae::CoilyComponent::JumpSnake()
 			}
 		}
 		GetParent()->GetComponent<MovementComponent>()->Jump(direction);
-		std::cout << "Jump" << std::endl;
+		//std::cout << GetParent()->GetComponent<MovementComponent>()->GetColumn() << std::endl;
 		return;
 		
 	}

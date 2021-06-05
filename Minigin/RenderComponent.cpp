@@ -14,32 +14,19 @@
 
 dae::RenderComponent::RenderComponent(GameObject* pParent, const std::string& filename) :
 	Component{ pParent },
-	m_UseSrcRect{ false },
-	m_Width{ -1 },
-	m_Height{ -1 }
+	m_UseSrcRect{ false }
 {
 
 	SetTexture(filename);
 
 }
 
-dae::RenderComponent::RenderComponent(GameObject* pParent, const std::string& filename, const int widthDestRect, const int heightDestRect) :
+
+dae::RenderComponent::RenderComponent(GameObject* pParent, const std::string& filename, const SDL_Rect& srcRect) :
 	Component{ pParent },
-	m_UseSrcRect{ false },
-	m_Width{ widthDestRect },
-	m_Height{ heightDestRect }
-{
-	SetTexture(filename);
+	m_UseSrcRect{ true },
+	m_SrcRect{ srcRect }
 
-
-}
-
-dae::RenderComponent::RenderComponent(GameObject* pParent, const std::string& filename, const SDL_Rect& srcRect, const int widthDestRect, const int heightDestRect):
-	Component{pParent},
-	m_UseSrcRect{true},
-	m_SrcRect{srcRect},
-	m_Width{ widthDestRect },
-	m_Height{ heightDestRect }
 {
 	SetTexture(filename);
 }
@@ -51,13 +38,14 @@ void dae::RenderComponent::Render() const
 	{
 
 		const auto pos = GetParent()->GetComponent<TransformComponent>()->GetPosition();
-		if (m_Width != -1 && m_Height != -1)
+		const auto size = GetParent()->GetComponent<TransformComponent>()->GetSize();
+		if (size.x != -1.f && size.y != -1.f)
 		{
 			SDL_Rect destRect;
 			destRect.x = static_cast<int>(pos.x);
 			destRect.y = static_cast<int>(pos.y);
-			destRect.w = m_Width;
-			destRect.h = m_Height;
+			destRect.w = static_cast<int>(size.x);
+			destRect.h = static_cast<int>(size.y);
 			if (m_UseSrcRect)
 			{
 
@@ -67,7 +55,7 @@ void dae::RenderComponent::Render() const
 			{
 
 
-				Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y, m_Width, m_Height);
+				Renderer::GetInstance().RenderTexture(*m_Texture, pos.x, pos.y, destRect.w, destRect.h);
 
 			}
 		}
@@ -150,11 +138,6 @@ void dae::RenderComponent::SetSrcRectSize(const int width, const int height)
 	m_SrcRect.h = height;
 }
 
-void dae::RenderComponent::SetDestRectSize(const int width, const int height)
-{
-	m_Width = width;
-	m_Height = height;
-}
 
 
 

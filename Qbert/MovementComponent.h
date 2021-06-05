@@ -31,6 +31,11 @@ namespace dae
 		void ResetPosition(const float x,const float y );
 		void ResetPosition();
 
+		bool IsJumping() const;
+		bool IsOnTile(const int row, const int column);
+
+		int GetRow() const;
+		int GetColumn() const;
 
 	private:
 

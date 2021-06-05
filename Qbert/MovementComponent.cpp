@@ -33,6 +33,7 @@ dae::MovementComponent::MovementComponent(GameObject* pParent, Level* level, con
 	m_Direction{}
 
 {
+	std::cout << m_StartColumn << std::endl;
 	m_HasAnimations = GetParent()->HasComponent<AnimationComponent>();
 	if (m_HasAnimations)
 	{
@@ -106,13 +107,16 @@ void dae::MovementComponent::Update()
 			if (m_HasAnimations)
 			{
 				GetParent()->GetComponent<AnimationComponent>()->NextFrame();
-				
+
 			}
 			if (!m_pLevel->CheckOnTiles(m_CurrentRow, m_CurrentColumn, m_Direction, m_TriggersTiles))
 			{
 				m_IsFalling = true;
 				GetParent()->SetPushToFront(true);
-				//GetParent()->GetComponent<PlayerComponent>()->ChangeHealth(-1);
+				if (GetParent()->HasComponent<PlayerComponent>())
+				{
+					GetParent()->GetComponent<PlayerComponent>()->KillPlayer();
+				}
 			}
 			return;
 		}
@@ -154,16 +158,38 @@ void dae::MovementComponent::SetCurrentTile(const int row, const int column)
 
 void dae::MovementComponent::ResetPosition()
 {
-	ResetPosition(m_InitPosition.x,m_InitPosition.y);
+	ResetPosition(m_InitPosition.x, m_InitPosition.y);
 }
 
 
-void dae::MovementComponent::ResetPosition(const float x,const float y)
+void dae::MovementComponent::ResetPosition(const float x, const float y)
 {
 	GetParent()->GetComponent<TransformComponent>()->SetPosition(x, y);
-	std::cout << GetParent()->GetComponent<TransformComponent>()->GetPosition().x << " - " << GetParent()->GetComponent<TransformComponent>()->GetPosition().y << std::endl;
+	//std::cout << GetParent()->GetComponent<TransformComponent>()->GetPosition().x << " - " << GetParent()->GetComponent<TransformComponent>()->GetPosition().y << std::endl;
 	m_CurrentRow = m_StartRow;
 	m_CurrentColumn = m_StartColumn;
 	m_IsJumping = false;
 	m_IsFalling = false;
+}
+
+bool dae::MovementComponent::IsJumping() const
+{
+	return m_IsJumping;
+}
+
+bool dae::MovementComponent::IsOnTile(const int row, const int column)
+{
+	//std::cout << m_CurrentRow << " - " << m_CurrentColumn << std::endl;
+	return m_CurrentRow == row && m_CurrentColumn == column;
+}
+
+int dae::MovementComponent::GetRow() const
+{
+	
+	return m_CurrentRow;
+}
+
+int dae::MovementComponent::GetColumn() const
+{
+	return m_CurrentColumn;
 }

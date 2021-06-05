@@ -12,12 +12,12 @@ namespace dae
 	class PlayerComponent : public Component
 	{
 	public:
-		PlayerComponent(GameObject* pParent, int health = 0,int lives = 3);
+		PlayerComponent(GameObject* pParent,int lives = 3);
 		~PlayerComponent() = default;
 		virtual void Update() override;
 	
-
-		void ChangeHealth(int value);
+		void KillPlayer();
+		//void ChangeHealth(int value);
 		void ChangeScore(int value);
 
 		PlayerComponent(const PlayerComponent& other) = delete;
@@ -26,7 +26,7 @@ namespace dae
 		PlayerComponent& operator=(PlayerComponent&& other) = delete;
 
 	protected:
-		int m_Health;
+
 		int m_Lives;
 		int m_Score;
 	};

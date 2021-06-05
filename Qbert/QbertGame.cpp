@@ -21,6 +21,7 @@
 #include "PlayerComponent.h"
 #include "CoilyComponent.h"
 #include "AnimationComponent.h"
+#include "PlayerCollisionComponent.h"
 
 #include <SDL_Rect.h>
 
@@ -68,7 +69,11 @@ void dae::QbertGame::LoadGame()
 	m_pLevel->AddEntity(player);
 	scene->Add(player);
 	scene->Add(lifeDisplay);
+
+	//Enemies
 	scene->Add(coily);
+
+	player->GetComponent<PlayerCollisionComponent>()->AddEnemy(coily);
 }
 
 dae::Level* dae::QbertGame::CreateLevel(const int levelRows, const int levelColumns, const float startLevelX, const float startLevelY, const std::string& filePath) const
@@ -90,8 +95,8 @@ dae::Level* dae::QbertGame::CreateLevel(const int levelRows, const int levelColu
 		{
 
 			GameObject* tile = new GameObject{ std::string("Tile ").append(std::to_string(tileCounter)) };
-			tile->AddComponent(new TransformComponent{ tile, posX,posY });
-			tile->AddComponent(new RenderComponent{ tile,"Textures/Tile1.png",static_cast<int>(width),static_cast<int>(height) });
+			tile->AddComponent(new TransformComponent{ tile, posX,posY,width,height });
+			tile->AddComponent(new RenderComponent{ tile,"Textures/Tile1.png" });
 			//tile->GetComponent<RenderComponent>()->SetSrcRect(srcRect);
 			posX += width;
 			TileComponent* pTileComponent = new TileComponent{ tile ,j,i };
@@ -109,21 +114,22 @@ dae::Level* dae::QbertGame::CreateLevel(const int levelRows, const int levelColu
 dae::GameObject* dae::QbertGame::CreatePlayer(Level* level, const int levelColumns, const float startPlayerX, const float startPlayerY) const
 {
 	GameObject* player = new GameObject{ "Qbert" };
-	player->AddComponent(new TransformComponent{ player, startPlayerX,startPlayerY });
+	float width{ 32.f }, height{ 32.f };
+	player->AddComponent(new TransformComponent{ player, startPlayerX,startPlayerY,width,height });
 
 
 
 	//player->AddComponent(new RenderComponent{ player,"Textures/Qbert_Spritesheet.png",SDL_Rect{80, 0, 16, 16},32.f,32.f });
-	player->AddComponent(new AnimationComponent{ player,4,2,"Textures/Qbert.png",SDL_Rect{0,0,16,16},32,32 });
+	player->AddComponent(new AnimationComponent{ player,4,2,"Textures/Qbert.png",SDL_Rect{0,0,16,16} });
 	player->AddComponent(new MovementComponent{ player,level ,0,levelColumns - 1 });
-
+	player->AddComponent(new PlayerCollisionComponent{ player });
 	return player;
 }
 
 dae::GameObject* dae::QbertGame::CreateLifeDisplay(GameObject* player, const int lives) const
 {
 
-	player->AddComponent(new PlayerComponent{ player,1,lives });
+	player->AddComponent(new PlayerComponent{ player,lives });
 	GameObject* playerLivesDisplay = new GameObject{ "LivesDisplay" };
 	playerLivesDisplay->AddComponent(new TransformComponent{ playerLivesDisplay });
 	const auto sansFont = ResourceManager::GetInstance().LoadFont("Comic_Sans.otf", 18);
@@ -138,13 +144,13 @@ dae::GameObject* dae::QbertGame::CreateLifeDisplay(GameObject* player, const int
 
 dae::GameObject* dae::QbertGame::CreateCoily(GameObject* player, Level* level, const int levelColumns) const
 {
-	float StartPosX{ 320.f }, StartPosY{85.f }, StartPosFallY{ -50.f }, spawnDuration{ 1.5f };
+	float StartPosX{ 320.f }, StartPosY{ 85.f }, StartPosFallY{ -50.f }, spawnDuration{ 1.5f };
+	float width{ 32.f }, height{ 32.f };
 	int numAnim{ 1 }, numFrames{ 2 };
 
 	GameObject* coily = new GameObject{ "Coily" };
-	coily->AddComponent(new TransformComponent{ coily,StartPosX,StartPosFallY });
-	//coily->AddComponent(new RenderComponent{ coily, "Textures/Coily.png",{0, 0, 16, 16},32.f,32.f });
-	coily->AddComponent(new AnimationComponent{ coily,numAnim,numFrames,"Textures/Coily_Egg.png",SDL_Rect{0,0,16,16},32,32 });
+	coily->AddComponent(new TransformComponent{ coily,StartPosX,StartPosFallY,width,height });
+	coily->AddComponent(new AnimationComponent{ coily,numAnim,numFrames,"Textures/Coily_Egg.png",SDL_Rect{0,0,16,16} });
 	coily->AddComponent(new CoilyComponent{ coily,player ,spawnDuration,StartPosX,StartPosY });
 	coily->AddComponent(new MovementComponent{ coily,level ,0,levelColumns - 1 ,false });
 
