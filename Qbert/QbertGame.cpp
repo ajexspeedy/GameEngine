@@ -79,11 +79,18 @@ void dae::QbertGame::LoadGame()
 	SetupAudio();
 
 	const int lives{ 3 };
-	const float StartPlayerX{ m_pLevel->GetStartpositionPlayer().x }, StartPlayerY{ m_pLevel->GetStartpositionPlayer().y };
+
 	GameObject* player = CreatePlayer();
 	player->AddComponent(new PlayerComponent{ player,lives });
 	GameObject* lifeDisplay = CreateLifeDisplay(player, lives);
 	GameObject* scoreDisplay = CreateScoreDisplay(player);
+	m_pLevel->SetPlayer1(player);
+
+	GameObject* player2 = CreatePlayer(1);
+	player2->AddComponent(new PlayerComponent{ player2,lives });
+	m_pLevel->SetPlayer2(player2);
+	//GameObject* lifeDisplay2 = CreateLifeDisplay(player2, lives);
+	//GameObject* scoreDisplay2 = CreateScoreDisplay(player2);
 
 	GameObject* coily = CreateCoily(player);
 	GameObject* wrongway = CreateWrongway();
@@ -92,6 +99,7 @@ void dae::QbertGame::LoadGame()
 	GameObject* sam = CreateSam();
 
 	m_pLevel->AddEntity(player);
+	m_pLevel->AddEntity(player2);
 	m_pLevel->AddEntity(coily);
 	m_pLevel->AddEntity(wrongway);
 	m_pLevel->AddEntity(ugg);
@@ -100,6 +108,10 @@ void dae::QbertGame::LoadGame()
 	scene->Add(player);
 	scene->Add(lifeDisplay);
 	scene->Add(scoreDisplay);
+	scene->Add(player2);
+	//scene->Add(lifeDisplay2);
+	//scene->Add(scoreDisplay2);
+
 
 	//Enemies
 	scene->Add(coily);
@@ -114,11 +126,12 @@ void dae::QbertGame::LoadGame()
 	playerCollision->AddEnemy(ugg);
 	playerCollision->AddEnemy(slick);
 	playerCollision->AddEnemy(sam);
+	playerCollision->AddEnemy(player2);
 
 	// Menu
 	SceneManager::GetInstance().SetCurrentScene(menuScene->GetSceneNumber());
 
-	SetupKeybindings(player->GetComponent<MovementComponent>(), menuSelector->GetComponent<MenuSelectorComponent>());
+	SetupKeybindings(player->GetComponent<MovementComponent>(),player2->GetComponent<MovementComponent>(), menuSelector->GetComponent<MenuSelectorComponent>());
 }
 
 dae::Level* dae::QbertGame::CreateLevel(const int levelRows, const int levelColumns, const float startLevelX, const float startLevelY, const std::string& filePath) const
@@ -187,45 +200,78 @@ dae::GameObject* dae::QbertGame::CreateEndScreen() const
 	return end;
 }
 
-dae::GameObject* dae::QbertGame::CreatePlayer() const
+dae::GameObject* dae::QbertGame::CreatePlayer(int playerIndex) const
 {
-	GameObject* player = new GameObject{ "Qbert",-1 };
-	float width{ 32.f }, height{ 32.f };
-	int startTileX = static_cast<int>(m_pLevel->GetStartTilePlayer().x);
-	int startTileY = static_cast<int>(m_pLevel->GetStartTilePlayer().y);
-	player->AddComponent(new TransformComponent{ player, m_pLevel->GetStartTilePlayer().x,m_pLevel->GetStartTilePlayer().y,width,height });
-	player->AddComponent(new AnimationComponent{ player,4,2,"Textures/Qbert.png",SDL_Rect{0,0,16,16} });
-	player->AddComponent(new MovementComponent{ player,m_pLevel ,startTileX,startTileY,MovementComponent::EntityType::Qbert });
-	player->AddComponent(new PlayerCollisionComponent{ player });
-	return player;
+	if (playerIndex == 0)
+	{
+
+		GameObject* player = new GameObject{ "Qbert",-1 };
+		float width{ 32.f }, height{ 32.f };
+		int startTileX = static_cast<int>(m_pLevel->GetStartTilePlayer().x);
+		int startTileY = static_cast<int>(m_pLevel->GetStartTilePlayer().y);
+		player->AddComponent(new TransformComponent{ player, m_pLevel->GetStartpositionPlayer().x,m_pLevel->GetStartpositionPlayer().y,width,height });
+		player->AddComponent(new AnimationComponent{ player,4,2,"Textures/Qbert.png",SDL_Rect{0,0,16,16} });
+		player->AddComponent(new MovementComponent{ player,m_pLevel ,startTileX,startTileY,MovementComponent::EntityType::Qbert });
+		player->AddComponent(new PlayerCollisionComponent{ player });
+		return player;
+	}
+	else if (playerIndex == 1)
+	{
+		float StartPosX{ 510.f }, StartPosY{ 370.f };
+		GameObject* player = new GameObject{ "Qbert2",-1 };
+		float width{ 32.f }, height{ 32.f };
+		player->AddComponent(new TransformComponent{ player, StartPosX,StartPosY,width,height });
+		player->AddComponent(new AnimationComponent{ player,4,2,"Textures/Qbert.png",SDL_Rect{0,0,16,16} });
+		player->AddComponent(new MovementComponent{ player,m_pLevel ,6,0,MovementComponent::EntityType::Qbert });
+		player->AddComponent(new PlayerCollisionComponent{ player });
+		return player;
+	}
+	return nullptr;
 }
 
-dae::GameObject* dae::QbertGame::CreateLifeDisplay(GameObject* player, const int lives) const
+dae::GameObject* dae::QbertGame::CreateLifeDisplay(GameObject* player, const int lives, int playerIndex) const
 {
 
+	if (playerIndex == 0)
+	{
 
-	GameObject* playerLivesDisplay = new GameObject{ "LivesDisplay" ,-1 };
-	playerLivesDisplay->AddComponent(new TransformComponent{ playerLivesDisplay });
-	const auto sansFont = ResourceManager::GetInstance().LoadFont("Comic_Sans.otf", 18);
-	auto livesDisplay = new PlayerLivesDisplay{ playerLivesDisplay, sansFont,lives,0.f };
-	player->GetComponent<PlayerComponent>()->AddObserver(livesDisplay);
-	playerLivesDisplay->AddComponent(livesDisplay);
+		GameObject* playerLivesDisplay = new GameObject{ "LivesDisplay" ,-1 };
+		playerLivesDisplay->AddComponent(new TransformComponent{ playerLivesDisplay });
+		const auto sansFont = ResourceManager::GetInstance().LoadFont("Comic_Sans.otf", 18);
+		auto livesDisplay = new PlayerLivesDisplay{ playerLivesDisplay, sansFont,lives,0.f };
+		player->GetComponent<PlayerComponent>()->AddObserver(livesDisplay);
+		playerLivesDisplay->AddComponent(livesDisplay);
 
 
 
-	return playerLivesDisplay;
+		return playerLivesDisplay;
+	}
+	if (playerIndex == 1)
+	{
+
+	}
+	return nullptr;
 }
 
-dae::GameObject* dae::QbertGame::CreateScoreDisplay(GameObject* player) const
+dae::GameObject* dae::QbertGame::CreateScoreDisplay(GameObject* player, int playerIndex) const
 {
-	GameObject* playerScoreDisplay = new GameObject{ "scoreDisplay",-1 };
-	playerScoreDisplay->AddComponent(new TransformComponent{ playerScoreDisplay });
-	const auto sansFont = ResourceManager::GetInstance().LoadFont("Comic_Sans.otf", 18);
-	auto scoreDisplay = new PlayerScoreDisplay{ playerScoreDisplay, sansFont,0.f,30.f };
-	player->GetComponent<PlayerComponent>()->AddObserver(scoreDisplay);
-	playerScoreDisplay->AddComponent(scoreDisplay);
+	if (playerIndex == 0)
+	{
+		GameObject* playerScoreDisplay = new GameObject{ "scoreDisplay",-1 };
+		playerScoreDisplay->AddComponent(new TransformComponent{ playerScoreDisplay });
+		const auto sansFont = ResourceManager::GetInstance().LoadFont("Comic_Sans.otf", 18);
+		auto scoreDisplay = new PlayerScoreDisplay{ playerScoreDisplay, sansFont,0.f,30.f };
+		player->GetComponent<PlayerComponent>()->AddObserver(scoreDisplay);
+		playerScoreDisplay->AddComponent(scoreDisplay);
 
-	return playerScoreDisplay;
+		return playerScoreDisplay;
+
+	}
+	if (playerIndex == 1)
+	{
+
+	}
+	return nullptr;
 }
 
 dae::GameObject* dae::QbertGame::CreateCoily(GameObject* player) const
@@ -305,14 +351,14 @@ dae::GameObject* dae::QbertGame::CreateSam() const
 	return slick;
 }
 
-void dae::QbertGame::SetupKeybindings(MovementComponent* pMovementComponent, MenuSelectorComponent* pMenuSelector) const
+void dae::QbertGame::SetupKeybindings(MovementComponent* pMovementComponent, MovementComponent* pMovementComponent2, MenuSelectorComponent* pMenuSelector) const
 {
 
 	//Controller
-	InputManager::GetInstance().AddButtonCommand(ControllerButton::ButtonB, new MovementCommand(pMovementComponent, MovementComponent::MovementDirection::up_right));
-	InputManager::GetInstance().AddButtonCommand(ControllerButton::ButtonY, new MovementCommand(pMovementComponent, MovementComponent::MovementDirection::up_left));
-	InputManager::GetInstance().AddButtonCommand(ControllerButton::ButtonA, new MovementCommand(pMovementComponent, MovementComponent::MovementDirection::down_right));
-	InputManager::GetInstance().AddButtonCommand(ControllerButton::ButtonX, new MovementCommand(pMovementComponent, MovementComponent::MovementDirection::down_left));
+	InputManager::GetInstance().AddButtonCommand(ControllerButton::ButtonB, new MovementCommand(pMovementComponent2, MovementComponent::MovementDirection::up_right));
+	InputManager::GetInstance().AddButtonCommand(ControllerButton::ButtonY, new MovementCommand(pMovementComponent2, MovementComponent::MovementDirection::up_left));
+	InputManager::GetInstance().AddButtonCommand(ControllerButton::ButtonA, new MovementCommand(pMovementComponent2, MovementComponent::MovementDirection::down_right));
+	InputManager::GetInstance().AddButtonCommand(ControllerButton::ButtonX, new MovementCommand(pMovementComponent2, MovementComponent::MovementDirection::down_left));
 
 	InputManager::GetInstance().AddButtonCommand(ControllerButton::DownDPad, new MenuSelectCommand(pMenuSelector, MenuSelectCommand::MenuMovement::down));
 	InputManager::GetInstance().AddButtonCommand(ControllerButton::UpDPad, new MenuSelectCommand(pMenuSelector, MenuSelectCommand::MenuMovement::up));

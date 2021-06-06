@@ -72,6 +72,7 @@ namespace dae
 		void SetPushToBack(bool pushToBack);
 
 		bool GetIsActive() const;
+		void SetActive(bool active);
 		int GetActiveLevel() const;
 		void SwapIfActive(int active);
 

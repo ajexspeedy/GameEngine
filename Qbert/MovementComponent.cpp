@@ -194,7 +194,10 @@ void dae::MovementComponent::Update()
 	}
 }
 
-
+int dae::MovementComponent::GetLevelMode() const
+{
+	return static_cast<int>(m_pLevel->GetLevelMode());
+}
 
 void dae::MovementComponent::SetCurrentTile(const int row, const int column)
 {

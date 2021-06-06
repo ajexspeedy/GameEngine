@@ -2,11 +2,12 @@
 #include "Component.h"
 #include "Transform.h"
 
+
 namespace dae
 {
 	class RenderComponent;
-	class Level;
 	class TileComponent;
+	class Level;
 	class MovementComponent : public Component
 	{
 	public:
@@ -50,6 +51,8 @@ namespace dae
 
 		int GetRow() const;
 		int GetColumn() const;
+
+		int GetLevelMode() const;
 
 	private:
 

@@ -23,9 +23,9 @@ namespace dae
 		GameObject* CreateMenuSelector() const;
 		GameObject* CreateEndScreen() const;
 
-		GameObject* CreatePlayer()const;
-		GameObject* CreateLifeDisplay(GameObject* player, const int lives) const;
-		GameObject* CreateScoreDisplay(GameObject* player) const;
+		GameObject* CreatePlayer(int playerIndex = 0)const;
+		GameObject* CreateLifeDisplay(GameObject* player, const int lives, int playerIndex = 0) const;
+		GameObject* CreateScoreDisplay(GameObject* player, int playerIndex = 0) const;
 
 		GameObject* CreateCoily(GameObject* player) const;
 		GameObject* CreateWrongway() const;
@@ -33,7 +33,7 @@ namespace dae
 		GameObject* CreateSlick() const;
 		GameObject* CreateSam() const;
 
-		void SetupKeybindings(MovementComponent* pMovementComponent, MenuSelectorComponent* pMenuSelector) const;
+		void SetupKeybindings(MovementComponent* pMovementComponent, MovementComponent* pMovementComponent2, MenuSelectorComponent* pMenuSelector) const;
 		void SetupAudio() const;
 
 		Level* m_pLevel;

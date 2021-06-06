@@ -5,6 +5,7 @@
 #include "SlickSamComponent.h"
 #include "PlayerComponent.h"
 
+#include "Level.h"
 #include "GameObject.h"
 
 
@@ -45,6 +46,9 @@ void dae::PlayerCollisionComponent::AddEnemy(GameObject* pEnemy)
 
 bool dae::PlayerCollisionComponent::IsColliding(GameObject* pEnemy)
 {
+	if (!pEnemy->GetIsActive() || pEnemy->GetComponent<MovementComponent>()->GetLevelMode() != 2) // Versus
+		return false;
+
 	int enemyColumn{ pEnemy->GetComponent<MovementComponent>()->GetColumn() }, playerColumn{ GetParent()->GetComponent<MovementComponent>()->GetColumn() };
 
 	

@@ -10,7 +10,8 @@ using namespace dae;
 GameObject::GameObject(const std::string& objectName, int activeLevel) :
 	m_ActiveLevel{ activeLevel }
 {
-	
+	if (m_ActiveLevel == -1)
+		m_IsActive = true;
 	SetObjectName(objectName);
 }
 
@@ -117,9 +118,13 @@ void dae::GameObject::SetPushToBack(bool pushToBack)
 bool dae::GameObject::GetIsActive() const
 {
 
-	return m_IsActive || m_ActiveLevel == -1;
+	return m_IsActive;
 }
 
+void dae::GameObject::SetActive(bool active)
+{
+	m_IsActive = active;
+}
 int dae::GameObject::GetActiveLevel() const
 {
 	return m_ActiveLevel;
@@ -128,7 +133,7 @@ int dae::GameObject::GetActiveLevel() const
 void dae::GameObject::SwapIfActive(int active)
 {
 	std::cout << active << std::endl;
- 	if (m_ActiveLevel == active)
+ 	if (m_ActiveLevel == active || m_ActiveLevel == -1)
 	{
 		m_IsActive = true;
 	}

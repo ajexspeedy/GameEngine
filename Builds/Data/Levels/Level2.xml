@@ -1,0 +1,10 @@
+<Level>
+	<Layout>
+		<StartTileType>0</StartTileType>
+		<LevelType>1</LevelType>
+	</Layout>
+	<Player>
+		<StartPosition>{320.f,20.f}</StartPosition>
+		<StartTile>{0,6}</StartTile>
+	</Player>
+</Level>

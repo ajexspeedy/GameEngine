@@ -2,6 +2,7 @@
 #include "Level.h"
 #include "GameObject.h"
 #include "TransformComponent.h"
+#include "AnimationComponent.h"
 #include <fstream>
 #include <sstream>
 #include <cwctype>
@@ -93,7 +94,7 @@ bool Level::CheckOnTiles(int& row, int& column, MovementComponent::MovementDirec
 			{
 				isVictory = false;
 			}
-			
+
 		}
 	}
 	if (isVictory)
@@ -163,8 +164,48 @@ void dae::Level::SetStartTile(const std::string& data)
 
 void dae::Level::SetLevelMode(const int mode)
 {
-	m_Levelmode = static_cast<LevelMode>(mode);
 	ResetLevel();
+	m_Levelmode = static_cast<LevelMode>(mode);
+	switch (m_Levelmode)
+	{
+	case LevelMode::singleplayer:
+		m_Player2->SetActive(false);
+
+
+		m_Player1->GetComponent<MovementComponent>()->ResetPosition(320.f, 85.f);
+		m_Player1->GetComponent<MovementComponent>()->SetStartTile(0, 6);
+		m_Player1->GetComponent<MovementComponent>()->SetCurrentTile(0, 6);
+		break;
+	case LevelMode::coop:
+		m_Player2->SetActive(true);
+		m_Player2->GetComponent<AnimationComponent>()->SetTexture("Textures/Qbert.png");
+		m_Player2->GetComponent<AnimationComponent>()->SetSrcRectSize(16, 16);
+
+		m_Player1->GetComponent<MovementComponent>()->ResetPosition(125.f, 370.f);
+		m_Player1->GetComponent<MovementComponent>()->SetCurrentTile(0, 0);
+		m_Player1->GetComponent<MovementComponent>()->SetStartTile(0, 0);
+		break;
+	case LevelMode::versus: // Versus doesnt really work properly
+		m_Player2->SetActive(true);
+		m_Player2->GetComponent<AnimationComponent>()->SetTexture("Textures/Coily_Snake.png");
+		m_Player2->GetComponent<AnimationComponent>()->SetSrcRectSize(16, 32);
+
+		m_Player1->GetComponent<MovementComponent>()->ResetPosition(125.f, 370.f);
+		m_Player1->GetComponent<MovementComponent>()->SetCurrentTile(0, 0);
+		m_Player1->GetComponent<MovementComponent>()->SetStartTile(0, 0);
+
+		break;
+	}
+}
+
+void dae::Level::SetPlayer1(GameObject* player1)
+{
+	m_Player1 = player1;
+}
+
+void dae::Level::SetPlayer2(GameObject* player2)
+{
+	m_Player2 = player2;
 }
 
 std::string dae::Level::RemoveWhitespace(const std::string& line)
@@ -265,6 +306,13 @@ void dae::Level::ResetLevel()
 		tile->GetComponent<TileComponent>()->SetTileColor(m_StartTile);
 	}
 }
+
+Level::LevelMode dae::Level::GetLevelMode() const
+{
+	return m_Levelmode;
+}
+
+
 
 TileComponent::TileColor dae::Level::ChangeTileLevel1(TileComponent::TileColor tileColor)
 {

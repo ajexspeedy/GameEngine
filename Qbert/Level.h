@@ -34,7 +34,12 @@ namespace dae
 		glm::vec2 GetStartTilePlayer() const;
 
 		void SetLevelMode(const int mode); 
+		void SetPlayer1(GameObject* player1);
+		void SetPlayer2(GameObject* player2);
 		void ResetLevel();
+
+		Level::LevelMode GetLevelMode() const;
+	
 	private:
 		bool IsOutsideLevel(const int row, const int column);
 		void SetLevelRules(const std::string& filePath);
@@ -64,6 +69,7 @@ namespace dae
 		int m_StartTilePlayerX, m_StartTilePlayerY;
 
 		std::vector<GameObject*> m_pEntities;
+		GameObject* m_Player1,  *m_Player2;
 	};
 
 }
