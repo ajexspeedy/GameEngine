@@ -39,7 +39,6 @@
 *.lib
 
 # Executables
-*.exe
 *.out
 *.app
 
@@ -95,10 +94,6 @@ Generated\ Files/
 TestResult.xml
 nunit-*.xml
 
-# Build Results of an ATL Project
-[Dd]ebugPS/
-[Rr]eleasePS/
-dlldata.c
 
 # Benchmark Results
 BenchmarkDotNet.Artifacts/
