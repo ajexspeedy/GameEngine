@@ -23,11 +23,15 @@
 #include "AnimationComponent.h"
 #include "PlayerCollisionComponent.h"
 #include "UggWrongwayComponent.h"
+#include "SlickSamComponent.h"
+#include "MenuSelectorComponent.h"
 
 #include <SDL_Rect.h>
 
 #include "PlayerLivesDisplay.h"
+#include "PlayerScoreDisplay.h"
 #include "MoveCommand.h"
+#include "MenuSelectCommand.h"
 
 #include "Locator.h"
 #include "AudioLogger.h"
@@ -48,13 +52,7 @@ void dae::QbertGame::LoadGame()
 {
 	srand(unsigned int(time(NULL)));
 
-	auto* menuScene = SceneManager::GetInstance().CreateScene("Menu");
-
-	GameObject* menu = new GameObject{ "Menu" };
-	menuScene->Add(menu);
-
-	SetupAudio();
-	auto* scene = SceneManager::GetInstance().CreateScene("Qbert");
+	auto* scene = SceneManager::GetInstance().CreateScene("Game");
 	int levelRows{ 7 }, levelColumns{ 7 };
 	const float StartLevelX{ 110.f }, StartLevelY{ 380.f };
 	m_pLevel = CreateLevel(levelRows, levelColumns, StartLevelX, StartLevelY, "../Data/Levels/Level1.xml");
@@ -62,27 +60,65 @@ void dae::QbertGame::LoadGame()
 	{
 		scene->Add(tile);
 	}
+
+
+	auto* menuScene = SceneManager::GetInstance().CreateScene("Menu");
+
+	GameObject* menuSelector = CreateMenuSelector();
+	GameObject* menu = CreateMenu();
+
+	menuScene->Add(menuSelector);
+	menuScene->Add(menu);
+
+	auto* endScene = SceneManager::GetInstance().CreateScene("Fail");
+
+	GameObject* newMenuSelector = CreateMenuSelector();
+	GameObject* endScreen = CreateEndScreen();
+	endScene->Add(newMenuSelector);
+	endScene->Add(endScreen);
+	SetupAudio();
+
 	const int lives{ 3 };
-	const float StartPlayerX{ 430.f - StartLevelX }, StartPlayerY{ StartLevelY - 305.f };
-	GameObject* player = CreatePlayer(m_pLevel, levelColumns, StartPlayerX, StartPlayerY);
+	const float StartPlayerX{ m_pLevel->GetStartpositionPlayer().x }, StartPlayerY{ m_pLevel->GetStartpositionPlayer().y };
+	GameObject* player = CreatePlayer(levelColumns, StartPlayerX, StartPlayerY);
+	player->AddComponent(new PlayerComponent{ player,lives });
 	GameObject* lifeDisplay = CreateLifeDisplay(player, lives);
-	GameObject* coily = CreateCoily( player,m_pLevel, levelColumns);
-	GameObject* wrongway = CreateWrongway( m_pLevel);
-	GameObject* ugg = CreateUgg( m_pLevel);
+	GameObject* scoreDisplay = CreateScoreDisplay(player);
+
+	GameObject* coily = CreateCoily(player);
+	GameObject* wrongway = CreateWrongway();
+	GameObject* ugg = CreateUgg();
+	GameObject* slick = CreateSlick();
+	GameObject* sam = CreateSam();
 
 	m_pLevel->AddEntity(player);
+	m_pLevel->AddEntity(coily);
+	m_pLevel->AddEntity(wrongway);
+	m_pLevel->AddEntity(ugg);
+	m_pLevel->AddEntity(slick);
+	m_pLevel->AddEntity(sam);
 	scene->Add(player);
 	scene->Add(lifeDisplay);
+	scene->Add(scoreDisplay);
 
 	//Enemies
 	scene->Add(coily);
 	scene->Add(wrongway);
 	scene->Add(ugg);
-	
+	scene->Add(slick);
+	scene->Add(sam);
+
 	auto playerCollision = player->GetComponent<PlayerCollisionComponent>();
 	playerCollision->AddEnemy(coily);
 	playerCollision->AddEnemy(wrongway);
 	playerCollision->AddEnemy(ugg);
+	playerCollision->AddEnemy(slick);
+	playerCollision->AddEnemy(sam);
+
+	// Menu
+	SceneManager::GetInstance().SetCurrentScene(menuScene->GetSceneNumber());
+
+	SetupKeybindings(player->GetComponent<MovementComponent>(), menuSelector->GetComponent<MenuSelectorComponent>());
 }
 
 dae::Level* dae::QbertGame::CreateLevel(const int levelRows, const int levelColumns, const float startLevelX, const float startLevelY, const std::string& filePath) const
@@ -103,7 +139,7 @@ dae::Level* dae::QbertGame::CreateLevel(const int levelRows, const int levelColu
 		for (int j{ 0 }; j < pyramidWidth; j++)
 		{
 
-			GameObject* tile = new GameObject{ std::string("Tile ").append(std::to_string(tileCounter)) };
+			GameObject* tile = new GameObject{ std::string("Tile ").append(std::to_string(tileCounter)),-1 };
 			tile->AddComponent(new TransformComponent{ tile, posX,posY,width,height });
 			tile->AddComponent(new RenderComponent{ tile,"Textures/Tile1.png" });
 			//tile->GetComponent<RenderComponent>()->SetSrcRect(srcRect);
@@ -120,13 +156,46 @@ dae::Level* dae::QbertGame::CreateLevel(const int levelRows, const int levelColu
 	return level;
 }
 
-dae::GameObject* dae::QbertGame::CreatePlayer(Level* level, const int levelColumns, const float startPlayerX, const float startPlayerY) const
+dae::GameObject* dae::QbertGame::CreateMenu() const
 {
-	GameObject* player = new GameObject{ "Qbert" };
+	GameObject* menu = new GameObject{ "Menu",-1 };
+	menu->AddComponent(new TransformComponent{ menu,0.f,0.f,640.f,480.f });
+	menu->AddComponent(new RenderComponent{ menu,"Textures/Menu.png" });
+
+	return menu;
+}
+
+dae::GameObject* dae::QbertGame::CreateMenuSelector() const
+{
+	GameObject* menuSelector = new GameObject{ "MenuSelector",-1 };
+	menuSelector->AddComponent(new TransformComponent{ menuSelector,110.f,55.f,410.f,70.f });
+	menuSelector->AddComponent(new RenderComponent{ menuSelector,"Textures/Selector.png" });
+	MenuSelectorComponent* menuSelectorcomponent = new MenuSelectorComponent{ menuSelector,m_pLevel };
+	menuSelectorcomponent->AddButtonLocation(glm::vec2{ 110.f,55.f });
+	menuSelectorcomponent->AddButtonLocation(glm::vec2{ 110.f,200.f });
+	menuSelectorcomponent->AddButtonLocation(glm::vec2{ 110.f,355.f });
+	menuSelector->AddComponent(menuSelectorcomponent);
+	return menuSelector;
+}
+
+dae::GameObject* dae::QbertGame::CreateEndScreen() const
+{
+	GameObject* end = new GameObject{ "Fail",-1 };
+	end->AddComponent(new TransformComponent{ end,0.f,0.f,640.f,480.f });
+	end->AddComponent(new RenderComponent{ end,"Textures/Fail.png" });
+
+	return end;
+}
+
+dae::GameObject* dae::QbertGame::CreatePlayer(const int, const float startPlayerX, const float startPlayerY) const
+{
+	GameObject* player = new GameObject{ "Qbert",-1 };
 	float width{ 32.f }, height{ 32.f };
+	int startTileX = static_cast<int>(m_pLevel->GetStartTilePlayer().x);
+	int startTileY = static_cast<int>(m_pLevel->GetStartTilePlayer().y);
 	player->AddComponent(new TransformComponent{ player, startPlayerX,startPlayerY,width,height });
 	player->AddComponent(new AnimationComponent{ player,4,2,"Textures/Qbert.png",SDL_Rect{0,0,16,16} });
-	player->AddComponent(new MovementComponent{ player,level ,0,levelColumns - 1 });
+	player->AddComponent(new MovementComponent{ player,m_pLevel ,startTileX,startTileY,MovementComponent::EntityType::Qbert });
 	player->AddComponent(new PlayerCollisionComponent{ player });
 	return player;
 }
@@ -134,70 +203,121 @@ dae::GameObject* dae::QbertGame::CreatePlayer(Level* level, const int levelColum
 dae::GameObject* dae::QbertGame::CreateLifeDisplay(GameObject* player, const int lives) const
 {
 
-	player->AddComponent(new PlayerComponent{ player,lives });
-	GameObject* playerLivesDisplay = new GameObject{ "LivesDisplay" };
+
+	GameObject* playerLivesDisplay = new GameObject{ "LivesDisplay" ,-1 };
 	playerLivesDisplay->AddComponent(new TransformComponent{ playerLivesDisplay });
 	const auto sansFont = ResourceManager::GetInstance().LoadFont("Comic_Sans.otf", 18);
 	auto livesDisplay = new PlayerLivesDisplay{ playerLivesDisplay, sansFont,lives,0.f };
 	player->GetComponent<PlayerComponent>()->AddObserver(livesDisplay);
 	playerLivesDisplay->AddComponent(livesDisplay);
 
-	SetupKeybindings(player->GetComponent<MovementComponent>());
+
 
 	return playerLivesDisplay;
 }
 
-dae::GameObject* dae::QbertGame::CreateCoily(GameObject* player, Level* level, const int levelColumns) const
+dae::GameObject* dae::QbertGame::CreateScoreDisplay(GameObject* player) const
+{
+	GameObject* playerScoreDisplay = new GameObject{ "scoreDisplay",-1 };
+	playerScoreDisplay->AddComponent(new TransformComponent{ playerScoreDisplay });
+	const auto sansFont = ResourceManager::GetInstance().LoadFont("Comic_Sans.otf", 18);
+	auto scoreDisplay = new PlayerScoreDisplay{ playerScoreDisplay, sansFont,0.f,30.f };
+	player->GetComponent<PlayerComponent>()->AddObserver(scoreDisplay);
+	playerScoreDisplay->AddComponent(scoreDisplay);
+
+	return playerScoreDisplay;
+}
+
+dae::GameObject* dae::QbertGame::CreateCoily(GameObject* player) const
 {
 	float StartPosX{ 320.f }, StartPosY{ 85.f }, StartPosFallY{ -50.f }, spawnDuration{ 1.5f };
 	float width{ 32.f }, height{ 32.f };
 	int numAnim{ 1 }, numFrames{ 2 };
+	int row = (int)m_pLevel->GetStartTilePlayer().x;
+	int column = (int)m_pLevel->GetStartTilePlayer().y;
 
-	GameObject* coily = new GameObject{ "Coily" };
+	GameObject* coily = new GameObject{ "Coily" ,0 };
 	coily->AddComponent(new TransformComponent{ coily,StartPosX,StartPosFallY,width,height });
 	coily->AddComponent(new AnimationComponent{ coily,numAnim,numFrames,"Textures/Coily_Egg.png",SDL_Rect{0,0,16,16} });
 	coily->AddComponent(new CoilyComponent{ coily,player,spawnDuration,StartPosX,StartPosY });
-	coily->AddComponent(new MovementComponent{ coily,level ,0,levelColumns - 1 ,false });
+	coily->AddComponent(new MovementComponent{ coily,m_pLevel ,row,column ,MovementComponent::EntityType::Coily,true });
 
 	return coily;
 }
 
-dae::GameObject* dae::QbertGame::CreateWrongway( Level* level) const
+dae::GameObject* dae::QbertGame::CreateWrongway() const
 {
 	float StartPosX{ 105.f }, StartPosY{ 410.f };
 	float width{ 32.f }, height{ 32.f };
-	int numAnim{ 2 }, numFrames{ 2 }, startTileX{0}, startTileY{-1};
+	int numAnim{ 2 }, numFrames{ 2 }, startTileX{ 0 }, startTileY{ -1 };
 
-	GameObject* wrongway = new GameObject{ "Wrongway" };
+	GameObject* wrongway = new GameObject{ "Wrongway",1 };
 	wrongway->AddComponent(new TransformComponent{ wrongway,StartPosX,StartPosY,width,height });
 	wrongway->AddComponent(new AnimationComponent{ wrongway,numAnim,numFrames,"Textures/Wrongway.png",SDL_Rect{0,0,16,16} });
-	wrongway->AddComponent(new MovementComponent{ wrongway,level,startTileX,startTileY,false });
+	wrongway->AddComponent(new MovementComponent{ wrongway,m_pLevel,startTileX,startTileY,MovementComponent::EntityType::Wrongway,false });
 	wrongway->AddComponent(new UggWrongwayComponent{ wrongway,UggWrongwayComponent::UggWrongwayForm::wrongway,StartPosX,StartPosY });
 
 	return wrongway;
 }
 
-dae::GameObject* dae::QbertGame::CreateUgg(Level* level) const
+dae::GameObject* dae::QbertGame::CreateUgg() const
 {
 
 	float StartPosX{ 530.f }, StartPosY{ 410.f };
 	float width{ 32.f }, height{ 32.f };
-	int numAnim{ 2 }, numFrames{ 2 },startTileX{ 7 }, startTileY{ -1 };
+	int numAnim{ 2 }, numFrames{ 2 }, startTileX{ 7 }, startTileY{ -1 };
 
-	GameObject* ugg = new GameObject{ "Ugg" };
+	GameObject* ugg = new GameObject{ "Ugg",1 };
 	ugg->AddComponent(new TransformComponent{ ugg,StartPosX,StartPosY,width,height });
 	ugg->AddComponent(new AnimationComponent{ ugg,numAnim,numFrames,"Textures/Ugg.png",SDL_Rect{0,0,16,16} });
-	ugg->AddComponent(new MovementComponent{ ugg,level,startTileX,startTileY,false });
+	ugg->AddComponent(new MovementComponent{ ugg,m_pLevel,startTileX,startTileY,MovementComponent::EntityType::Ugg,false });
 	ugg->AddComponent(new UggWrongwayComponent{ ugg,UggWrongwayComponent::UggWrongwayForm::ugg,StartPosX,StartPosY });
 
 	return ugg;
 }
 
-void dae::QbertGame::SetupKeybindings(MovementComponent* pMovementComponent) const
+dae::GameObject* dae::QbertGame::CreateSlick() const
 {
-	//Controller
-	InputManager::GetInstance().AddButtonCommand(ControllerButton::UpDPad, new MovementCommand(pMovementComponent, MovementComponent::MovementDirection::up_right));
+	float StartPosX{ 220.f }, StartPosY{ 225.f }, spawnDuration{ 4.5f };
+	float width{ 32.f }, height{ 32.f };
+	int numAnim{ 1 }, numFrames{ 2 }, startTileX{ 0 }, startTileY{ 3 };
 
+	GameObject* slick = new GameObject{ "Slick" ,2 };
+	slick->AddComponent(new TransformComponent{ slick,StartPosX,StartPosY,width,height });
+	slick->AddComponent(new AnimationComponent{ slick,numAnim,numFrames,"Textures/Slick.png",SDL_Rect{0,0,12,16} });
+	slick->AddComponent(new MovementComponent{ slick,m_pLevel ,startTileX,startTileY,MovementComponent::EntityType::Slick ,true });
+	slick->AddComponent(new SlickSamComponent{ slick,spawnDuration,StartPosX,StartPosY });
+	return slick;
+
+}
+
+dae::GameObject* dae::QbertGame::CreateSam() const
+{
+	float StartPosX{ 420.f }, StartPosY{ 225.f }, spawnDuration{ 4.5f };
+	float width{ 32.f }, height{ 32.f };
+	int numAnim{ 1 }, numFrames{ 2 }, startTileX{ 3 }, startTileY{ 3 };
+
+	GameObject* slick = new GameObject{ "Sam" ,2 };
+	slick->AddComponent(new TransformComponent{ slick,StartPosX,StartPosY,width,height });
+	slick->AddComponent(new AnimationComponent{ slick,numAnim,numFrames,"Textures/Sam.png",SDL_Rect{0,0,12,16} });
+	slick->AddComponent(new MovementComponent{ slick,m_pLevel ,startTileX,startTileY,MovementComponent::EntityType::Slick ,true });
+	slick->AddComponent(new SlickSamComponent{ slick,spawnDuration,StartPosX,StartPosY });
+	return slick;
+}
+
+void dae::QbertGame::SetupKeybindings(MovementComponent* pMovementComponent, MenuSelectorComponent* pMenuSelector) const
+{
+
+	//Controller
+	// TODO: Fix controller 
+	InputManager::GetInstance().AddButtonCommand(ControllerButton::ButtonB, new MovementCommand(pMovementComponent, MovementComponent::MovementDirection::up_right));
+	InputManager::GetInstance().AddButtonCommand(ControllerButton::ButtonY, new MovementCommand(pMovementComponent, MovementComponent::MovementDirection::up_left));
+	InputManager::GetInstance().AddButtonCommand(ControllerButton::ButtonA, new MovementCommand(pMovementComponent, MovementComponent::MovementDirection::down_right));
+	InputManager::GetInstance().AddButtonCommand(ControllerButton::ButtonX, new MovementCommand(pMovementComponent, MovementComponent::MovementDirection::down_left));
+
+	InputManager::GetInstance().AddButtonCommand(ControllerButton::DownDPad, new MenuSelectCommand(pMenuSelector, MenuSelectCommand::MenuMovement::down));
+	InputManager::GetInstance().AddButtonCommand(ControllerButton::UpDPad, new MenuSelectCommand(pMenuSelector, MenuSelectCommand::MenuMovement::up));
+	InputManager::GetInstance().AddButtonCommand(ControllerButton::Start, new MenuSelectCommand(pMenuSelector, MenuSelectCommand::MenuMovement::select));
 
 	//KeyBoard
 	InputManager::GetInstance().AddKeyCommand(SDL_SCANCODE_KP_9, new MovementCommand(pMovementComponent, MovementComponent::MovementDirection::up_right));
@@ -205,11 +325,15 @@ void dae::QbertGame::SetupKeybindings(MovementComponent* pMovementComponent) con
 	InputManager::GetInstance().AddKeyCommand(SDL_SCANCODE_KP_3, new MovementCommand(pMovementComponent, MovementComponent::MovementDirection::down_right));
 	InputManager::GetInstance().AddKeyCommand(SDL_SCANCODE_KP_1, new MovementCommand(pMovementComponent, MovementComponent::MovementDirection::down_left));
 
+	InputManager::GetInstance().AddKeyCommand(SDL_SCANCODE_UP, new MenuSelectCommand(pMenuSelector, MenuSelectCommand::MenuMovement::up));
+	InputManager::GetInstance().AddKeyCommand(SDL_SCANCODE_DOWN, new MenuSelectCommand(pMenuSelector, MenuSelectCommand::MenuMovement::down));
+	InputManager::GetInstance().AddKeyCommand(SDL_SCANCODE_SPACE, new MenuSelectCommand(pMenuSelector, MenuSelectCommand::MenuMovement::select));
 }
 
 void dae::QbertGame::SetupAudio() const
 {
 	Audio* audio = new Audio_SDL{};
 	Locator::Provide(new AudioLogger{ *audio });
-	AudioManager::GetInstance().AddSound("../Data/menu3.wav", 0);
+	AudioManager::GetInstance().AddSound("../Data/Audio/Jump1.wav", 0);
+	AudioManager::GetInstance().AddSound("../Data/Audio/Jump2.wav", 1);
 }

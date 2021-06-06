@@ -177,6 +177,8 @@
     <ClCompile Include="CoilyComponent.cpp" />
     <ClCompile Include="KillCommand.cpp" />
     <ClCompile Include="Level.cpp" />
+    <ClCompile Include="MenuSelectCommand.cpp" />
+    <ClCompile Include="MenuSelectorComponent.cpp" />
     <ClCompile Include="MoveCommand.cpp" />
     <ClCompile Include="MovementComponent.cpp" />
     <ClCompile Include="PlayerCollisionComponent.cpp" />
@@ -193,6 +195,8 @@
     <ClInclude Include="CoilyComponent.h" />
     <ClInclude Include="KillCommand.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="MenuSelectCommand.h" />
+    <ClInclude Include="MenuSelectorComponent.h" />
     <ClInclude Include="MoveCommand.h" />
     <ClInclude Include="MovementComponent.h" />
     <ClInclude Include="PlayerCollisionComponent.h" />

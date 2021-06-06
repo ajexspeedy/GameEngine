@@ -4,7 +4,7 @@
 		<LevelType>0</LevelType>
 	</Layout>
 	<Player>
-		<StartPosition>{320.f,20.f}</StartPosition>
+		<StartPosition>{320.f,85.f}</StartPosition>
 		<StartTile>{0,6}</StartTile>
 	</Player>
 </Level>

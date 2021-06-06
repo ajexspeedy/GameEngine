@@ -22,10 +22,14 @@ namespace dae
 		enum class EntityType
 		{
 			Qbert,
-			Coily
+			Coily,
+			Wrongway,
+			Ugg,
+			Slick,
+			Sam
 		};
 
-		MovementComponent(GameObject* pParent, Level* level, const int row, const int column, bool TriggersTile = true);
+		MovementComponent(GameObject* pParent, Level* level, const int row, const int column,EntityType type, bool TriggersTile = true);
 
 		void Jump(MovementDirection direction);
 		void Update() override;
@@ -59,12 +63,13 @@ namespace dae
 		float m_JumpDuration, m_JumpTimer, m_FallDuration, m_FallTimer;
 
 		float m_Gravity;
-		bool m_IsJumping, m_IsFalling, m_HasAnimations, m_TriggersTiles, m_IsWrongway, m_IsUgg;
+		bool m_IsJumping, m_IsFalling, m_HasAnimations, m_TriggersTiles;
 
 		int m_CurrentRow, m_CurrentColumn, m_StartRow, m_StartColumn;
 		MovementDirection m_Direction;
 
 		int m_RowOffset, m_ColumnOffset;
+		EntityType m_EntityType;
 
 	};
 

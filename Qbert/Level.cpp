@@ -30,10 +30,10 @@ const std::vector<GameObject*>& dae::Level::GetTiles() const
 	return m_pTiles;
 }
 
-bool Level::CheckOnTiles(int& row, int& column, MovementComponent::MovementDirection direction, bool triggersTile, const int rowOffset , const int columnOffset)
+bool Level::CheckOnTiles(int& row, int& column, MovementComponent::MovementDirection direction, bool triggersTile, bool undoTile, const int rowOffset, const int columnOffset)
 {
 
-	
+
 	switch (direction)
 	{
 	case dae::MovementComponent::MovementDirection::up_right:
@@ -65,6 +65,7 @@ bool Level::CheckOnTiles(int& row, int& column, MovementComponent::MovementDirec
 
 		return false;
 	}
+
 	if (!triggersTile)
 	{
 		return true;
@@ -75,6 +76,11 @@ bool Level::CheckOnTiles(int& row, int& column, MovementComponent::MovementDirec
 
 		if (tile->GetComponent<TileComponent>()->IsOnTile(row, column))
 		{
+			if (undoTile)
+			{
+				tile->GetComponent<TileComponent>()->SetTileColor(TileComponent::TileColor::defaultColor);
+				return true;
+			}
 
 			tile->GetComponent<TileComponent>()->SetTileColor(ChangeTile(tile->GetComponent<TileComponent>()->GetTileColor()));
 
@@ -87,6 +93,7 @@ bool Level::CheckOnTiles(int& row, int& column, MovementComponent::MovementDirec
 			{
 				isVictory = false;
 			}
+			
 		}
 	}
 	if (isVictory)
@@ -100,6 +107,16 @@ bool Level::CheckOnTiles(int& row, int& column, MovementComponent::MovementDirec
 void dae::Level::AddEntity(GameObject* pEntity)
 {
 	m_pEntities.push_back(pEntity);
+}
+
+glm::vec2 dae::Level::GetStartpositionPlayer() const
+{
+	return m_StartPositionPlayer;
+}
+
+glm::vec2 dae::Level::GetStartTilePlayer() const
+{
+	return glm::vec2{ float(m_StartTilePlayerX),float(m_StartTilePlayerY) };
 }
 
 bool dae::Level::IsOutsideLevel(const int row, const int column)
@@ -120,7 +137,7 @@ void dae::Level::SetLevelRules(const std::string& filePath)
 		{
 			CheckTag(RemoveWhitespace(line));
 		}
-		std::cout << "File opened successfully" << std::endl;
+
 	}
 	myfile.close();
 }
@@ -142,6 +159,12 @@ void dae::Level::SetStartTile(const std::string& data)
 	auto backIt = data.substr(frontIt).find('}');
 	m_StartTilePlayerY = std::stoi(data.substr(frontIt + 1, backIt));
 
+}
+
+void dae::Level::SetLevelMode(const int mode)
+{
+	m_Levelmode = static_cast<LevelMode>(mode);
+	ResetLevel();
 }
 
 std::string dae::Level::RemoveWhitespace(const std::string& line)
@@ -231,6 +254,7 @@ void dae::Level::ResetLevel()
 {
 	for (auto entity : m_pEntities)
 	{
+		entity->SwapIfActive(static_cast<int>(m_LevelType));
 		if (entity->HasComponent<MovementComponent>())
 		{
 			entity->GetComponent<MovementComponent>()->ResetPosition();

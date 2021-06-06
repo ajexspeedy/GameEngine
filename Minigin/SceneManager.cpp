@@ -39,18 +39,18 @@ dae::Scene* dae::SceneManager::GetSceneByIndex(unsigned int scene)
 	return m_Scenes[scene].get();
 }
 
-dae::Scene* dae::SceneManager::GetSceneByName(const std::string& name)
+unsigned int dae::SceneManager::GetSceneByName(const std::string& name)
 {
-	for (const auto& scene : m_Scenes)
+	for (size_t i{ 0 };i<m_Scenes.size();i++)
 	{
-		if (scene->GetName() == name)
+		if (m_Scenes[i]->GetName() == name)
 		{
-			return scene.get();
+			return static_cast<unsigned int>(i);
 		}
 	}
 	std::cout << "Error GetSceneByName: name invalid" << std::endl;
 
-	return nullptr;
+	return 0;
 }
 
 dae::Scene* dae::SceneManager::CreateScene(const std::string& name)

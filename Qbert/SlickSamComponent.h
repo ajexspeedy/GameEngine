@@ -12,17 +12,11 @@ namespace dae
 	class SlickSamComponent : public Component
 	{
 	public:
-		enum class SlickSamForm
-		{
-			slick,
-			sam
-		};
-		SlickSamComponent(GameObject* pParent,  const float startPosX = 0.f, const float startPosY = 0.f);
+		SlickSamComponent(GameObject* pParent, const float spawnDuration, const float startPosX = 0.f, const float startPosY = 0.f);
 		~SlickSamComponent() = default;
 
 
 		virtual void Update() override;
-
 
 
 		SlickSamComponent(const SlickSamComponent& other) = delete;
@@ -32,11 +26,10 @@ namespace dae
 
 	protected:
 
-		float m_JumpTimer, m_JumpDuration;
+		float m_JumpTimer, m_JumpDuration, m_SpawnTimer, m_SpawnDuration;
 		float m_StartPosX, m_StartPosY;
 		bool m_SpawnEnabled;
 
-	
 	};
 
 }

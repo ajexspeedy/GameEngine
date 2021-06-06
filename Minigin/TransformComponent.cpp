@@ -22,6 +22,13 @@ void dae::TransformComponent::SetPosition(const float x, const float y)
 	SetPosition(x, y, 0.f);
 }
 
+void dae::TransformComponent::SetPosition(const glm::vec2& position)
+{
+
+	SetPosition(position.x, position.y, 0.f);
+}
+
+
 void dae::TransformComponent::SetPosition(const float x, const float y, const float z)
 {
 

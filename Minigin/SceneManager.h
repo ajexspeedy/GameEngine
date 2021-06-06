@@ -13,10 +13,12 @@ namespace dae
 		void Render();
 
 		void SetCurrentScene(unsigned int currentScene);
+
 		unsigned int GetCurrentSceneIndex() const;
 
 		Scene* GetSceneByIndex(unsigned int scene);
-		Scene* GetSceneByName(const std::string& name);
+		unsigned int GetSceneByName(const std::string& name);
+
 
 	private:
 		friend class Singleton<SceneManager>;

@@ -5,11 +5,12 @@
 #include "SlickSamComponent.h"
 #include "MovementComponent.h"
 
-dae::SlickSamComponent::SlickSamComponent(GameObject* pParent, const float startPosX, const float startPosY) :
+dae::SlickSamComponent::SlickSamComponent(GameObject* pParent, const float spawnDuration, const float startPosX, const float startPosY) :
 	Component{ pParent },
-	m_SpawnEnabled{false},
+	m_SpawnEnabled{ true },
 	m_JumpTimer{ 0.f },
 	m_JumpDuration{ 0.3f },
+	m_SpawnDuration{ spawnDuration },
 	m_StartPosX{ startPosX },
 	m_StartPosY{ startPosY }
 {
@@ -17,6 +18,7 @@ dae::SlickSamComponent::SlickSamComponent(GameObject* pParent, const float start
 
 void dae::SlickSamComponent::Update()
 {
+
 
 	if (m_SpawnEnabled)
 	{
@@ -38,6 +40,15 @@ void dae::SlickSamComponent::Update()
 			}
 			GetParent()->GetComponent<MovementComponent>()->Jump(direction);
 
+		}
+	}
+	else
+	{
+		auto deltaTime = TimeManager::GetInstance().GetDeltaTime();
+		m_SpawnTimer += deltaTime;
+		if (m_SpawnTimer >= m_SpawnDuration)
+		{
+			m_SpawnEnabled = true;
 		}
 	}
 }

@@ -38,7 +38,7 @@ dae::CoilyComponent::CoilyComponent(GameObject* pParent,GameObject* pPlayer , co
 
 void dae::CoilyComponent::Update()
 {
-
+	
 	if (m_EggJumpCounter >= m_MaxEggJumps && m_Form == CoilyForm::egg)
 	{
 		float snakeHeightDif = 35.f;

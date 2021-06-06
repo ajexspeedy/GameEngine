@@ -2,13 +2,15 @@
 #include "GameObject.h"
 #include "Renderer.h"
 #include "InputManager.h"
-
+#include "SceneManager.h"
 
 
 using namespace dae;
 
-GameObject::GameObject(const std::string& objectName)
+GameObject::GameObject(const std::string& objectName, int activeLevel) :
+	m_ActiveLevel{ activeLevel }
 {
+	
 	SetObjectName(objectName);
 }
 
@@ -36,7 +38,7 @@ void GameObject::Update()
 void GameObject::Render() const
 {
 
-	for(auto* component : m_pComponents)
+	for (auto* component : m_pComponents)
 	{
 		component->Render();
 	}
@@ -74,7 +76,7 @@ void GameObject::UpdateComponents()
 {
 	for (auto& component : m_pComponents)
 	{
-		
+
 
 		component->Update();
 	}
@@ -111,6 +113,32 @@ void dae::GameObject::SetPushToBack(bool pushToBack)
 {
 	m_PushToBack = pushToBack;
 }
+
+bool dae::GameObject::GetIsActive() const
+{
+
+	return m_IsActive || m_ActiveLevel == -1;
+}
+
+int dae::GameObject::GetActiveLevel() const
+{
+	return m_ActiveLevel;
+}
+
+void dae::GameObject::SwapIfActive(int active)
+{
+	std::cout << active << std::endl;
+ 	if (m_ActiveLevel == active)
+	{
+		m_IsActive = true;
+	}
+	else
+	{
+		m_IsActive = false;
+	}
+}
+
+
 
 std::string dae::GameObject::GetName() const
 {

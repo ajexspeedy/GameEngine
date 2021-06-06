@@ -3,6 +3,7 @@
 #include "TransformComponent.h"
 #include "PlayerComponent.h"
 #include "MovementComponent.h"
+#include "SlickSamComponent.h"
 
 #include "GameObject.h"
 
@@ -25,6 +26,12 @@ void dae::PlayerCollisionComponent::Update()
 	{
 		if (IsColliding(enemy))
 		{
+			if (enemy->HasComponent<SlickSamComponent>())
+			{
+				
+				std::cout << "Slick n sam" << std::endl;
+				break;
+			}
 			GetParent()->GetComponent<PlayerComponent>()->KillPlayer();
 			GetParent()->GetComponent<MovementComponent>()->ResetPosition();
 		}

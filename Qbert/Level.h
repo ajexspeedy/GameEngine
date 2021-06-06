@@ -10,9 +10,15 @@ namespace dae
 	public:
 		enum class LevelType
 		{
-			Level1,
-			Level2,
-			Level3
+			Level1 = 0,
+			Level2 = 1,
+			Level3 = 2
+		};
+		enum class LevelMode
+		{
+			singleplayer = 0,
+			coop = 1,
+			versus = 2
 		};
 		Level(const int maxRows,const int maxColumns,const std::string& filepath);
 		~Level();
@@ -20,11 +26,15 @@ namespace dae
 		void AddTile(GameObject* pTile);
 		const std::vector<GameObject*>& GetTiles() const;
 
-		bool CheckOnTiles(int& row, int& column, MovementComponent::MovementDirection direction,bool triggersTile, const int rowOffset = 0, const int columnOffset = 0);
+		bool CheckOnTiles(int& row, int& column, MovementComponent::MovementDirection direction,bool triggersTile, bool undoTile = false, const int rowOffset = 0, const int columnOffset = 0);
 
 		void AddEntity(GameObject* pEntity);
 
+		glm::vec2 GetStartpositionPlayer() const;
+		glm::vec2 GetStartTilePlayer() const;
 
+		void SetLevelMode(const int mode); 
+		void ResetLevel();
 	private:
 		bool IsOutsideLevel(const int row, const int column);
 		void SetLevelRules(const std::string& filePath);
@@ -35,8 +45,7 @@ namespace dae
 		void CheckTag(const std::string& line);
 
 		void NextLevel();
-		void ResetLevel();
-
+	
 		TileComponent::TileColor ChangeTileLevel1(TileComponent::TileColor tileColor);
 		TileComponent::TileColor ChangeTileLevel2(TileComponent::TileColor tileColor);
 		TileComponent::TileColor ChangeTileLevel3(TileComponent::TileColor tileColor);
@@ -47,6 +56,7 @@ namespace dae
 
 		bool m_IsFalling;
 		LevelType m_LevelType;
+		LevelMode m_Levelmode;
 		TileComponent::TileColor m_StartTile, m_EndTile;
 		int m_MaxRows, m_MaxColumns;
 

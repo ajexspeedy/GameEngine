@@ -12,7 +12,7 @@ dae::MovementCommand::MovementCommand(MovementComponent* pMovementComponent, Mov
 void dae::MovementCommand::Execute()
 {
 	m_pMovementComponent->Jump(m_Direction);
-
+	//TODO: Jump here
 	
 
 }

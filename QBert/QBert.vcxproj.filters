@@ -63,6 +63,12 @@
     <ClCompile Include="UggWrongwayComponent.cpp">
       <Filter>Game Files\Components</Filter>
     </ClCompile>
+    <ClCompile Include="MenuSelectCommand.cpp">
+      <Filter>Game Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="MenuSelectorComponent.cpp">
+      <Filter>Game Files\Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QbertGame.h">
@@ -102,6 +108,12 @@
       <Filter>Game Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="UggWrongwayComponent.h">
+      <Filter>Game Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuSelectCommand.h">
+      <Filter>Game Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="MenuSelectorComponent.h">
       <Filter>Game Files\Components</Filter>
     </ClInclude>
   </ItemGroup>

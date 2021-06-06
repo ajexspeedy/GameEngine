@@ -8,8 +8,9 @@
 #include "TransformComponent.h"
 #include "PlayerComponent.h"
 #include "AnimationComponent.h"
+#include "SlickSamComponent.h"
 
-dae::MovementComponent::MovementComponent(GameObject* pParent, Level* level, const int row, const int column, bool triggersTiles) :
+dae::MovementComponent::MovementComponent(GameObject* pParent, Level* level, const int row, const int column, EntityType type, bool triggersTiles) :
 	Component{ pParent },
 	m_pLevel{ level },
 	m_StartPosition{ 0.f,0.f },
@@ -25,15 +26,14 @@ dae::MovementComponent::MovementComponent(GameObject* pParent, Level* level, con
 	m_IsJumping{ false },
 	m_IsFalling{ false },
 	m_TriggersTiles{ triggersTiles },
-	m_IsWrongway{ false },
-	m_IsUgg{false},
 	m_CurrentRow{ row },
 	m_StartRow{ row },
 	m_CurrentColumn{ column },
 	m_StartColumn{ column },
 	m_Direction{},
 	m_RowOffset{ 0 },
-	m_ColumnOffset{ 0 }
+	m_ColumnOffset{ 0 },
+	m_EntityType{ type }
 
 {
 
@@ -42,6 +42,10 @@ dae::MovementComponent::MovementComponent(GameObject* pParent, Level* level, con
 	{
 		GetParent()->GetComponent<AnimationComponent>()->SetAnimation(0);
 		GetParent()->GetComponent<AnimationComponent>()->SetFrame(0);
+	}
+	if (GetParent()->HasComponent<PlayerComponent>())
+	{
+		m_EntityType = EntityType::Qbert;
 	}
 	m_InitPosition = GetParent()->GetComponent<TransformComponent>()->GetPosition();
 }
@@ -85,10 +89,24 @@ void dae::MovementComponent::Jump(MovementDirection direction)
 	m_InitJumpVelocityX = (newPos.x - position.x) / m_JumpDuration;
 	m_InitJumpVelocityY = -(-(newPos.y - position.y) + 0.5f * m_Gravity * m_JumpDuration * m_JumpDuration) / m_JumpDuration;
 	m_JumpTimer = 0.f;
+	if (m_IsJumping == false)
+	{
+		Audio* audio = &Locator::GetAudio();
+		switch (m_EntityType)
+		{
+		case EntityType::Qbert:
+			audio->PlaySound(Audio::AudioStruct{ 0,0.2f,{} });
+			break;
+		case EntityType::Coily:
+			audio->PlaySound(Audio::AudioStruct{ 1,0.2f,{} });
+			break;
+		}
+		
+
+	}
 	m_IsJumping = true;
+
 	//TODO: Only play jump when player jumps
-	/*Audio* audio = &Locator::GetAudio();
-	audio->PlaySound(Audio::AudioStruct{ 0,0.2f,{} });*/
 }
 
 
@@ -113,13 +131,22 @@ void dae::MovementComponent::Update()
 				GetParent()->GetComponent<AnimationComponent>()->NextFrame();
 
 			}
-			if (!m_pLevel->CheckOnTiles(m_CurrentRow, m_CurrentColumn, m_Direction, m_TriggersTiles, m_RowOffset, m_ColumnOffset))
+			bool undoTiles = GetParent()->HasComponent<SlickSamComponent>();
+
+			if (!m_pLevel->CheckOnTiles(m_CurrentRow, m_CurrentColumn, m_Direction, m_TriggersTiles, undoTiles, m_RowOffset, m_ColumnOffset))
 			{
 				m_IsFalling = true;
 				GetParent()->SetPushToFront(true);
-				if (GetParent()->HasComponent<PlayerComponent>())
+				if (m_EntityType == EntityType::Qbert)
 				{
 					GetParent()->GetComponent<PlayerComponent>()->KillPlayer();
+				}
+			}
+			else
+			{
+				if (m_EntityType == EntityType::Qbert)
+				{
+					GetParent()->GetComponent<PlayerComponent>()->ChangeScore(25);
 				}
 			}
 			return;
@@ -148,12 +175,12 @@ void dae::MovementComponent::Update()
 		}
 
 		auto pos = GetParent()->GetComponent<TransformComponent>()->GetPosition();
-		if (m_IsWrongway)
+		if (m_EntityType == EntityType::Wrongway)
 		{
 			pos.x += m_Gravity * m_FallVelocity * deltaTime;
 			pos.y -= m_Gravity * m_FallVelocity * deltaTime;
 		}
-		else if (m_IsUgg)
+		else if (m_EntityType == EntityType::Ugg)
 		{
 			pos.x -= m_Gravity * m_FallVelocity * deltaTime;
 			pos.y -= m_Gravity * m_FallVelocity * deltaTime;
@@ -177,8 +204,8 @@ void dae::MovementComponent::SetCurrentTile(const int row, const int column)
 }
 void dae::MovementComponent::WrongwayJump(MovementDirection direction)
 {
-	
-	m_IsWrongway = true;
+
+	m_EntityType = EntityType::Wrongway;
 	if (m_IsJumping || GetParent()->HasComponent<TransformComponent>() == false || m_IsFalling)
 		return;
 	auto position = GetParent()->GetComponent<TransformComponent>()->GetPosition();
@@ -215,7 +242,7 @@ void dae::MovementComponent::WrongwayJump(MovementDirection direction)
 void dae::MovementComponent::UggJump(MovementDirection direction)
 {
 
-	m_IsUgg = true;
+	m_EntityType = EntityType::Ugg;
 	if (m_IsJumping || GetParent()->HasComponent<TransformComponent>() == false || m_IsFalling)
 		return;
 	auto position = GetParent()->GetComponent<TransformComponent>()->GetPosition();

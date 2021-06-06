@@ -15,7 +15,7 @@ namespace dae
 	class GameObject final
 	{
 	public:
-		GameObject(const std::string& objectName);
+		GameObject(const std::string& objectName,int activeScene);
 		~GameObject();
 		
 		void Update();
@@ -71,12 +71,17 @@ namespace dae
 		bool IsPushToBack() const;
 		void SetPushToBack(bool pushToBack);
 
+		bool GetIsActive() const;
+		int GetActiveLevel() const;
+		void SwapIfActive(int active);
+
 		std::string GetName() const;
 	private:
 		std::vector<Component*> m_pComponents = {};
 		std::string m_ObjectName{"Default"};
 		float m_FPSCooldown = 0.f;
-		bool m_PushToFront, m_PushToBack;
+		bool m_PushToFront, m_PushToBack, m_IsActive;
+		int m_ActiveLevel;
 	};
 	
 }

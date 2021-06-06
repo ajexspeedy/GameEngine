@@ -45,7 +45,9 @@ void Scene::Update()
 			PushObjectBack(object);
 			continue;
 		}
-		object->Update();
+		if (object->GetIsActive())
+			object->Update();
+
 	}
 }
 
@@ -53,7 +55,8 @@ void Scene::Render() const
 {
 	for (const auto& object : m_pObjects)
 	{
-		object->Render();
+		if (object->GetIsActive())
+			object->Render();
 	}
 }
 

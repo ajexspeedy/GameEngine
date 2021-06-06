@@ -49,7 +49,7 @@ namespace dae
 		void HandleInput();
 
 		void AddButtonCommand(ControllerButton button, Command* command);
-		void AddKeyCommand(SDL_Scancode code, Command* command); // TODO: Add keyboard support
+		void AddKeyCommand(SDL_Scancode code, Command* command); 
 
 	
 		KeyState GetKeyState(ControllerButton button) const;

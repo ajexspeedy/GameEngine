@@ -17,6 +17,7 @@ namespace dae
 		virtual void Update() override;
 
 		void SetPosition(const float x, const float y);
+		void SetPosition(const glm::vec2& position);
 		void SetPosition(const float x, const float y, const float z);
 		void Translate(const float x, const float y, const float z);
 		void Translate(const float x, const float y);
