@@ -10,7 +10,7 @@ namespace dae
 	public:
 
 		
-		// TODO: Fix channels 
+	
 		static void PlaySound(const Audio::AudioStruct& audio);
 		
 

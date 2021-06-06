@@ -1,9 +1,9 @@
 #include "ImposterPCH.h"
-#include "PlayerComponent.h"
-#include "InputManager.h"
+#include "GameObject.h"
 #include "KillCommand.h"
 #include "ScoreCommand.h"
-#include "GameObject.h"
+#include "InputManager.h"
+#include "PlayerComponent.h"
 #include "MenuSelectorComponent.h"
 
 

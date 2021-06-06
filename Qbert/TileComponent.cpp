@@ -1,7 +1,7 @@
 #include "ImposterPCH.h"
+#include "GameObject.h"
 #include "TileComponent.h"
 #include "TransformComponent.h"
-#include "GameObject.h"
 
 dae::TileComponent::TileComponent(GameObject* pParent, const int row, const int column) :
 	Component{ pParent },

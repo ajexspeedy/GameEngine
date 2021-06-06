@@ -6,7 +6,7 @@
 
 namespace dae
 {
-	enum ControllerButton : WORD
+	enum class ControllerButton : WORD
 	{
 		RightDPad = XINPUT_GAMEPAD_DPAD_RIGHT,
 		LeftDPad = XINPUT_GAMEPAD_DPAD_LEFT,

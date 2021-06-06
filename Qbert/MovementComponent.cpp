@@ -84,7 +84,7 @@ void dae::MovementComponent::Jump(MovementDirection direction)
 	if (m_HasAnimations)
 	{
 		GetParent()->GetComponent<AnimationComponent>()->SetAnimation(static_cast<int>(m_Direction));
-		GetParent()->GetComponent<AnimationComponent>()->NextFrame(); //TODO: Fix
+		GetParent()->GetComponent<AnimationComponent>()->NextFrame();
 	}
 	m_InitJumpVelocityX = (newPos.x - position.x) / m_JumpDuration;
 	m_InitJumpVelocityY = -(-(newPos.y - position.y) + 0.5f * m_Gravity * m_JumpDuration * m_JumpDuration) / m_JumpDuration;
@@ -101,12 +101,11 @@ void dae::MovementComponent::Jump(MovementDirection direction)
 			audio->PlaySound(Audio::AudioStruct{ 1,0.2f,{} });
 			break;
 		}
-		
+
 
 	}
 	m_IsJumping = true;
 
-	//TODO: Only play jump when player jumps
 }
 
 

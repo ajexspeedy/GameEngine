@@ -92,9 +92,6 @@
     <ClCompile Include="Minigin\AudioQueue.cpp">
       <Filter>Engine Files\Audio</Filter>
     </ClCompile>
-    <ClCompile Include="Minigin\Channel.cpp">
-      <Filter>Engine Files\Audio</Filter>
-    </ClCompile>
     <ClCompile Include="Minigin\EnableAudioLogging.cpp">
       <Filter>Engine Files\Audio</Filter>
     </ClCompile>
@@ -173,9 +170,6 @@
       <Filter>Engine Files\Audio</Filter>
     </ClInclude>
     <ClInclude Include="Minigin\AudioQueue.h">
-      <Filter>Engine Files\Audio</Filter>
-    </ClInclude>
-    <ClInclude Include="Minigin\Channel.h">
       <Filter>Engine Files\Audio</Filter>
     </ClInclude>
     <ClInclude Include="Minigin\GameObject.h">

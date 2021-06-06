@@ -1,9 +1,9 @@
 #include "ImposterPCH.h"
-#include "AudioQueue.h"
 #include <cassert>
-#include "AudioManager.h"
-#include <SDL_mixer.h>
 #include <algorithm>
+#include <SDL_mixer.h>
+#include "AudioManager.h"
+#include "AudioQueue.h"
 
 using namespace dae;
 

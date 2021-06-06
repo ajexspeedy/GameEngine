@@ -1,8 +1,6 @@
 #pragma once
 #include "Component.h"
-#include "Subject.h"
-#include "PlayerLivesDisplay.h"
-#include "Observer.h"
+
 
 
 namespace dae

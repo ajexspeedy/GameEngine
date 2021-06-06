@@ -77,7 +77,7 @@ void dae::InputManager::HandleInput()
 
 void dae::InputManager::AddButtonCommand(ControllerButton button, Command* command)
 {
-	m_ControllerCommands[button] = KeyCommands{command};
+	m_ControllerCommands[button] = KeyCommands{ command };
 
 }
 
@@ -99,7 +99,7 @@ bool dae::InputManager::WasPressed(ControllerButton button) const
 
 bool dae::InputManager::Pressed(ControllerButton button, const XINPUT_STATE& keystate) const
 {
-	if (keystate.Gamepad.wButtons == button)
+	if (static_cast<ControllerButton>(keystate.Gamepad.wButtons) == button)
 		return true;
 
 

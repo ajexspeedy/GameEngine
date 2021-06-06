@@ -2,12 +2,12 @@
 #include <SDL.h>
 #include <SDL_ttf.h>
 
+#include "TransformComponent.h"
 #include "TextComponent.h"
+#include "GameObject.h"
+#include "Texture2D.h"
 #include "Renderer.h"
 #include "Font.h"
-#include "Texture2D.h"
-#include "TransformComponent.h"
-#include "GameObject.h"
 
 dae::TextComponent::TextComponent(GameObject* pParent, const std::string& text, const std::shared_ptr<Font>& font) :
 	Component{ pParent },

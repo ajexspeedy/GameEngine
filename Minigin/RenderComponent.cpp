@@ -1,10 +1,10 @@
 ﻿#include "ImposterPCH.h"
-#include "RenderComponent.h"
 
-#include "Renderer.h"
+#include "RenderComponent.h"
+#include "../Qbert/MovementComponent.h"
 #include "ResourceManager.h"
 #include "TransformComponent.h"
-#include "../Qbert/MovementComponent.h"
+#include "Renderer.h"
 #include "GameObject.h"
 
 

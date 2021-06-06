@@ -23,7 +23,7 @@ namespace dae
 		GameObject* CreateMenuSelector() const;
 		GameObject* CreateEndScreen() const;
 
-		GameObject* CreatePlayer(const int levelColumns, const float startPlayerX, const float startPlayerY)const;
+		GameObject* CreatePlayer()const;
 		GameObject* CreateLifeDisplay(GameObject* player, const int lives) const;
 		GameObject* CreateScoreDisplay(GameObject* player) const;
 

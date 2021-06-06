@@ -1,9 +1,9 @@
 #include "ImposterPCH.h"
 #include "PlayerCollisionComponent.h"
 #include "TransformComponent.h"
-#include "PlayerComponent.h"
 #include "MovementComponent.h"
 #include "SlickSamComponent.h"
+#include "PlayerComponent.h"
 
 #include "GameObject.h"
 

@@ -80,7 +80,7 @@ void dae::QbertGame::LoadGame()
 
 	const int lives{ 3 };
 	const float StartPlayerX{ m_pLevel->GetStartpositionPlayer().x }, StartPlayerY{ m_pLevel->GetStartpositionPlayer().y };
-	GameObject* player = CreatePlayer(levelColumns, StartPlayerX, StartPlayerY);
+	GameObject* player = CreatePlayer();
 	player->AddComponent(new PlayerComponent{ player,lives });
 	GameObject* lifeDisplay = CreateLifeDisplay(player, lives);
 	GameObject* scoreDisplay = CreateScoreDisplay(player);
@@ -187,13 +187,13 @@ dae::GameObject* dae::QbertGame::CreateEndScreen() const
 	return end;
 }
 
-dae::GameObject* dae::QbertGame::CreatePlayer(const int, const float startPlayerX, const float startPlayerY) const
+dae::GameObject* dae::QbertGame::CreatePlayer() const
 {
 	GameObject* player = new GameObject{ "Qbert",-1 };
 	float width{ 32.f }, height{ 32.f };
 	int startTileX = static_cast<int>(m_pLevel->GetStartTilePlayer().x);
 	int startTileY = static_cast<int>(m_pLevel->GetStartTilePlayer().y);
-	player->AddComponent(new TransformComponent{ player, startPlayerX,startPlayerY,width,height });
+	player->AddComponent(new TransformComponent{ player, m_pLevel->GetStartTilePlayer().x,m_pLevel->GetStartTilePlayer().y,width,height });
 	player->AddComponent(new AnimationComponent{ player,4,2,"Textures/Qbert.png",SDL_Rect{0,0,16,16} });
 	player->AddComponent(new MovementComponent{ player,m_pLevel ,startTileX,startTileY,MovementComponent::EntityType::Qbert });
 	player->AddComponent(new PlayerCollisionComponent{ player });
@@ -309,7 +309,6 @@ void dae::QbertGame::SetupKeybindings(MovementComponent* pMovementComponent, Men
 {
 
 	//Controller
-	// TODO: Fix controller 
 	InputManager::GetInstance().AddButtonCommand(ControllerButton::ButtonB, new MovementCommand(pMovementComponent, MovementComponent::MovementDirection::up_right));
 	InputManager::GetInstance().AddButtonCommand(ControllerButton::ButtonY, new MovementCommand(pMovementComponent, MovementComponent::MovementDirection::up_left));
 	InputManager::GetInstance().AddButtonCommand(ControllerButton::ButtonA, new MovementCommand(pMovementComponent, MovementComponent::MovementDirection::down_right));
